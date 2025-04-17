@@ -6,16 +6,29 @@ data:extend({
     {
         type = "noise-expression",
         name = "heliara_fullerene_probability",
-        expression = "(1000 * ((1 + 2) * random_penalty_between(0.9, 1, 1) - 1))",
+        expression = "spot_noise{x = x,\z
+                              y = y,\z
+                              seed0 = map_seed,\z
+                              seed1 = 3,\z
+                              candidate_spot_count = 1,\z
+                              suggested_minimum_candidate_point_spacing = 400,\z
+                              skip_span = 1,\z
+                              skip_offset = 0,\z
+                              region_size = 256,\z
+                              density_expression = 1,\z
+                              spot_quantity_expression = 10000,\z
+                              spot_radius_expression = 100,\z
+                              hard_region_target_quantity = 0,\z
+                              spot_favorability_expression = 1,\z
+                              basement_value = 0,\z
+                              maximum_spot_basement_radius = 100}",
     }
 })
 data:extend({
     {
         type = "noise-expression",
         name = "heliara_fullerene_richness",
-        expression = "2 * random_penalty_between(0.9, 1, 1)\z
-                  * 10000 * 1\z
-                  * 1"
+        expression = "random_penalty(x, y, 2000, 1, 1800)",
     },
 
 })

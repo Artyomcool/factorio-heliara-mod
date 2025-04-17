@@ -18,15 +18,15 @@ data:extend({
             order = "c",
             probability_expression = 0,
         },
-        stage_counts = { 15000, 9500, 5500, 2900, 1300, 400, 150, 80, 20 },
+        stage_counts = { 1500, 950, 550, 290, 130 },
         stages = {
             sheet = {
                 filename = "__heliara__/graphics/entity/fullerene/fullerene.png",
                 priority = "extra-high",
-                size = 50,
-                frame_count = 9,
-                variation_count = 9,
-                scale = 1
+                size = 117,
+                frame_count = 5,
+                variation_count = 5,
+                scale = 0.4
             }
         },
         map_color = { 0.05, 0.1, 0.2 },
