@@ -5,7 +5,7 @@ local planet_map_gen = require("__space-age__/prototypes/planet/planet-map-gen")
 data:extend({
     {
         type = "noise-expression",
-        name = "heliara_fullerene_probability",
+        name = "heliara_shungite_probability",
         expression = "spot_noise{x = x,\z
                               y = y,\z
                               seed0 = map_seed,\z
@@ -27,7 +27,7 @@ data:extend({
 data:extend({
     {
         type = "noise-expression",
-        name = "heliara_fullerene_richness",
+        name = "heliara_shungite_richness",
         expression = "random_penalty(x, y, 2000, 1, 1800)",
     },
 
@@ -42,8 +42,8 @@ planet_map_gen.heliara = function()
             temperature = "heliara_temperature",
             moisture = "heliara_moisture",
             aux = "heliara_aux",
-            ["entity:fullerene:probability"] = "heliara_fullerene_probability",
-            ["entity:fullerene:richness"] = "heliara_fullerene_richness",
+            ["entity:shungite:probability"] = "heliara_shungite_probability",
+            ["entity:shungite:richness"] = "heliara_shungite_richness",
         },
 
         autoplace_settings =
@@ -88,7 +88,7 @@ planet_map_gen.heliara = function()
             {
                 settings =
                 {
-                    ["fullerene"] = {},
+                    ["shungite"] = {},
                 }
             }
         }

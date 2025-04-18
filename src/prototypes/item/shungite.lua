@@ -3,8 +3,8 @@ local item_sounds = require("__base__.prototypes.item_sounds")
 data:extend({
     {
         type = "item",
-        name = "fullerene",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        name = "shungite",
+        icon = "__heliara__/graphics/icons/shungite.png",
         icon_size = 500,
         order = "a-b-c",
         --subgroup = "heliara",
