@@ -1,7 +1,7 @@
 require("__heliara__.prototypes.planet.planet")
-require("__heliara__.prototypes.entity.fullerene")
+require("__heliara__.prototypes.entity.shungite")
 require("__heliara__.prototypes.entity.fullerene_solar_panel")
-require("__heliara__.prototypes.item.fullerene")
+require("__heliara__.prototypes.item.shungite")
 
 
 

@@ -2,7 +2,7 @@ data:extend({
     {
         type = "item",
         name = "solar-burner",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/shungite.png",
         subgroup = "energy",
         order = "solar-burner",
         place_result = "solar-burner",
@@ -15,11 +15,11 @@ data:extend({
         type = "recipe",
         name = "solar-burner",
         category = "crafting",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/shungite.png",
         enabled = true,
         ingredients = {
 
-            { type = "item", name = "fullerene", amount = 1 },
+            { type = "item", name = "shungite", amount = 1 },
         },
 
         energy_required = 7,
@@ -57,7 +57,7 @@ data:extend({
     {
         type = "electric-energy-interface",
         name = "solar-burner",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/shungite.png",
         flags = { "placeable-neutral", "player-creation" },
         max_health = 300,
         corpse = "medium-remnants",
