@@ -22,15 +22,22 @@ data:extend({
                               spot_favorability_expression = 1,\z
                               basement_value = 0,\z
                               maximum_spot_basement_radius = 100}",
-    }
-})
-data:extend({
+    },
     {
         type = "noise-expression",
         name = "heliara_shungite_richness",
         expression = "random_penalty(x, y, 2000, 1, 1800)",
     },
-
+    {
+        type = "noise-expression",
+        name = "heliara_stone_probability",
+        expression = 0.01
+    },
+    {
+        type = "noise-expression",
+        name = "heliara_stone_richness",
+        expression = 400
+    },
 })
 
 planet_map_gen.heliara = function()
@@ -89,6 +96,10 @@ planet_map_gen.heliara = function()
                 settings =
                 {
                     ["shungite"] = {},
+                    ["stone"] = {
+                        probability_expression_name = "heliara_stone_probability",
+                        richness_expression_name = "heliara_stone_richness"
+                    }
                 }
             }
         }
