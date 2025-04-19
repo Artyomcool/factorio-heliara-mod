@@ -9,7 +9,7 @@ return {
         },
         resource = {
             flags = { "placeable-neutral" },
-            mining_time = 2,
+            mining_time = 0.5,
             stage_counts = { 1500, 950, 550, 290, 130 },
             stages = {
                 sheet = {
@@ -31,6 +31,10 @@ return {
             order = "a-b-c",
             --subgroup = "heliara",
             color_hint = { text = "T" },
+            fuel_value = "200kJ",
+            fuel_category = "200kJ",
+            fuel_category = "chemical",
+            subgroup = "raw-material",
 
             stack_size = 100,
             weight = 0.01 * kg

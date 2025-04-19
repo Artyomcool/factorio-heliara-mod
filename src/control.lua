@@ -4,7 +4,7 @@ script.on_event(defines.events.on_built_entity, function(event)
     local entity = event.created_entity or event.entity
     if not entity.valid then return end
 
-    if entity.name == "solar-burner" then
+    if entity.name == "fullerene_solar_panel" then
         local surface = entity.surface
         local position = entity.position
 
@@ -23,7 +23,7 @@ end)
 
 script.on_event(defines.events.on_entity_died, function(event)
     local entity = event.entity
-    if entity.name == "solar-burner" then
+    if entity.name == "fullerene_solar_panel" then
         storage.links[entity.unit_number].destroy()
         storage.links[entity.unit_number] = null
     end
@@ -31,7 +31,7 @@ end)
 
 script.on_event(defines.events.on_pre_player_mined_item, function(event)
     local entity = event.entity
-    if entity.name == "solar-burner" then
+    if entity.name == "fullerene_solar_panel" then
         storage.links[entity.unit_number].destroy()
         storage.links[entity.unit_number] = null
     end
