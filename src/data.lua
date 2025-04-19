@@ -5,6 +5,7 @@ require("util")
 local declare = {
     require("__heliara__.entity.fullerene_solar_panel"),
     require("__heliara__.entity.shungite"),
+    require("__heliara__.entity.rocks")
 }
 
 local function declare_recipe(common, recipe)

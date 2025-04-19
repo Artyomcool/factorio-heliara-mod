@@ -23,6 +23,11 @@ data:extend({
         name = "heliara_stone_richness",
         expression = "random_penalty(x, y, 500, 2, 100)",
     },
+    {
+        type = "noise-expression",
+        name = "heliara_huge_fullerene_rock_probability",
+        expression = 0.01,
+    },
 })
 
 planet_map_gen.heliara = function()
@@ -38,6 +43,7 @@ planet_map_gen.heliara = function()
             ["entity:shungite:richness"] = "heliara_shungite_richness",
             ["entity:stone:probability"] = "heliara_stone_probability",
             ["entity:stone:richness"] = "heliara_stone_richness",
+            ["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
         },
 
         autoplace_settings =
@@ -122,7 +128,8 @@ planet_map_gen.heliara = function()
                 settings =
                 {
                     ["shungite"] = {},
-                    ["stone"] = {}
+                    ["stone"] = {},
+                    ["huge_fullerene_rock"] = {},
                 }
             }
         }
