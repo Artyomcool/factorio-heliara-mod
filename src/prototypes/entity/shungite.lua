@@ -3,13 +3,13 @@ local sounds = require("__base__.prototypes.entity.sounds")
 data:extend({
     {
         type = "resource",
-        name = "fullerene",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        name = "shungite",
+        icon = "__heliara__/graphics/icons/shungite.png",
         flags = { "placeable-neutral" },
         order = "a-b-c",
         minable = {
             mining_time = 2,
-            result = "fullerene"
+            result = "shungite"
         },
         walking_sound = sounds.ore,
         collision_box = { { -0.1, -0.1 }, { 0.1, 0.1 } },
@@ -21,7 +21,7 @@ data:extend({
         stage_counts = { 1500, 950, 550, 290, 130 },
         stages = {
             sheet = {
-                filename = "__heliara__/graphics/entity/fullerene/fullerene.png",
+                filename = "__heliara__/graphics/entity/shungite/shungite.png",
                 priority = "extra-high",
                 size = 117,
                 frame_count = 5,
