@@ -73,8 +73,8 @@ return {
                     pipe_covers = pipecoverspictures(),
                     pipe_connections =
                     {
-                        {flow_direction = "input-output", direction = defines.direction.west, position = {-1, 0.5}},
-                        {flow_direction = "input-output", direction = defines.direction.east, position = {1, 0.5}}
+                        {flow_direction = "input-output", direction = defines.direction.west, position = {-1, 0}},
+                        {flow_direction = "input-output", direction = defines.direction.east, position = {1, 0}}
                     }
                 },
             },
