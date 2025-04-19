@@ -22,7 +22,7 @@ return {
                 results = {
                     { type = "item", name = "stone", amount_min = 6, amount_max = 18 },
                     { type = "item", name = "iron-ore", amount_min = 9, amount_max = 27 },
-                    -- { type = "item", name = "fullerene", amount_min = 6, amount_max = 18 },
+                    { type = "item", name = "fullerene", amount_min = 6, amount_max = 5 },
                 },
             },
             map_color = { 129, 105, 78 },

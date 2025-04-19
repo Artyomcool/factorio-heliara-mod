@@ -16,24 +16,32 @@ return {
             ingredients = {
                 stone = 1
             },
-            energy_required = 10,
+            energy_required = 4,
         },
         entity = {
-            type = "electric-energy-interface",
+            type = "burner-generator",
             flags = { "placeable-neutral", "player-creation" },
             minable = { mining_time = 0.75, result = _name },    -- fixme automate
-            max_health = 300,
-            collision_box = { { -2, -2 }, { 2, 2 } },
-            selection_box = { { -2, -2 }, { 2, 2 } },
+            collision_box = { { -1.99, -1.99 }, { 1.99, 1.99 } },
+            selection_box = { { -1.99, -1.99 }, { 1.99, 1.99 } },
             energy_source = {
                 type = "electric",
                 buffer_capacity = "500kJ",
-                usage_priority = "primary-output",
-                input_flow_limit = "0W",
-                output_flow_limit = "500kW"
+                usage_priority = "solar",
+                input_flow_limit = "500kW",
+                output_flow_limit = "500kW",
+                render_no_power_icon = false,
+                render_no_network_icon = false,
             },
-            energy_production = "500kW",
-            energy_usage = "0kW",
+            burner = {
+                type = "burner",
+                fuel_inventory_size = 1,
+                fuel_categories = {"solar_fuel"},
+                render_no_power_icon = false,
+                render_no_network_icon = false,
+                effectivity = 500
+            },
+            max_power_output = "500kW",
 
             animation = {
                 filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
@@ -48,12 +56,38 @@ return {
     },
     {
         entity = {
+            type = "solar-panel",
+            name = "solar-panel-hidden-panel",
+            flags = { "not-on-map", "placeable-off-grid" },
+            selectable_in_game = false,
+            hidden = true,
+            collision_box = { { 0, 0 }, { 0, 0 } },
+            selection_box = { { 0, 0 }, { 0, 0 } },
+            energy_source = {
+                type = "electric",
+                usage_priority = "solar",
+                render_no_power_icon = false,
+                render_no_network_icon = false,
+            },
+            production = "500kW",
+
+            pictures = {
+                filename = "__core__/graphics/empty.png",
+                width = 1,
+                height = 1,
+                direction_count = 1
+            },
+        }
+    },
+    {
+        entity = {
             type = "electric-pole",
-            name = "solar-generator-hidden-pole",
+            name = "solar-panel-hidden-pole",
             icon = "__core__/graphics/empty.png",
             icon_size = 1,
             flags = { "not-on-map", "placeable-off-grid" },
             selectable_in_game = false,
+            hidden = true,
             collision_box = { { 0, 0 }, { 0, 0 } },
             selection_box = { { 0, 0 }, { 0, 0 } },
             maximum_wire_distance = 0,

@@ -57,13 +57,13 @@ return {
                 }
             },
             impact_category = "metal-large",
-            crafting_speed = 0.1,
+            crafting_speed = 0.2,
             energy_source = {
                 type = "electric",
                 usage_priority = "secondary-input",
                 emissions_per_minute = { pollution = 4 }
             },
-            energy_usage = "1MW",
+            energy_usage = "0.2MW",
             crafting_categories = { "fullerene-chemistry" },
             fluid_boxes = {
                 {
