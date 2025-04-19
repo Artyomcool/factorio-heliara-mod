@@ -1,6 +1,6 @@
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
 local decorative_trigger_effects = require("__base__.prototypes.decorative.decorative-trigger-effects")
-local tungsten_rock_tint = {.22,.2,.5}
+local tungsten_rock_tint = {.6,.8,.9}
 
 return {
     {
