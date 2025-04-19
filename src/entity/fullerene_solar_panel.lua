@@ -4,7 +4,7 @@ return {
     {
         common = {
             name = _name,
-            icon = "__heliara__/graphics/icons/fullerene.png",
+            icon = "__heliara__/graphics/icons/shungite.png",   -- fixme
             icon_size = 500,
         },
         item = {
@@ -13,7 +13,7 @@ return {
         },
         recipe = {
             ingredients = {
-                fullerene = 1
+                stone = 1
             },
             energy_required = 10,
         },
@@ -34,7 +34,7 @@ return {
             energy_usage = "0kW",
 
             animation = {
-                filename = "__heliara__/graphics/entity/fullerene_solar_panel/fullerene_solar_panel.png",
+                filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
                 width = 256,
                 height = 341,
                 frame_count = 1,

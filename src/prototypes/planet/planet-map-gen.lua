@@ -6,27 +6,12 @@ data:extend({
     {
         type = "noise-expression",
         name = "heliara_shungite_probability",
-        expression = "spot_noise{x = x,\z
-                              y = y,\z
-                              seed0 = map_seed,\z
-                              seed1 = 3,\z
-                              candidate_spot_count = 1,\z
-                              suggested_minimum_candidate_point_spacing = 400,\z
-                              skip_span = 1,\z
-                              skip_offset = 0,\z
-                              region_size = 256,\z
-                              density_expression = 1,\z
-                              spot_quantity_expression = 10000,\z
-                              spot_radius_expression = 100,\z
-                              hard_region_target_quantity = 0,\z
-                              spot_favorability_expression = 1,\z
-                              basement_value = 0,\z
-                              maximum_spot_basement_radius = 100}",
+        expression = 0.01,
     },
     {
         type = "noise-expression",
         name = "heliara_shungite_richness",
-        expression = "random_penalty(x, y, 1000, 1, 800)",
+        expression = "random_penalty(x, y, 400, 1, 380)",
     },
     {
         type = "noise-expression",
@@ -36,7 +21,7 @@ data:extend({
     {
         type = "noise-expression",
         name = "heliara_stone_richness",
-        expression = 400
+        expression = "random_penalty(x, y, 500, 2, 100)",
     },
 })
 
@@ -51,6 +36,8 @@ planet_map_gen.heliara = function()
             aux = "heliara_aux",
             ["entity:shungite:probability"] = "heliara_shungite_probability",
             ["entity:shungite:richness"] = "heliara_shungite_richness",
+            ["entity:stone:probability"] = "heliara_stone_probability",
+            ["entity:stone:richness"] = "heliara_stone_richness",
         },
 
         autoplace_settings =
@@ -59,9 +46,48 @@ planet_map_gen.heliara = function()
             {
                 settings =
                 {
-                    ["volcanic-soil-dark"] = {},
-                    ["volcanic-soil-light"] = {},
                     ["volcanic-ash-soil"] = {},
+                    ["natural-yumako-soil"] = {},
+                    ["natural-jellynut-soil"] = {},
+                    ["wetland-yumako"] = {},
+                    ["wetland-jellynut"] = {},
+                    ["wetland-blue-slime"] = {},
+                    ["wetland-light-green-slime"] = {},
+                    ["wetland-green-slime"] = {},
+                    ["wetland-light-dead-skin"] = {},
+                    ["wetland-dead-skin"] = {},
+                    ["wetland-pink-tentacle"] = {},
+                    ["wetland-red-tentacle"] = {},
+                    ["gleba-deep-lake"] = {},
+                    ["lowland-brown-blubber"] = {},
+                    ["lowland-olive-blubber"] = {},
+                    ["lowland-olive-blubber-2"] = {},
+                    ["lowland-olive-blubber-3"] = {},
+                    ["lowland-pale-green"] = {},
+                    ["lowland-cream-cauliflower"] = {},
+                    ["lowland-cream-cauliflower-2"] = {},
+                    ["lowland-dead-skin"] = {},
+                    ["lowland-dead-skin-2"] = {},
+                    ["lowland-cream-red"] = {},
+                    ["lowland-red-vein"] = {},
+                    ["lowland-red-vein-2"] = {},
+                    ["lowland-red-vein-3"] = {},
+                    ["lowland-red-vein-4"] = {},
+                    ["lowland-red-vein-dead"] = {},
+                    ["lowland-red-infection"] = {},
+                    ["midland-turquoise-bark"] = {},
+                    ["midland-turquoise-bark-2"] = {},
+                    ["midland-cracked-lichen"] = {},
+                    ["midland-cracked-lichen-dull"] = {},
+                    ["midland-cracked-lichen-dark"] = {},
+                    ["midland-yellow-crust"] = {},
+                    ["midland-yellow-crust-2"] = {},
+                    ["midland-yellow-crust-3"] = {},
+                    ["midland-yellow-crust-4"] = {},
+                    ["highland-dark-rock"] = {},
+                    ["highland-dark-rock-2"] = {},
+                    ["highland-yellow-rock"] = {},
+                    ["pit-rock"] = {}
                 }
             },
             ["decorative"] =
@@ -96,10 +122,7 @@ planet_map_gen.heliara = function()
                 settings =
                 {
                     ["shungite"] = {},
-                    ["stone"] = {
-                        probability_expression_name = "heliara_stone_probability",
-                        richness_expression_name = "heliara_stone_richness"
-                    }
+                    ["stone"] = {}
                 }
             }
         }

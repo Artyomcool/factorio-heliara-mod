@@ -1,17 +1,18 @@
 require("__heliara__.prototypes.planet.planet")
-require("__heliara__.prototypes.entity.shungite")
-require("__heliara__.prototypes.item.shungite")
 
 require("util")
 
 local declare = {
-    require("__heliara__.entity.fullerene_solar_panel")
+    require("__heliara__.entity.fullerene_solar_panel"),
+    require("__heliara__.entity.shungite"),
 }
 
 local function declare_recipe(common, recipe)
+    log('declare_recipe')
     if recipe == nil then
         return
     end
+    log('declare_recipe:' .. (recipe.name or common.name))
 
     local ingredients = {}
 
@@ -34,7 +35,7 @@ local function declare_recipe(common, recipe)
             table.insert(results, { type = "fluid", name = k, amount = v })
         end
     else
-        results = { type = "item", name = common.name, amount = 1 }
+        table.insert(results,  { type = "item", name = common.name, amount = 1 });
     end
 
     local icon_size = common.icon_size
@@ -99,9 +100,11 @@ local function declare_recipe(common, recipe)
 end
 
 local function declare_item(common, item)
+    log('declare_item')
     if item == nil then
         return
     end
+    log('declare_item:' .. (item.name or common.name))
 
     local icon_size = common.icon_size
     if item.icon then
@@ -151,7 +154,7 @@ local function declare_item(common, item)
             pick_sound = item.pick_sound,
             drop_sound = item.drop_sound,
             inventory_move_sound = item.inventory_move_sound,
-            default_import_location = item.default_import_location,
+            default_import_location = item.default_import_location or "heliara",
             color_hint = item.color_hint,
             has_random_tint = item.has_random_tint,
             spoil_to_trigger_result = item.spoil_to_trigger_result,
@@ -165,10 +168,130 @@ local function declare_item(common, item)
     })
 end
 
+local function declare_resource(common, resource)
+    log('declare_resource')
+    if resource == nil then
+        return
+    end
+
+    log('declare_resource:' .. (resource.name or common.name))
+    local icon_size = common.icon_size
+    if resource.icon then
+        icon_size = resource.icon_size
+    end
+
+    local minable = nil
+    if resource.mining_time then
+        minable = {
+            mining_time = resource.mining_time,
+            result = resource.mining_result or common.name
+        }
+    end
+
+    data:extend({
+        {
+            type = "resource",
+            name = resource.name or common.name,
+            order = resource.order or common.order or resource.name or common.name,
+            localised_name = resource.localised_name or common.localised_name,
+            localised_description = resource.localised_description or common.localised_description,
+            factoriopedia_description = resource.factoriopedia_description or common.factoriopedia_description,
+            subgroup = resource.subgroup or common.subgroup,
+            hidden = resource.hidden,
+            hidden_in_factoriopedia = resource.hidden_in_factoriopedia,
+            factoriopedia_simulation = resource.factoriopedia_simulation,
+            factoriopedia_alternative = resource.factoriopedia_alternative,
+            icon = resource.icon or common.icon,
+            icon_size = icon_size,
+            collision_box = resource.collision_box or { { -0.1, -0.1 }, { 0.1, 0.1 } },
+            collision_mask = resource.collision_mask,
+            map_generator_bounding_box = resource.map_generator_bounding_box,
+            selection_box = resource.selection_box or { { -0.25, -0.25 }, { 0.25, 0.25 } },
+            drawing_box_vertical_extension = resource.drawing_box_vertical_extension,
+            sticker_box = resource.sticker_box,
+            hit_visualization_box = resource.hit_visualization_box,
+            trigger_target_mask = resource.trigger_target_mask,
+            flags = resource.flags,
+            tile_buildability_rules = resource.tile_buildability_rules,
+            minable = minable,
+            surface_conditions = resource.surface_conditions,
+            deconstruction_alternative = resource.deconstruction_alternative,
+            selection_priority = resource.selection_priority,
+            build_grid_size = resource.build_grid_size,
+            remove_decoratives = resource.remove_decoratives,
+            emissions_per_second = resource.emissions_per_second,
+            shooting_cursor_size = resource.shooting_cursor_size,
+            created_smoke = resource.created_smoke,
+            working_sound = resource.working_sound,
+            created_effect = resource.created_effect,
+            build_sound = resource.build_sound,
+            mined_sound = resource.mined_sound,
+            mining_sound = resource.mining_sound,
+            rotated_sound = resource.rotated_sound,
+            impact_category = resource.impact_category,
+            open_sound = resource.open_sound,
+            close_sound = resource.close_sound,
+            placeable_position_visualization = resource.placeable_position_visualization,
+            radius_visualisation_specificationo = resource.radius_visualisation_specificationo,
+            stateless_visualisation = resource.stateless_visualisation,
+            build_base_evolution_requirement = resource.build_base_evolution_requirement,
+            alert_icon_shift = resource.alert_icon_shift,
+            alert_icon_scale = resource.alert_icon_scale,
+            fast_replaceable_group = resource.fast_replaceable_group,
+            next_upgrade = resource.next_upgrade,
+            protected_from_tile_building = resource.protected_from_tile_building,
+            heating_energy = resource.heating_energy,
+            allow_copy_paste = resource.allow_copy_paste,
+            selectable_in_game = resource.selectable_in_game,
+            placeable_by = resource.placeable_by,
+            remains_when_mined = resource.remains_when_mined,
+            additional_pastable_entities = resource.additional_pastable_entities,
+            tile_width = resource.tile_width,
+            tile_height = resource.tile_height,
+            diagonal_tile_grid_size = resource.diagonal_tile_grid_size,
+            autoplace = resource.autoplace,
+            map_color = resource.map_color,
+            friendly_map_color = resource.friendly_map_color,
+            enemy_map_color = resource.enemy_map_color,
+            water_reflection = resource.water_reflection,
+            ambient_sounds_group = resource.ambient_sounds_group,
+            ambient_sounds = resource.ambient_sounds,
+            icon_draw_specification = resource.icon_draw_specification,
+            icons_positioning = resource.icons_positioning,
+            stages = resource.stages,
+            stage_counts = resource.stage_counts,
+            infinite = resource.infinite,
+            highlight = resource.highlight,
+            randomize_visual_position = resource.randomize_visual_position,
+            map_grid = resource.map_grid,
+            draw_stateless_visualisation_under_building = resource.draw_stateless_visualisation_under_building,
+            minimum = resource.minimum,
+            normal = resource.normal,
+            infinite_depletion_amount = resource.infinite_depletion_amount,
+            resource_patch_search_radius = resource.resource_patch_search_radius,
+            category = resource.category,
+            walking_sound = resource.walking_sound,
+            driving_sound = resource.driving_sound,
+            stages_effect = resource.stages_effect,
+            effect_animation_period = resource.effect_animation_period,
+            effect_animation_period_deviation = resource.effect_animation_period_deviation,
+            effect_darkness_multiplier = resource.effect_darkness_multiplier,
+            min_effect_alpha = resource.min_effect_alpha,
+            max_effect_alpha = resource.max_effect_alpha,
+            tree_removal_probability = resource.tree_removal_probability,
+            cliff_removal_probability = resource.cliff_removal_probability,
+            tree_removal_max_distance = resource.tree_removal_max_distance,
+            mining_visualisation_tint = resource.mining_visualisation_tint,
+        }
+    })
+end
+
 local function declare_entity(common, entity)
+    log("declare_entity")
     if entity == nil then
         return
     end
+    log('declare_recipe:' .. (entity.name or common.name))
 
     local icon_size = common.icon_size
     if entity.icon then
@@ -197,10 +320,14 @@ local function declare_entity(common, entity)
     })
 end
 
-for _, to_declare in ipairs(declare) do
-    declare_recipe(to_declare.common, to_declare.recipe)
-    declare_item(to_declare.common, to_declare.item)
-    declare_entity(to_declare.common, to_declare.entity)
+for _, to_declares in ipairs(declare) do
+    for _, to_declare in ipairs(to_declares) do
+        local common = to_declare.common or {}
+        declare_recipe(common, to_declare.recipe)
+        declare_item(common, to_declare.item)
+        declare_entity(common, to_declare.entity)
+        declare_resource(common, to_declare.resource)
+    end
 end
 
 data:extend({
