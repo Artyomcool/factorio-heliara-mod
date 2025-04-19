@@ -28,7 +28,7 @@ data:extend({
     {
         type = "noise-expression",
         name = "heliara_fullerene_richness",
-        expression = "random_penalty(x, y, 2000, 1, 1800)",
+        expression = "random_penalty(x, y, 1000, 1, 800)",
     },
 
 })
