@@ -7,6 +7,20 @@ return {
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
             icon_size = 500,
         },
+        recipe = {
+            ingredients = {
+                shungite = 100,
+            },
+            fluid_ingredients = {
+                water = 200,
+            },
+            results = {
+                shungite = 25,
+                ["iron-ore"] = 5,
+            },
+            energy_required = 10,
+            category = "fullerene-chemistry"
+        },
         resource = {
             flags = { "placeable-neutral" },
             mining_time = 0.5,
