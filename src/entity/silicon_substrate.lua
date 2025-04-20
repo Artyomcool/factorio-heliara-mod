@@ -16,6 +16,11 @@ return {
             fluid_ingredients = {
                 water = 200,
             },
+            results = {
+                shungite = 10,
+                stone = 3,
+                silicon_substrate = 1,
+            },
             energy_required = 3,
             category = "fullerene-chemistry"
         },
