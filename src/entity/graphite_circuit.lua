@@ -19,7 +19,7 @@ return {
             category = "crafting"
         },
         item = {
-            order = "d[circuits]-d[graphite-circuit]",
+            order = "b[circuits]-d[graphite-circuit]",
             color_hint = { text = "T" },
             subgroup = "intermediate-product",
 
