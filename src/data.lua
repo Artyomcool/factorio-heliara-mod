@@ -8,7 +8,9 @@ local declare = {
     require("__heliara__.entity.shungite"),
     require("__heliara__.entity.rocks"),
     require("__heliara__.entity.fullerene"),
-    require("__heliara__.entity.silicon_substrate")
+    require("__heliara__.entity.silicon_substrate"),
+    require("__heliara__.entity.graphite"),
+    require("__heliara__.entity.graphite_circuit"),
 }
 
 local function declare_recipe(common, recipe)
