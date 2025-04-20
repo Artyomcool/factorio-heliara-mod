@@ -21,25 +21,23 @@ return {
         entity = {
             type = "burner-generator",
             flags = { "placeable-neutral", "player-creation" },
+            selection_priority = 40,
             minable = { mining_time = 0.75, result = _name },    -- fixme automate
             collision_box = { { -1.99, -1.99 }, { 1.99, 1.99 } },
-            selection_box = { { -1.99, -1.99 }, { 1.99, 1.99 } },
+            selection_box = { { -1.99, -1.9 }, { 1.99, 2.4 } },
             energy_source = {
                 type = "electric",
-                buffer_capacity = "500kJ",
-                usage_priority = "solar",
-                input_flow_limit = "500kW",
-                output_flow_limit = "500kW",
+                buffer_capacity = "1J",
+                usage_priority = "tertiary",
+                input_flow_limit = "0kW",
+                output_flow_limit = "1W",
                 render_no_power_icon = false,
                 render_no_network_icon = false,
             },
             burner = {
                 type = "burner",
                 fuel_inventory_size = 1,
-                fuel_categories = {"solar_fuel"},
-                render_no_power_icon = false,
-                render_no_network_icon = false,
-                effectivity = 500
+                fuel_categories = {"solar_fuel"}
             },
             max_power_output = "500kW",
 
@@ -59,10 +57,11 @@ return {
             type = "solar-panel",
             name = "solar-panel-hidden-panel",
             flags = { "not-on-map", "placeable-off-grid" },
-            selectable_in_game = false,
-            hidden = true,
-            collision_box = { { 0, 0 }, { 0, 0 } },
-            selection_box = { { 0, 0 }, { 0, 0 } },
+            selection_priority = 50,
+            --selectable_in_game = false,
+            --hidden = true,
+            --collision_box = { { -1.99, -1.99 }, { 1.99, 1.99 } },
+            selection_box = { { -1.3, -2.4 }, { 0.75, 0.8 } },
             energy_source = {
                 type = "electric",
                 usage_priority = "solar",

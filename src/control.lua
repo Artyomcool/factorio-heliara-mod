@@ -110,7 +110,7 @@ script.on_event(defines.events.on_tick, function(event)
             local position = burner.position
 
             v.panel = surface.create_entity {
-                name = "solar-panel-hidden-pole",
+                name = "solar-panel-hidden-panel",
                 position = burner.position,
                 force = burner.force,
                 create_build_effect_smoke = false
@@ -120,7 +120,8 @@ script.on_event(defines.events.on_tick, function(event)
                 name = "solar-panel-hidden-pole",
                 position = position,
                 force = burner.force,
-                create_build_effect_smoke = false
+                create_build_effect_smoke = false,
+                auto_connect = false
             }
         end
 
