@@ -31,7 +31,7 @@ return {
             order = "a-b-c",
             --subgroup = "heliara",
             color_hint = { text = "T" },
-            fuel_value = "200kJ",
+            fuel_value = "500kJ",
             fuel_category = "chemical",
             subgroup = "raw-material",
 
