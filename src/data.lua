@@ -11,6 +11,8 @@ local declare = {
     require("__heliara__.entity.silicon_substrate"),
     require("__heliara__.entity.graphite"),
     require("__heliara__.entity.graphite_circuit"),
+    require("__heliara__.entity.solar_refractor"),
+    require("__heliara__.entity.solar_refractor_silo"),
 }
 
 local function declare_recipe(common, recipe)

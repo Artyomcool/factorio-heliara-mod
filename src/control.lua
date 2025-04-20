@@ -1,6 +1,10 @@
 local function serializeUi(ui, depth)
-    if ui == nil then return "nil" end
-    if not ui.visible then return "invisible" end
+    if ui == nil then
+        return "nil"
+    end
+    if not ui.visible then
+        return "invisible"
+    end
     local tmp = "{\n"
 
     for _ = 0, depth do
@@ -17,7 +21,6 @@ local function serializeUi(ui, depth)
         tmp = tmp .. " "
     end
     tmp = tmp .. "type = " .. ui.type .. "\n"
-
 
     if ui.type == "list-box" then
         for _ = 0, depth do
@@ -59,7 +62,9 @@ local function serializeUi(ui, depth)
 end
 
 local function serializeUiTable(ui, depth)
-    if ui == nil then return "nil" end
+    if ui == nil then
+        return "nil"
+    end
 
     local tmp = "{\n"
 
@@ -77,7 +82,7 @@ local function serializeUiTable(ui, depth)
 
 end
 
-script.on_event(defines.events.on_selected_entity_changed , function(event)
+script.on_event(defines.events.on_selected_entity_changed, function(event)
     local entity = event.last_entity
     --if entity == nil then return end
     --if game.player == nil or event.player_index ~= game.player.index then return end
@@ -89,10 +94,7 @@ script.on_event(defines.events.on_selected_entity_changed , function(event)
 end)
 
 script.on_event(defines.events.on_tick, function(event)
-    if (storage.links == nil) then
-        return
-    end
-    for _, v in pairs(storage.links) do
+    for _, v in pairs(storage.links or {}) do
         local burner = v.burner
         burner.energy = 0
         local was_active = v.panel ~= nil
@@ -126,8 +128,17 @@ script.on_event(defines.events.on_tick, function(event)
         end
 
     end
+    for _, v in ipairs(storage.silos or {}) do
+        log(tostring(v.rocket_silo_status))
+        if v.rocket then
+            if v.launch_rocket() then
+                -- todo
+            end
+        end
+    end
 end)
 
+--fixme it works only when player builds panel
 script.on_event(defines.events.on_built_entity, function(event)
     local entity = event.created_entity or event.entity
     if not entity.valid then
@@ -137,6 +148,10 @@ script.on_event(defines.events.on_built_entity, function(event)
     if entity.name == "fullerene_solar_panel" then
         storage.links = storage.links or {}
         storage.links[entity.unit_number] = { burner = entity }
+    elseif entity.name == "solar_refractor_silo" then
+        log(entity.name)
+        storage.silos = storage.silos or {}
+        table.insert(storage.silos, entity)
     end
 end)
 
@@ -144,8 +159,12 @@ script.on_event(defines.events.on_entity_died, function(event)
     local entity = event.entity
     if entity.name == "fullerene_solar_panel" then
         local links = storage.links[entity.unit_number]
-        if links.panel then links.panel.destroy() end
-        if links.pole then links.pole.destroy() end
+        if links.panel then
+            links.panel.destroy()
+        end
+        if links.pole then
+            links.pole.destroy()
+        end
         storage.links[entity.unit_number] = null
     end
 end)
@@ -154,8 +173,12 @@ script.on_event(defines.events.on_pre_player_mined_item, function(event)
     local entity = event.entity
     if entity.name == "fullerene_solar_panel" then
         local links = storage.links[entity.unit_number]
-        if links.panel then links.panel.destroy() end
-        if links.pole then links.pole.destroy() end
+        if links.panel then
+            links.panel.destroy()
+        end
+        if links.pole then
+            links.pole.destroy()
+        end
         storage.links[entity.unit_number] = null
     end
 end)
