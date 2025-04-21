@@ -12,9 +12,6 @@ return {
                 silicon_substrate = 2,
                 graphite = 2,
             },
-            results = {
-                graphite_circuit = 1
-            },
             energy_required = 5,
             category = "crafting"
         },
