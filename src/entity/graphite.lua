@@ -10,15 +10,13 @@ return {
         recipe = {
             ingredients = {
                 fullerene = 8,
-                shungite = 6
+                carbon = 6
             },
             fluid_ingredients = {
                 water = 50,
             },
             results = {
-                graphite = 2,
-                fullerene = 6,
-                shungite = 4
+                graphite = 6
             },
             energy_required = 1,
             category = "fullerene-chemistry"

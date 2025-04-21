@@ -14,12 +14,12 @@ return {
         },
         recipe = {
             ingredients = {
-                ["stone-brick"] = 100,
-                ["concrete"] = 400,
-                ["steel-plate"] = 400,
-                ["iron-plate"] = 200,
-                ["iron-gear-wheel"] = 100,
-                ["engine-unit"] = 100,
+                ["stone-brick"] = 40,
+                ["concrete"] = 200,
+                ["steel-plate"] = 100,
+                ["iron-plate"] = 100,
+                ["iron-gear-wheel"] = 50,
+                ["engine-unit"] = 50,
             },
             energy_required = 10,
         },
