@@ -14,7 +14,10 @@ return {
         },
         recipe = {
             ingredients = {
-                stone = 1
+                ["stone-brick"] = 10,
+                ["steel-plate"] = 2,
+                ["iron-plate"] = 4,
+                ["iron-gear-wheel"] = 4,
             },
             energy_required = 4,
         },

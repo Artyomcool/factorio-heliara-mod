@@ -34,7 +34,7 @@ data:extend(
                 procession_graphic_catalogue = planet_catalogue_vulcanus,
 
                 surface_properties = {
-                    ["day-night-cycle"] = 10 * minute,
+                    ["day-night-cycle"] = 1 * minute,
                     ["magnetic-field"] = 40,
                     ["solar-power"] = 25,
                     pressure = 3500,
