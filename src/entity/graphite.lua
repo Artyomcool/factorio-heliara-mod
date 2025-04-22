@@ -19,7 +19,8 @@ return {
                 graphite = 6
             },
             energy_required = 1,
-            category = "fullerene-chemistry"
+            category = "fullerene-chemistry",
+            enabled = false,
         },
         item = {
             order = "a-b-c",
@@ -27,7 +28,7 @@ return {
             subgroup = "raw-material",
 
             stack_size = 400,
-            weight = 0.25 * kg
+            weight = 0.25 * kg,
         }
     }
 }

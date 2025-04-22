@@ -20,6 +20,7 @@ return {
                 ["iron-gear-wheel"] = 4,
             },
             energy_required = 4,
+            enabled = false
         },
         entity = {
             type = "burner-generator",

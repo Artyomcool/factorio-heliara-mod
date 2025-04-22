@@ -28,7 +28,8 @@ return {
                 ["iron-ore"] = 5,
             },
             energy_required = 5,
-            category = "fullerene-chemistry"
+            category = "fullerene-chemistry",
+            enabled = false
         },
         item = {
             order = "a-b-c",

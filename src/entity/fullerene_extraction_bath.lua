@@ -28,6 +28,7 @@ return {
                 ["iron-plate"] = 20
             },
             energy_required = 10,
+            enabled = false
         },
         entity = {
             type = "assembling-machine",

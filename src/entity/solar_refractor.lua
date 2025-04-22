@@ -20,8 +20,8 @@ return {
         },
         recipe = {
             ingredients = {
-                fullerene = 10,
-                stone = 5,
+                fullerene = 50,
+                graphite_circuit = 2,
                 ["iron-plate"] = 2
             },
             energy_required = 3,
