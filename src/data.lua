@@ -15,6 +15,8 @@ local declare = {
     require("__heliara__.entity.solar_refractor_silo"),
     require("__heliara__.entity.heliara_assembling_machine"),
     require("__heliara__.entity.fullerene-science-pack"),
+    require("__heliara__.entity.graphite-automation-science-pack"),
+    require("__heliara__.entity.graphite-logistic-science-pack"),
     require("__heliara__.entity.fullerene_lab"),
 }
 

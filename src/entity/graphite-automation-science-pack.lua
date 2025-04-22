@@ -2,8 +2,7 @@ return {
     {
         recipe = {
             name = "graphite-automation-science-pack",
-            icon = "__heliara__/graphics/icons/graphite.png",
-            icon_size = 128,
+            icon = "__base__/graphics/icons/automation-science-pack.png",
             ingredients = {
                 ["iron-plate"] = 1,
                 ["iron-gear-wheel"] = 2,

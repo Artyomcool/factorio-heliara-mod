@@ -15,11 +15,13 @@ return {
         recipe = {
             ingredients = {
                 ["stone-brick"] = 40,
-                ["concrete"] = 200,
-                ["steel-plate"] = 100,
-                ["iron-plate"] = 100,
+                ["concrete"] = 100,
+                ["steel-plate"] = 20,
+                ["iron-plate"] = 50,
                 ["iron-gear-wheel"] = 50,
                 ["engine-unit"] = 50,
+                ["graphite_circuit"] = 40,
+                ["heliara_assembling_machine"] = 4,
             },
             energy_required = 10,
         },
