@@ -58,18 +58,19 @@ script.on_event(defines.events.on_tick, function(event)
                 -- 0 -> dusk = day
                 local step = 0.1
                 local min_distance = 0.000001
-                if entity.surface.morning - entity.surface.evening > min_distance * 1.5 then
-                    entity.surface.dawn = min(1, entity.surface.dawn + step)
-                    entity.surface.morning = max(entity.surface.evening + min_distance, entity.surface.morning - step / 2)
-                    entity.surface.evening = min(entity.surface.morning - min_distance, entity.surface.morning + step / 2)
-                    entity.surface.dusk = entity.surface.evening - (entity.surface.dawn - entity.surface.morning)
+                local surface = v.surface
+                if surface.morning - surface.evening > min_distance * 1.5 then
+                    surface.dawn = min(1, surface.dawn + step)
+                    surface.morning = max(surface.evening + min_distance, surface.morning - step / 2)
+                    surface.evening = min(surface.morning - min_distance, surface.morning + step / 2)
+                    surface.dusk = surface.evening - (surface.dawn - surface.morning)
                 else
-                    entity.surface.dawn = min(1, entity.surface.dawn + step)
-                    entity.surface.morning = min(entity.surface.dawn - min_distance, entity.surface.morning + step)
-                    entity.surface.evening = min(entity.surface.morning - min_distance, entity.surface.evening + step * 2)
-                    entity.surface.dusk = entity.surface.evening - (entity.surface.dawn - entity.surface.morning)
+                    surface.dawn = min(1, surface.dawn + step)
+                    surface.morning = min(surface.dawn - min_distance, surface.morning + step)
+                    surface.evening = min(surface.morning - min_distance, surface.evening + step * 2)
+                    surface.dusk = surface.evening - (surface.dawn - surface.morning)
                 end
-                v.surface.solar_power_multiplier = v.surface.solar_power_multiplier + 0.05
+                surface.solar_power_multiplier = surface.solar_power_multiplier + 0.05
             end
         end
     end
