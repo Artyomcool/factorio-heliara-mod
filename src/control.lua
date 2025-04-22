@@ -58,7 +58,7 @@ script.on_event(defines.events.on_tick, function(event)
                 -- 0 -> dusk = day
                 local step = 0.1
                 local min_distance = 0.000001
-                local surface = v.surface
+                local surface = silos.surface
                 if surface.morning - surface.evening > min_distance * 1.5 then
                     surface.dawn = min(1, surface.dawn + step)
                     surface.morning = max(surface.evening + min_distance, surface.morning - step / 2)
