@@ -22,6 +22,7 @@ return {
                 ["iron-gear-wheel"] = 20,
             },
             energy_required = 2,
+            enabled = false,
         },
         entity = {
             type = "lab",

@@ -25,7 +25,8 @@ return {
                 ["iron-plate"] = 2
             },
             energy_required = 3,
-            category = "solar_refractors"
+            category = "solar_refractors",
+            enabled = false
         },
         item = {
             order = "a-b-c",

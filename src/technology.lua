@@ -302,6 +302,37 @@ data:extend({
         },
         prerequisites = { "graphite-automation-science-pack", "graphite-logistic-science-pack" },
         unit = {
+            count = 800,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        }
+    },
+    {
+        type = "technology",
+        name = "advanced-shungite",
+        icon = "__heliara__/graphics/icons/shungite.png",
+        icon_size = 500,
+        essential = false,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "fullerene-from-shungite",
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "graphite-from-shungite",
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "carbon-from-shungite",
+            },
+        },
+        prerequisites = { "solar_refractor" },
+        unit = {
             count = 400,
             ingredients = {
                 { "automation-science-pack", 1 },
@@ -309,6 +340,99 @@ data:extend({
                 { "fullerene-science-pack", 1 },
             },
             time = 60
+        }
+    },
+    {
+        type = "technology",
+        name = "advanced-character-distance",
+        icon = "__heliara__/graphics/icons/shungite.png",
+        icon_size = 500,
+        essential = false,
+        upgrade = true,
+        max_level = 4,
+        show_levels_info = true,
+        effects = {
+            {
+                type = "character-build-distance",
+                modifier = 1,
+            },
+            {
+                type = "character-item-drop-distance",
+                modifier = 1,
+            },
+            {
+                type = "character-reach-distance",
+                modifier = 1,
+            },
+            {
+                type = "character-resource-reach-distance",
+                modifier = 1,
+            },
+            {
+                type = "character-item-pickup-distance",
+                modifier = 1,
+            },
+            {
+                type = "character-loot-pickup-distance",
+                modifier = 1,
+            },
+        },
+        prerequisites = { "graphite-logistic-science-pack" },
+        unit = {
+            count = 200,
+            ingredients = {
+                { "logistic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 120
+        }
+    },
+    {
+        type = "technology",
+        name = "fullerene_rocket_fuel",
+        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon_size = 128,
+        essential = true,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "fullerene_rocket_fuel",
+            },
+        },
+        prerequisites = { "advanced-shungite" },
+        unit = {
+            count = 400,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        }
+    },
+    {
+        type = "technology",
+        name = "fullerene_pole_length",
+        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon_size = 128,
+        essential = false,
+        upgrade = true,
+        max_level = 3,
+        show_levels_info = true,
+        effects = {
+            {
+                type = "nothing", -- todo
+            },
+        },
+        prerequisites = { "solar_refractor" },
+        unit = {
+            count = 600,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 180
         }
     },
 

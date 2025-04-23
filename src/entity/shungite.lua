@@ -38,5 +38,25 @@ return {
             stack_size = 100,
             weight = 1 * kg
         }
-    }
+    },
+    {
+        recipe = {
+            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
+            name = "carbon-from-shungite",
+            ingredients = {
+                shungite = 100,
+            },
+            fluid_ingredients = {
+                water = 200,
+            },
+            results = {
+                graphite = 40,
+                ["iron-ore"] = 5,
+            },
+            energy_required = 10,
+            category = "fullerene-chemistry",
+            enabled = false,
+            main_product = "graphite",
+        },
+    },
 }

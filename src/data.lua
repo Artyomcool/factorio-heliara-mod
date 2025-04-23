@@ -21,11 +21,9 @@ local declare = {
 }
 
 local function declare_recipe(common, recipe)
-    log('declare_recipe')
     if recipe == nil then
         return
     end
-    log('declare_recipe:' .. (recipe.name or common.name))
 
     local ingredients = {}
 
@@ -113,11 +111,9 @@ local function declare_recipe(common, recipe)
 end
 
 local function declare_item(common, item)
-    log('declare_item')
     if item == nil then
         return
     end
-    log('declare_item:' .. (item.name or common.name))
 
     local icon_size = common.icon_size
     if item.icon then
@@ -182,12 +178,10 @@ local function declare_item(common, item)
 end
 
 local function declare_resource(common, resource)
-    log('declare_resource')
     if resource == nil then
         return
     end
 
-    log('declare_resource:' .. (resource.name or common.name))
     local icon_size = common.icon_size
     if resource.icon then
         icon_size = resource.icon_size
@@ -300,11 +294,9 @@ local function declare_resource(common, resource)
 end
 
 local function declare_entity(common, entity)
-    log("declare_entity")
     if entity == nil then
         return
     end
-    log('declare_recipe:' .. (entity.name or common.name))
 
     local icon_size = common.icon_size
     if entity.icon then

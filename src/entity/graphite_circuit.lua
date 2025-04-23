@@ -13,7 +13,8 @@ return {
                 graphite = 2,
             },
             energy_required = 5,
-            category = "crafting"
+            category = "crafting",
+            enabled = false,
         },
         item = {
             order = "b[circuits]-d[graphite-circuit]",

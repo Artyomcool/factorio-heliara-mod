@@ -24,6 +24,7 @@ return {
                 ["heliara_assembling_machine"] = 4,
             },
             energy_required = 10,
+            enabled = false,
         },
         entity = {
             type = "rocket-silo",

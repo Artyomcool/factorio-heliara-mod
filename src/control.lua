@@ -14,6 +14,34 @@ local function min(a, b)
     end
 end
 
+local function create_hidden_pole(burner)
+    local force = burner.force
+    local tech = force.technologies["advanced-character-distance"]
+    local level = 1
+    if tech and tech.enabled then level = level + tech.level end
+    return burner.surface.create_entity {
+        name = "solar-panel-hidden-pole-" .. level,
+        position = burner.position,
+        force = burner.force,
+        create_build_effect_smoke = false,
+        auto_connect = false
+    }
+end
+
+script.on_event({defines.events.on_research_finished, defines.events.on_research_reversed}, function(event)
+    if event.research == "fullerene_pole_length" then
+        for _, v in pairs(storage.links or {}) do
+            local burner = v.burner
+            if burner and burner.valid then
+                if v.pole ~= nil then
+                    v.pole.destroy()
+                    v.pole = create_hidden_pole(burner)
+                end
+            end
+        end
+    end
+end)
+
 script.on_event(defines.events.on_tick, function(event)
     for _, v in pairs(storage.links or {}) do
         local burner = v.burner
@@ -40,14 +68,7 @@ script.on_event(defines.events.on_tick, function(event)
                     force = burner.force,
                     create_build_effect_smoke = false
                 }
-
-                v.pole = surface.create_entity {
-                    name = "solar-panel-hidden-pole",
-                    position = position,
-                    force = burner.force,
-                    create_build_effect_smoke = false,
-                    auto_connect = false
-                }
+                v.pole = create_hidden_pole(burner)
             end
         elseif silos and silos.valid and silos.rocket then
             if silos.launch_rocket() then

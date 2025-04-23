@@ -9,7 +9,7 @@ return {
             name = _name,
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
             icon_size = 64,
-            icon_draw_specification = {shift = {0, -0.3}},
+            icon_draw_specification = { shift = { 0, -0.3 } },
         },
         item = {
             subgroup = "production-machine",
@@ -30,6 +30,7 @@ return {
                 ["iron-plate"] = 10,
             },
             energy_required = 10,
+            enabled = false,
         },
         entity = {
             type = "assembling-machine",
@@ -57,7 +58,7 @@ return {
             crafting_categories = { "basic-crafting", "crafting-with-fluid" },
             crafting_speed = 0.7,
             module_slots = 1,
-            allowed_effects = {"consumption", "speed", "productivity", "pollution" }, --, "quality"},
+            allowed_effects = { "consumption", "speed", "productivity", "pollution" }, --, "quality"},
             impact_category = "metal",
 
             fluid_boxes = {
@@ -123,5 +124,27 @@ return {
                 fade_out_ticks = 20
             },
         }
+    },
+    {
+        recipe = {
+            name = "fullerene_rocket_fuel",
+            ingredients = {
+                carbon = 50,
+                fullerene = 10,
+                graphite = 8,
+                ["iron-plate"] = 1,
+            },
+            fluid_ingredients = {
+                steam = 500,
+            },
+            results = {
+                ["rocket-fuel"] = 1,
+                ["iron-ore"] = 1,
+            },
+            energy_required = 20,
+            enabled = false,
+            main_product = "rocket-fuel",
+            category = "fullerene_craft",
+        },
     },
 }

@@ -85,7 +85,7 @@ return {
     {
         entity = {
             type = "electric-pole",
-            name = "solar-panel-hidden-pole",
+            name = "solar-panel-hidden-pole-1",
             icon = "__core__/graphics/empty.png",
             icon_size = 1,
             flags = { "not-on-map", "placeable-off-grid" },
@@ -95,6 +95,114 @@ return {
             selection_box = { { 0, 0 }, { 0, 0 } },
             maximum_wire_distance = 0,
             supply_area_distance = 2.5,
+            pictures = {
+                filename = "__core__/graphics/empty.png",
+                width = 1,
+                height = 1,
+                direction_count = 1
+            },
+            connection_points = {
+                {
+                    shadow = { copper = { 0, 0 } },
+                    wire = { copper = { 0, 0 } }
+                }
+            }
+        }
+    },
+    {
+        entity = {
+            type = "electric-pole",
+            name = "solar-panel-hidden-pole-2",
+            icon = "__core__/graphics/empty.png",
+            icon_size = 1,
+            flags = { "not-on-map", "placeable-off-grid" },
+            selectable_in_game = false,
+            hidden = true,
+            collision_box = { { 0, 0 }, { 0, 0 } },
+            selection_box = { { 0, 0 }, { 0, 0 } },
+            maximum_wire_distance = 0,
+            supply_area_distance = 2.5,
+            pictures = {
+                filename = "__core__/graphics/empty.png",
+                width = 1,
+                height = 1,
+                direction_count = 1
+            },
+            connection_points = {
+                {
+                    shadow = { copper = { 0, 0 } },
+                    wire = { copper = { 0, 0 } }
+                }
+            }
+        }
+    },
+    {
+        entity = {
+            type = "electric-pole",
+            name = "solar-panel-hidden-pole-2",
+            icon = "__core__/graphics/empty.png",
+            icon_size = 1,
+            flags = { "not-on-map", "placeable-off-grid" },
+            selectable_in_game = false,
+            hidden = true,
+            collision_box = { { 0, 0 }, { 0, 0 } },
+            selection_box = { { 0, 0 }, { 0, 0 } },
+            maximum_wire_distance = 0,
+            supply_area_distance = 3.5,
+            pictures = {
+                filename = "__core__/graphics/empty.png",
+                width = 1,
+                height = 1,
+                direction_count = 1
+            },
+            connection_points = {
+                {
+                    shadow = { copper = { 0, 0 } },
+                    wire = { copper = { 0, 0 } }
+                }
+            }
+        }
+    },
+    {
+        entity = {
+            type = "electric-pole",
+            name = "solar-panel-hidden-pole-3",
+            icon = "__core__/graphics/empty.png",
+            icon_size = 1,
+            flags = { "not-on-map", "placeable-off-grid" },
+            selectable_in_game = false,
+            hidden = true,
+            collision_box = { { 0, 0 }, { 0, 0 } },
+            selection_box = { { 0, 0 }, { 0, 0 } },
+            maximum_wire_distance = 0,
+            supply_area_distance = 4.5,
+            pictures = {
+                filename = "__core__/graphics/empty.png",
+                width = 1,
+                height = 1,
+                direction_count = 1
+            },
+            connection_points = {
+                {
+                    shadow = { copper = { 0, 0 } },
+                    wire = { copper = { 0, 0 } }
+                }
+            }
+        }
+    },
+    {
+        entity = {
+            type = "electric-pole",
+            name = "solar-panel-hidden-pole-4",
+            icon = "__core__/graphics/empty.png",
+            icon_size = 1,
+            flags = { "not-on-map", "placeable-off-grid" },
+            selectable_in_game = false,
+            hidden = true,
+            collision_box = { { 0, 0 }, { 0, 0 } },
+            selection_box = { { 0, 0 }, { 0, 0 } },
+            maximum_wire_distance = 0,
+            supply_area_distance = 5.5,
             pictures = {
                 filename = "__core__/graphics/empty.png",
                 width = 1,

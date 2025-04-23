@@ -22,7 +22,8 @@ return {
                 silicon_substrate = 1,
             },
             energy_required = 3,
-            category = "fullerene-chemistry"
+            category = "fullerene-chemistry",
+            enabled = false
         },
         item = {
             order = "a-b-c",
