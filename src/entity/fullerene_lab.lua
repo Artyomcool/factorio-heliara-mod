@@ -1,11 +1,12 @@
+local item_tints = require("__base__.prototypes.item-tints")
+
 local _name = "fullerene_lab"
 
 return {
     {
         common = {
             name = _name,
-            icon = "__heliara__/graphics/icons/shungite.png", -- fixme
-            icon_size = 500,
+            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
         },
         item = {
             stack_size = 10,
@@ -28,10 +29,10 @@ return {
             type = "lab",
             name = _name,
             flags = { "placeable-neutral", "placeable-player", "player-creation" },
-            minable = { mining_time = 1, result = _name }, -- fixme automate
+            minable = { mining_time = 1, result = _name },
             max_health = 100,
-            collision_box = { { -1, -1 }, { 1, 1 } },
-            selection_box = { { -1, -1 }, { 1, 1 } },
+            collision_box = { { -1.5, -1.5 }, { 1.5, 1.5 } },
+            selection_box = { { -1.5, -1.5 }, { 1.5, 1.5 } },
             module_slots = 1,
             allowed_effects = { "consumption", "pollution" },
             energy_usage = "250kW",
@@ -47,22 +48,22 @@ return {
 
             off_animation = {
                 filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
-                width = 1024,
-                height = 1024,
+                width = 256,
+                height = 256,
                 frame_count = 1,
                 line_length = 1,
                 shift = { 0.0, 0.0 },
-                scale = 0.125
+                scale = 0.5
             },
 
             on_animation = {
                 filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
-                width = 1024,
-                height = 1024,
+                width = 256,
+                height = 256,
                 frame_count = 1,
                 line_length = 1,
                 shift = { 0.0, 0.0 },
-                scale = 0.125
+                scale = 0.5
             },
             impact_category = "metal-large",
             crafting_speed = 1,

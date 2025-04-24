@@ -1,4 +1,5 @@
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
+local item_tints = require("__base__.prototypes.item-tints")
 
 local _name = "fullerene_extraction_bath"
 
@@ -13,12 +14,11 @@ return {
     {
         common = {
             name = _name,
-            icon = "__heliara__/graphics/icons/shungite.png", -- fixme
-            icon_size = 500,
+            icon = "__heliara__/graphics/icons/fullerene_extraction_bath.png",
         },
         item = {
             stack_size = 10,
-            random_tint_color = item_tints.iron_rust,
+            random_tint_color = item_tints.bluish_concrete,
             place_result = _name,
         },
         recipe = {
@@ -37,7 +37,6 @@ return {
             fast_replaceable_group = "chemical-plant",
             max_health = 300,
             icon_draw_specification = { shift = { 0, -0.3 } },
-            circuit_wire_max_distance = assembling_machine_circuit_wire_max_distance,
             collision_box = { { -1.2, -1.2 }, { 1.2, 1.2 } },
             selection_box = { { -1.5, -1.5 }, { 1.5, 1.5 } },
             damaged_trigger_effect = hit_effects.entity(),

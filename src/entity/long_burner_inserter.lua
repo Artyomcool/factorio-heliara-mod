@@ -13,7 +13,7 @@ return {
         },
         recipe = {
             ingredients = {
-                ["fast_burner_isnerter"] = 1,
+                ["fast_burner_inserter"] = 1,
                 ["steel-plate"] = 1,
             },
             energy_required = 0.5,

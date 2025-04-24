@@ -4,8 +4,7 @@ return {
     {
         common = {
             name = _name,
-            icon = "__heliara__/graphics/icons/shungite.png",   -- fixme
-            icon_size = 500,
+            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
         },
         item = {
             stack_size = 20,
@@ -26,7 +25,7 @@ return {
             type = "burner-generator",
             flags = { "placeable-neutral", "player-creation" },
             selection_priority = 40,
-            minable = { mining_time = 0.75, result = _name },    -- fixme automate
+            minable = { mining_time = 0.75, result = _name },
             collision_box = { { -1.99, -1.99 }, { 1.99, 1.99 } },
             selection_box = { { -1.99, -1.9 }, { 1.99, 2.4 } },
             energy_source = {
