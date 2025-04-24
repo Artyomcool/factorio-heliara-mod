@@ -50,7 +50,7 @@ return {
     {
         recipe = {
             name = _name .. "-from-shungite",
-            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
+            icon = "__heliara__/graphics/icons/" .. _name .. "_from_shungite.png",
             ingredients = {
                 shungite = 100,
             },

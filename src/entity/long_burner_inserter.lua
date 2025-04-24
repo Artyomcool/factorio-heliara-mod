@@ -1,3 +1,5 @@
+local item_tints = require("__base__.prototypes.item-tints")
+
 local _name = "long_burner_inserter"
 
 return {

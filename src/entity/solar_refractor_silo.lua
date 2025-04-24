@@ -1,11 +1,15 @@
+local item_tints = require("__base__.prototypes.item-tints")
+
+require("__base__.prototypes.entity.pipecovers")
+require("__base__.prototypes.entity.assemblerpipes")
+
 local _name = "solar_refractor_silo"
 
 return {
     {
         common = {
             name = _name,
-            icon = "__heliara__/graphics/icons/shungite.png", -- fixme
-            icon_size = 500,
+            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
         },
         item = {
             stack_size = 1,

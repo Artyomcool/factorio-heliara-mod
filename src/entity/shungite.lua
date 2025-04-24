@@ -41,7 +41,7 @@ return {
     },
     {
         recipe = {
-            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
+            icon = "__heliara__/graphics/icons/carbon_from_shungite.png",
             name = "carbon-from-shungite",
             ingredients = {
                 shungite = 100,
@@ -50,13 +50,13 @@ return {
                 water = 200,
             },
             results = {
-                graphite = 40,
+                carbon = 40,
                 ["iron-ore"] = 5,
             },
             energy_required = 10,
             category = "fullerene-chemistry",
             enabled = false,
-            main_product = "graphite",
+            main_product = "carbon",
         },
     },
 }
