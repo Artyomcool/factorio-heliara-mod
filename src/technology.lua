@@ -201,6 +201,48 @@ data:extend({
     },
     {
         type = "technology",
+        name = "fast_burner_inserter",
+        icon = "__base__/graphics/icons/burner-inserter.png",
+        essential = false,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "fast_burner_inserter",
+            },
+        },
+        prerequisites = { "graphite_circuit", "logistic-science-pack" },
+        unit = {
+            count = 200,
+            ingredients = {
+                { "logistic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        }
+    },
+    {
+        type = "technology",
+        name = "long_burner_inserter",
+        icon = "__base__/graphics/icons/burner-inserter.png",
+        essential = false,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "long_burner_inserter",
+            },
+        },
+        prerequisites = { "fast_burner_inserter" },
+        unit = {
+            count = 200,
+            ingredients = {
+                { "logistic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        }
+    },
+    {
+        type = "technology",
         name = "graphite-automation-science-pack",
         icon = "__heliara__/graphics/icons/graphite_circuit.png",
         icon_size = 64,

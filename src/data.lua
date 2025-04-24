@@ -18,6 +18,8 @@ local declare = {
     require("__heliara__.entity.graphite-automation-science-pack"),
     require("__heliara__.entity.graphite-logistic-science-pack"),
     require("__heliara__.entity.fullerene_lab"),
+    require("__heliara__.entity.fast_burner_inserter"),
+    require("__heliara__.entity.long_burner_inserter"),
 }
 
 local function declare_recipe(common, recipe)
