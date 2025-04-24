@@ -23,7 +23,7 @@ return {
             type = "inserter",
             icon = "__base__/graphics/icons/burner-inserter.png",
             flags = {"placeable-neutral", "placeable-player", "player-creation"},
-            minable = {mining_time = 0.1, result = "long-handed-inserter"},
+            minable = {mining_time = 0.1, result = _name},
             max_health = 160,
             corpse = "long-handed-inserter-remnants",
             dying_explosion = "long-handed-inserter-explosion",
