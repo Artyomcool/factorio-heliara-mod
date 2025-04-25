@@ -454,6 +454,29 @@ data:extend({
     },
     {
         type = "technology",
+        name = "steam_cargo",
+        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon_size = 128,
+        essential = true,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "steam_cargo",
+            },
+        },
+        prerequisites = { "fullerene_rocket_fuel" },
+        unit = {
+            count = 2000,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        }
+    },
+    {
+        type = "technology",
         name = "fullerene_pole_length",
         icon = "__heliara__/graphics/icons/fullerene.png",
         icon_size = 128,

@@ -20,6 +20,7 @@ local declare = {
     require("__heliara__.entity.fullerene_lab"),
     require("__heliara__.entity.fast_burner_inserter"),
     require("__heliara__.entity.long_burner_inserter"),
+    require("__heliara__.entity.steam_cargo"),
 }
 
 local function declare_recipe(common, recipe)

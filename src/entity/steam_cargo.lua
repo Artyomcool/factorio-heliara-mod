@@ -1,4 +1,4 @@
-local _name = "solar_refractor"
+local _name = "steam_cargo"
 
 require("util")
 
@@ -8,14 +8,15 @@ return {
     {
         common = {
             name = _name,
-            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
-            icon_size = 1024,
+            icon = "__heliara__/graphics/icons/fullerene.png", --fixme
+            icon_size = 128,
         },
         recipe = {
             ingredients = {
-                fullerene = 50,
-                graphite_circuit = 2,
-                ["iron-plate"] = 2
+                graphite_circuit = 8,
+                ["iron-plate"] = 2,
+                ["steel-plate"] = 1,
+                ["rocket-fuel"] = 1,
             },
             energy_required = 3,
             category = "steam_rockets",
@@ -38,7 +39,7 @@ return {
             selection_box = { { 0, 0 }, { 0, 0 } },
             dying_explosion = "massive-explosion",
             shadow_slave_entity = "rocket-silo-rocket-shadow",
-            inventory_size = 0,
+            inventory_size = 1,
             rising_speed = 1,
             engine_starting_speed = 1,
             flying_speed = 1,
@@ -50,7 +51,7 @@ return {
                 shift = { 0, 1.5 },
                 color = { 1, 1, 1 }
             },
-            cargo_pod_entity = "cargo-pod-no-payload",
+            cargo_pod_entity = "cargo-pod",
             rocket_sprite = {
                 layers = {
                     util.sprite_load("__base__/graphics/entity/rocket-silo/rocket-static-pod",
@@ -186,20 +187,4 @@ return {
             }
         },
     },
-    {
-        entity = {
-            type = "cargo-pod",
-            name = "cargo-pod-no-payload",
-            icon = "__base__/graphics/icons/cargo-pod.png",
-            flags = {"not-on-map"},
-            order = "c[cargo-pod]2",
-            collision_mask = {layers = {}},
-            collision_box = {{0, 0},{0, 0}},
-            selection_box = {{-0.5, -1}, {0.5, 0.5}},
-            inventory_size = 0,
-            icon_draw_specification = {render_layer = "air-entity-info-icon", scale = 1.0},
-            spawned_container = "cargo-pod-container",
-            shadow_slave_entity = "rocket-silo-rocket-shadow",
-        },
-    }
 }

@@ -18,7 +18,9 @@ local function create_hidden_pole(burner)
     local force = burner.force
     local tech = force.technologies["advanced-character-distance"]
     local level = 1
-    if tech and tech.enabled then level = level + tech.level end
+    if tech and tech.enabled then
+        level = level + tech.level
+    end
     return burner.surface.create_entity {
         name = "solar-panel-hidden-pole-" .. level,
         position = burner.position,
@@ -28,7 +30,7 @@ local function create_hidden_pole(burner)
     }
 end
 
-script.on_event({defines.events.on_research_finished, defines.events.on_research_reversed}, function(event)
+script.on_event({ defines.events.on_research_finished, defines.events.on_research_reversed }, function(event)
     if event.research == "fullerene_pole_length" then
         for _, v in pairs(storage.links or {}) do
             local burner = v.burner
@@ -70,28 +72,62 @@ script.on_event(defines.events.on_tick, function(event)
                 }
                 v.pole = create_hidden_pole(burner)
             end
-        elseif silos and silos.valid and silos.rocket then
-            if silos.launch_rocket() then
-                -- dusk -> evening = sunset process
-                -- evening -> morning = night
-                -- morning -> dawn = sunrise process (???)
-                -- dawn -> 1 = sunrise process (???)
-                -- 0 -> dusk = day
-                local step = 0.1
-                local min_distance = 0.000001
-                local surface = silos.surface
-                if surface.morning - surface.evening > min_distance * 1.5 then
-                    surface.dawn = min(1, surface.dawn + step)
-                    surface.morning = max(surface.evening + min_distance, surface.morning - step / 2)
-                    surface.evening = min(surface.morning - min_distance, surface.morning + step / 2)
-                    surface.dusk = surface.evening - (surface.dawn - surface.morning)
-                else
-                    surface.dawn = min(1, surface.dawn + step)
-                    surface.morning = min(surface.dawn - min_distance, surface.morning + step)
-                    surface.evening = min(surface.morning - min_distance, surface.evening + step * 2)
-                    surface.dusk = surface.evening - (surface.dawn - surface.morning)
+        elseif silos and silos.valid then
+            --fixme: reinsert modules
+            if silos.get_recipe() ~= nil then
+                if silos.get_recipe().name == 'solar_refractor'then
+                    if silos.name ~= 'solar_refractor_silo' then
+                        silos = silos.surface.create_entity {
+                            name = "solar_refractor_silo",
+                            position = silos.position,
+                            force = silos.force,
+                            create_build_effect_smoke = false,
+                            auto_connect = false
+                        }
+                        silos.set_recipe('solar_refractor')
+                        v.silos.destroy()
+                        v.silos = silos
+                        game.print('changed: -> solar_refractor_silo')
+                    end
+                    if silos.rocket then
+                        if silos.launch_rocket() then
+                            -- dusk -> evening = sunset process
+                            -- evening -> morning = night
+                            -- morning -> dawn = sunrise process (???)
+                            -- dawn -> 1 = sunrise process (???)
+                            -- 0 -> dusk = day
+                            local step = 0.1
+                            local min_distance = 0.000001
+                            local surface = silos.surface
+                            if surface.morning - surface.evening > min_distance * 1.5 then
+                                surface.dawn = min(1, surface.dawn + step)
+                                surface.morning = max(surface.evening + min_distance, surface.morning - step / 2)
+                                surface.evening = min(surface.morning - min_distance, surface.morning + step / 2)
+                                surface.dusk = surface.evening - (surface.dawn - surface.morning)
+                            else
+                                surface.dawn = min(1, surface.dawn + step)
+                                surface.morning = min(surface.dawn - min_distance, surface.morning + step)
+                                surface.evening = min(surface.morning - min_distance, surface.evening + step * 2)
+                                surface.dusk = surface.evening - (surface.dawn - surface.morning)
+                            end
+                            surface.solar_power_multiplier = surface.solar_power_multiplier + 0.05
+                        end
+                    end
+                elseif silos.get_recipe().name =='steam_cargo' then
+                    if silos.name ~= 'steam_cargo_silo' then
+                        silos = silos.surface.create_entity {
+                            name = "steam_cargo_silo",
+                            position = silos.position,
+                            force = silos.force,
+                            create_build_effect_smoke = false,
+                            auto_connect = false
+                        }
+                        silos.set_recipe('steam_cargo')
+                        v.silos.destroy()
+                        v.silos = silos
+                        game.print('changed: -> steam_cargo_silo')
+                    end
                 end
-                surface.solar_power_multiplier = surface.solar_power_multiplier + 0.05
             end
         end
     end
