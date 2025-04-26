@@ -66,4 +66,21 @@ return {
             enabled = false,
         },
     },
+    {
+        recipe = {
+            name = _name .. "-from-graphite",
+            icon = "__heliara__/graphics/icons/" .. _name .. "_from_shungite.png",
+            ingredients = {
+                graphite = 100,
+            },
+            results = {
+                fullerene = 10,
+                graphite = 20,
+                carbon = 20,
+            },
+            energy_required = 10,
+            category = "chemistry",
+            enabled = false,
+        },
+    },
 }

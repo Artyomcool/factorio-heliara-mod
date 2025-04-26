@@ -50,4 +50,21 @@ return {
             enabled = false,
         },
     },
+    {
+        recipe = {
+            name = _name .. "-from-carbon",
+            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
+            icon_size = 128,
+            ingredients = {
+                carbon = 100,
+            },
+            results = {
+                graphite = 20,
+                carbon = 20,
+            },
+            energy_required = 10,
+            category = "chemistry",
+            enabled = false,
+        },
+    },
 }

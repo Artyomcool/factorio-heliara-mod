@@ -486,7 +486,7 @@ data:extend({
         show_levels_info = true,
         effects = {
             {
-                type = "nothing", -- todo
+                type = "nothing",
             },
         },
         prerequisites = { "solar_refractor" },
@@ -513,7 +513,7 @@ data:extend({
         },
         prerequisites = { "steam_cargo", "cryogenic-science-pack" },
         unit = {
-            count = 16000,
+            count = 4000,
             ingredients = {
                 { "automation-science-pack", 1 },
                 { "logistic-science-pack", 1 },
@@ -522,6 +522,39 @@ data:extend({
                 { "utility-science-pack", 1 },
                 { "space-science-pack", 1 },
                 { "metallurgic-science-pack", 1 },
+                { "electromagnetic-science-pack", 1 },
+                { "cryogenic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 120
+        }
+    },
+    {
+        type = "technology",
+        name = "advanced-fullerene",
+        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon_size = 128,
+        essential = false,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "fullerene-from-graphite",
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "graphite-from-carbon",
+            },
+        },
+        prerequisites = { "heliara_navigation", "advanced-shungite" },
+        unit = {
+            count = 8000,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "chemical-science-pack", 1 },
+                { "production-science-pack", 1 },
+                { "utility-science-pack", 1 },
+                { "space-science-pack", 1 },
                 { "electromagnetic-science-pack", 1 },
                 { "cryogenic-science-pack", 1 },
                 { "fullerene-science-pack", 1 },
