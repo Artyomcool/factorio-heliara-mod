@@ -511,7 +511,7 @@ data:extend({
                 type = "nothing",
             },
         },
-        prerequisites = { "steam_cargo" },
+        prerequisites = { "steam_cargo", "cryogenic-science-pack" },
         unit = {
             count = 16000,
             ingredients = {
