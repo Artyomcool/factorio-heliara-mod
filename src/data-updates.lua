@@ -1,0 +1,1 @@
+table.insert(data.raw.lab["lab"].inputs, "fullerene-science-pack")

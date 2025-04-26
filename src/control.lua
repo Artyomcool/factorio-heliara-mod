@@ -44,6 +44,24 @@ script.on_event({ defines.events.on_research_finished, defines.events.on_researc
     end
 end)
 
+script.on_event(defines.events.on_cargo_pod_delivered_cargo, function(event)
+    local force = event.cargo_pod.force
+    if force.technologies["heliara_navigation"].researched then
+        return
+    end
+
+    local spawned_container = event.spawned_container
+    if spawned_container then
+        local surface = spawned_container.surface
+        if surface and surface.planet and surface.planet.name == 'heliara' then
+            -- todo translation
+            force.print('Pod crashed because of navigation failure')
+            spawned_container.destroy()
+            event.cargo_pod.destroy()
+        end
+    end
+end)
+
 script.on_event(defines.events.on_tick, function(event)
     for _, v in pairs(storage.links or {}) do
         local burner = v.burner
@@ -75,7 +93,7 @@ script.on_event(defines.events.on_tick, function(event)
         elseif silos and silos.valid then
             --fixme: reinsert modules
             if silos.get_recipe() ~= nil then
-                if silos.get_recipe().name == 'solar_refractor'then
+                if silos.get_recipe().name == 'solar_refractor' then
                     if silos.name ~= 'solar_refractor_silo' then
                         silos = silos.surface.create_entity {
                             name = "solar_refractor_silo",
@@ -113,7 +131,7 @@ script.on_event(defines.events.on_tick, function(event)
                             surface.solar_power_multiplier = surface.solar_power_multiplier + 0.05
                         end
                     end
-                elseif silos.get_recipe().name =='steam_cargo' then
+                elseif silos.get_recipe().name == 'steam_cargo' then
                     if silos.name ~= 'steam_cargo_silo' then
                         silos = silos.surface.create_entity {
                             name = "steam_cargo_silo",

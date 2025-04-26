@@ -77,7 +77,7 @@ data:extend({
                 recipe = "fullerene",
             },
         },
-        prerequisites = { "fullerene_extraction_bath", "fullerene_solar_panel"},
+        prerequisites = { "fullerene_extraction_bath", "fullerene_solar_panel" },
         research_trigger = {
             type = "build-entity",
             entity = "fullerene_extraction_bath"
@@ -130,7 +130,7 @@ data:extend({
                 recipe = "fullerene_lab",
             },
         },
-        prerequisites = { "fullerene-science-pack"},
+        prerequisites = { "fullerene-science-pack" },
         research_trigger = {
             type = "craft-item",
             item = "fullerene-science-pack"
@@ -498,6 +498,35 @@ data:extend({
                 { "fullerene-science-pack", 1 },
             },
             time = 180
+        }
+    },
+    {
+        type = "technology",
+        name = "heliara_navigation",
+        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon_size = 128,
+        essential = true,
+        effects = {
+            {
+                type = "nothing",
+            },
+        },
+        prerequisites = { "steam_cargo" },
+        unit = {
+            count = 16000,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "chemical-science-pack", 1 },
+                { "production-science-pack", 1 },
+                { "utility-science-pack", 1 },
+                { "space-science-pack", 1 },
+                { "metallurgic-science-pack", 1 },
+                { "electromagnetic-science-pack", 1 },
+                { "cryogenic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 120
         }
     },
 
