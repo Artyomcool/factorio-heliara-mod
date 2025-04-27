@@ -6,12 +6,15 @@ return {
     {
         common = {
             name = _name,
-            icon = "__base__/graphics/icons/burner-inserter.png", -- fixme
+            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
         },
         item = {
             stack_size = 50,
             random_tint_color = item_tints.iron_rust,
             place_result = _name,
+            subgroup = "inserter",
+            color_hint = { text = "B" },
+            order = "a[burner-inserter]-f",
         },
         recipe = {
             ingredients = {
@@ -23,12 +26,11 @@ return {
         },
         entity = {
             type = "inserter",
-            icon = "__base__/graphics/icons/burner-inserter.png",
             flags = {"placeable-neutral", "placeable-player", "player-creation"},
             minable = {mining_time = 0.1, result = "fast_burner_inserter"},
             max_health = 100,
-            corpse = "burner-inserter-remnants",
-            dying_explosion = "burner-inserter-explosion",
+            -- todo corpse = "burner-inserter-remnants",
+            -- todo dying_explosion = "burner-inserter-explosion",
             resistances =
             {
                 {
@@ -66,7 +68,7 @@ return {
             impact_category = "metal",
             hand_base_picture =
             {
-                filename = "__base__/graphics/entity/burner-inserter/burner-inserter-hand-base.png",
+                filename = "__heliara__/graphics/entity/" .. _name .. "/inserter-hand-base.png",
                 priority = "extra-high",
                 width = 32,
                 height = 136,
@@ -74,7 +76,7 @@ return {
             },
             hand_closed_picture =
             {
-                filename = "__base__/graphics/entity/burner-inserter/burner-inserter-hand-closed.png",
+                filename = "__heliara__/graphics/entity/" .. _name .. "/inserter-hand-closed.png",
                 priority = "extra-high",
                 width = 72,
                 height = 164,
@@ -82,7 +84,7 @@ return {
             },
             hand_open_picture =
             {
-                filename = "__base__/graphics/entity/burner-inserter/burner-inserter-hand-open.png",
+                filename = "__heliara__/graphics/entity/" .. _name .. "/inserter-hand-open.png",
                 priority = "extra-high",
                 width = 72,
                 height = 164,
@@ -118,7 +120,7 @@ return {
             {
                 sheet =
                 {
-                    filename = "__base__/graphics/entity/burner-inserter/burner-inserter-platform.png",
+                    filename = "__heliara__/graphics/entity/" .. _name .. "/inserter-platform.png",
                     priority = "extra-high",
                     width = 105,
                     height = 79,
