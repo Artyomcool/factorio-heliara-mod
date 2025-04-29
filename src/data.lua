@@ -337,3 +337,8 @@ for _, to_declares in ipairs(declare) do
         declare_resource(common, to_declare.resource)
     end
 end
+
+local collapsing_container = util.table.deepcopy(data.raw["temporary-container"]["cargo-pod-container"])
+collapsing_container.name = "collapsing-cargo-pod-container"
+collapsing_container.time_to_leave = 1
+data:extend({collapsing_container})

@@ -44,22 +44,42 @@ script.on_event({ defines.events.on_research_finished, defines.events.on_researc
     end
 end)
 
-script.on_event(defines.events.on_cargo_pod_delivered_cargo, function(event)
+script.on_event(defines.events.on_cargo_pod_finished_descending, function(event)
     local force = event.cargo_pod.force
     if force.technologies["heliara_navigation"].researched then
         return
     end
 
-    local spawned_container = event.spawned_container
-    if spawned_container then
-        local surface = spawned_container.surface
-        if surface and surface.planet and surface.planet.name == 'heliara' then
-            -- todo translation
-            force.print('Pod crashed because of navigation failure')
-            spawned_container.destroy()
-            event.cargo_pod.destroy()
-        end
+    local cargo_pod = event.cargo_pod
+    if cargo_pod.get_passenger() ~= nil then
+        return
     end
+
+    local surface = cargo_pod.surface
+    if not surface or not surface.planet or surface.planet.name ~= 'heliara' then
+        return
+    end
+
+    local position = cargo_pod.position
+    surface.create_entity({
+        name = "collapsing-cargo-pod-container",
+        position = position,
+        force = cargo_pod.force,
+        create_build_effect_smoke = true,
+    })
+    surface.create_entity {
+        name = "big-explosion",
+        position = position,
+        force = game.forces.enemy
+    }
+    surface.create_entity {
+        name = "fire-flame",
+        position = position,
+        force = game.forces.enemy
+    }
+    cargo_pod.destroy()
+    -- todo translation
+    force.print('Pod crashed because of navigation failure')
 end)
 
 script.on_event(defines.events.on_tick, function(event)
