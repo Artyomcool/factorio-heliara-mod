@@ -9,6 +9,7 @@ return {
         },
         resource = {
             flags = { "placeable-neutral" },
+            selection_box = {{-0.9, -0.9}, {0.9, 0.9}},
             mining_time = 0.75,
             stage_counts = { 1500, 950, 550, 290, 130 },
             stages = {
