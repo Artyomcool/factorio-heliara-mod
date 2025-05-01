@@ -1,12 +1,29 @@
 local planet_map_gen = require("__space-age__/prototypes/planet/planet-map-gen")
 
-
-
 data:extend({
     {
         type = "noise-expression",
         name = "heliara_shungite_probability",
-        expression = 0.01,
+        expression = "if ((y + 3 * (floor(x / 7) % 2)) % 6 > 4, \z
+                        0, \z
+                        if ((y + 3 * (floor(x / 7) % 2)) % 6 == 2, \z
+                          1, \z
+                          if (abs((y + 3 * (floor(x / 7) % 2)) % 6 - 2) - 1 == 0, \z
+                            if (abs(x % 7 - 3) - 1 < 2, 1, 0), \z
+                            if (abs(x % 7 - 3) - 1 < 1, 1, 0) \z
+                          ) \z
+                        ) \z
+                      ) \z
+                      * \z
+                      if(voronoi_spot_noise{ \z
+                        x = x + 5.2 * sin(0.17 * y), \z
+                        y = y + 2.7 * cos(0.12 * x), \z
+                        seed0 = map_seed, \z
+                        seed1 = 'heliara-shungite', \z
+                        grid_size = 113, \z
+                        distance_type = 'euclidean', \z
+                        jitter = 0.8 \z
+                      } < 0.1, 1, 0)"
     },
     {
         type = "noise-expression",
@@ -16,7 +33,15 @@ data:extend({
     {
         type = "noise-expression",
         name = "heliara_stone_probability",
-        expression = 0.01
+        expression = "clamp(voronoi_spot_noise{ \z
+                x = x + 4.1 * cos(0.13 * y), \z
+                y = y + 5.3 * sin(0.21 * x), \z
+                seed0 = map_seed + 1, \z
+                seed1 = 'heliara-stone', \z
+                grid_size = 97, \z
+                distance_type = 'euclidean', \z
+                jitter = 0.7 \z
+                } * 7.5 - 6, 0, 1)"
     },
     {
         type = "noise-expression",
