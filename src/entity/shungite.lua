@@ -14,11 +14,12 @@ return {
             stage_counts = { 1500, 950, 550, 290, 130 },
             stages = {
                 sheet = {
-                    filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
-                    size = 117,
-                    frame_count = 5,
-                    variation_count = 5,
-                    scale = 0.4
+                    filename = "__base__/graphics/entity/stone/stone.png",
+                    size = 128,
+                    frame_count = 8,
+                    variation_count = 8,
+                    scale = 0.5,
+                    tint = { r = .43, g = .42, b = .49 },
                 }
             },
             autoplace = {
