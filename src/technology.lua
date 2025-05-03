@@ -150,27 +150,6 @@ data:extend({
         },
         prerequisites = { "fullerene_lab" },
         unit = {
-            count = 200,
-            ingredients = {
-                { "fullerene-science-pack", 1 },
-            },
-            time = 60
-        }
-    },
-    {
-        type = "technology",
-        name = "silicon_substrate",
-        icon = "__heliara__/graphics/icons/silicon_substrate.png",
-        icon_size = 128,
-        essential = true,
-        effects = {
-            {
-                type = "unlock-recipe",
-                recipe = "silicon_substrate",
-            },
-        },
-        prerequisites = { "fullerene_lab" },
-        unit = {
             count = 50,
             ingredients = {
                 { "fullerene-science-pack", 1 },
@@ -236,27 +215,6 @@ data:extend({
             count = 200,
             ingredients = {
                 { "logistic-science-pack", 1 },
-                { "fullerene-science-pack", 1 },
-            },
-            time = 60
-        }
-    },
-    {
-        type = "technology",
-        name = "graphite-automation-science-pack",
-        icon = "__heliara__/graphics/icons/graphite_circuit.png",
-        icon_size = 64,
-        essential = true,
-        effects = {
-            {
-                type = "unlock-recipe",
-                recipe = "graphite-automation-science-pack",
-            },
-        },
-        prerequisites = { "graphite_circuit" },
-        unit = {
-            count = 50,
-            ingredients = {
                 { "fullerene-science-pack", 1 },
             },
             time = 60
