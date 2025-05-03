@@ -150,7 +150,7 @@ data:extend({
         },
         prerequisites = { "fullerene_lab" },
         unit = {
-            count = 50,
+            count = 5,
             ingredients = {
                 { "fullerene-science-pack", 1 },
             },
@@ -171,7 +171,7 @@ data:extend({
         },
         prerequisites = { "silicon_substrate" },
         unit = {
-            count = 50,
+            count = 5,
             ingredients = {
                 { "fullerene-science-pack", 1 },
             },
@@ -234,7 +234,7 @@ data:extend({
         },
         prerequisites = { "graphite_circuit" },
         unit = {
-            count = 50,
+            count = 10,
             ingredients = {
                 { "fullerene-science-pack", 1 },
             },
@@ -276,7 +276,7 @@ data:extend({
         },
         prerequisites = { "graphite-automation-science-pack" },
         unit = {
-            count = 100,
+            count = 20,
             ingredients = {
                 { "automation-science-pack", 1 },
                 { "fullerene-science-pack", 1 },
