@@ -55,7 +55,7 @@ return {
             --circuit_connector = circuit_connector_definitions["assembling-machine"],
             alert_icon_shift = util.by_pixel(0, -12),
             ingredient_count = 20,
-            crafting_categories = { "basic-crafting", "crafting-with-fluid" },
+            crafting_categories = { "crafting", "basic-crafting", "advanced-crafting", "crafting-with-fluid" },
             crafting_speed = 0.7,
             module_slots = 1,
             allowed_effects = { "consumption", "speed", "productivity", "pollution" }, --, "quality"},
