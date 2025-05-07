@@ -27,7 +27,7 @@ return {
             },
             results = {
                 shungite = 20,
-                carbon = 10,
+                carbon = 6,
                 fullerene = 7,
                 ["iron-ore"] = 5,
             },
