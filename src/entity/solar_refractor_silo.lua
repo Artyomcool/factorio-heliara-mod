@@ -58,7 +58,7 @@ local retractor_silo = {
         },
         {
             type = "impact",
-            percent = 40 -- 60
+            percent = 80 -- 60
         }
     },
     impact_category = "metal-large",
@@ -82,9 +82,9 @@ local retractor_silo = {
     lamp_energy_usage = "0kW",
     active_energy_usage = "0.5MW", -- 3990kW
     rocket_entity = "solar_refractor",
-    times_to_blink = 1,
-    light_blinking_speed = 1 / (0.25 * 60), -- 1 / (3 * 60),
-    door_opening_speed = 1 / (1 * 60), -- (4.25 * 60),
+    times_to_blink = 0,
+    light_blinking_speed = 10000, -- 1 / (3 * 60),
+    door_opening_speed = 10000, -- (4.25 * 60),
 
     -- base_engine_light = { intensity = 1, size = 25, shift = {0, 1.5} },
     -- shadow_sprite = { filename = "__base__/graphics/entity/rocket-silo/00-rocket-silo-shadow.png", priority = "medium", width = 612, height = 578, draw_as_shadow = true, dice = 2, shift = util.by_pixel(7, 2), scale = 0.5 },

@@ -40,9 +40,9 @@ return {
             shadow_slave_entity = "rocket-silo-rocket-shadow",
             inventory_size = 0,
             rising_speed = 1 / (2 * 60),
-            engine_starting_speed = 1 / (1 * 60),
-            flying_speed = 1 / (2.5 * 60),
-            flying_acceleration = -0.0001,
+            engine_starting_speed = 10000,
+            flying_speed = 0.001,
+            flying_acceleration = 0.25,
             icon_draw_specification = { render_layer = "air-entity-info-icon" },
             glow_light = {
                 intensity = 1,
