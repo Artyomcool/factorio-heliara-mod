@@ -1,3 +1,5 @@
+require ("util")
+
 local item_tints = require("__base__.prototypes.item-tints")
 
 require("__base__.prototypes.entity.pipecovers")
@@ -16,19 +18,50 @@ local retractor_silo = {
     type = "rocket-silo",
     name = _name,
     flags = { "placeable-neutral", "placeable-player", "player-creation" },
+    fast_transfer_modules_into_module_slots_only = false,
+    crafting_categories = { "steam_rockets" },
+    fast_replaceable_group = "steam_rockets",
+    --rocket_parts_required = 12,
+    rocket_parts_required = 2,
+    rocket_quick_relaunch_start_offset = -0.625,
+    cargo_station_parameters = {
+        hatch_definitions = {
+            {
+                hatch_graphics = nil,
+                offset = { 0, 0 },
+                pod_shadow_offset = { 0, 0 };
+                cargo_unit_entity_to_spawn = "",
+                receiving_cargo_units = {}
+            }
+        },
+    },
+    crafting_speed = 1,
+    logistic_trash_inventory_size = 0,
+    -- icon_draw_specification = {shift = {0, 2}},
+    -- icons_positioning = { {inventory_index = defines.inventory.assembling_machine_modules, shift = {0, 3.3}} },
+    -- fixed_recipe = "rocket-part",
+    -- show_recipe_icon = false,
+    -- allowed_effects = {"consumption", "speed", "productivity", "pollution"},
     minable = { mining_time = 5, result = _name }, -- fixme automate
-    max_health = 5000,
+    max_health = 1000,
+    -- corpse = "rocket-silo-remnants",
+    -- dying_explosion = "rocket-silo-explosion",
     collision_box = { { -1.2, -1.2 }, { 1.2, 1.2 } },
     selection_box = { { -1.5, -1.5 }, { 1.5, 1.5 } },
-    hole_clipping_box = { { -1, -1 }, { 1, 1 } },
-    module_slots = 2,
-    allowed_effects = { "consumption", "speed", "pollution" },
-    heating_energy = "1MW",
-    active_energy_usage = "0.5MW",
-    lamp_energy_usage = "0W",
-    energy_usage = "250kW",
-    rocket_entity = "solar_refractor",
-    crafting_categories = { "steam_rockets" },
+    -- damaged_trigger_effect = hit_effects.entity(),
+    hole_clipping_box = { { -1, -1 }, { 1, 1 } }, -- hole_clipping_box = { {-2.75, -1.15}, {2.75, 2.25} },
+    resistances =
+    {
+        {
+            type = "fire",
+            percent = 40 -- 60
+        },
+        {
+            type = "impact",
+            percent = 40 -- 60
+        }
+    },
+    impact_category = "metal-large",
     energy_source = {
         type = "fluid",
         fluid_box = {
@@ -45,26 +78,67 @@ local retractor_silo = {
         },
         fluid_usage_per_tick = 10,
     },
+    energy_usage = "250kW", --energy usage used when crafting the rocket
+    lamp_energy_usage = "0kW",
+    active_energy_usage = "0.5MW", -- 3990kW
+    rocket_entity = "solar_refractor",
+    times_to_blink = 1,
+    light_blinking_speed = 1 / (0.25 * 60), -- 1 / (3 * 60),
+    door_opening_speed = 1 / (1 * 60), -- (4.25 * 60),
+
+    -- base_engine_light = { intensity = 1, size = 25, shift = {0, 1.5} },
+    -- shadow_sprite = { filename = "__base__/graphics/entity/rocket-silo/00-rocket-silo-shadow.png", priority = "medium", width = 612, height = 578, draw_as_shadow = true, dice = 2, shift = util.by_pixel(7, 2), scale = 0.5 },
+
+    hole_sprite =
+    {
+        filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. "_hole.png",
+        width = 1024,
+        height = 1024,
+        -- shift = util.by_pixel(-5, 16),
+        scale = 0.125
+    },
+
+    hole_light_sprite =
+    {
+        filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. "_hole.png",
+        width = 1024,
+        height = 1024,
+        -- shift = util.by_pixel(-5, 16),
+        scale = 0.125
+    },
+
+    --rocket_shadow_overlay_sprite =
+    --{
+    --    filename = "__base__/graphics/entity/rocket-silo/03-rocket-over-shadow-over-rocket.png",
+    --    width = 426,
+    --    height = 288,
+    --    shift = util.by_pixel(-2, 21),
+    --    scale = 0.5
+    --},
+    --rocket_glow_overlay_sprite =
+    --{
+    --    filename = "__base__/graphics/entity/rocket-silo/03-rocket-over-glow.png",
+    --    blend_mode = "additive",
+    --    width = 434,
+    --    height = 446,
+    --    shift = util.by_pixel(-3, 36),
+    --    scale = 0.5
+    --},
+
+    --door_back_sprite =
+    --{
+    --    filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. "_door.png",
+    --    width = 1024,
+    --    height = 1024,
+    --    --shift = util.by_pixel(37, 12),
+    --    scale = 0.125
+    --},
+
+    heating_energy = "1MW",
     door_back_open_offset = { 1.8, -1.8 * 0.43299225 },
     door_front_open_offset = { -1.8, 1.8 * 0.43299225 },
     silo_fade_out_start_distance = 8,
     silo_fade_out_end_distance = 15,
-    times_to_blink = 1,
-    light_blinking_speed = 1 / (3 * 60),
-    door_opening_speed = 1 / (4.25 * 60),
-    rocket_parts_required = 12,
-    rocket_quick_relaunch_start_offset = -0.625,
-    cargo_station_parameters = {
-        hatch_definitions = {
-            {
-                hatch_graphics = nil,
-                offset = { 0, 0 },
-                pod_shadow_offset = { 0, 0 };
-                cargo_unit_entity_to_spawn = "",
-                receiving_cargo_units = {}
-            }
-        },
-    },
 
     graphics_set = {
         animation = {
@@ -77,8 +151,6 @@ local retractor_silo = {
             scale = 0.125
         }
     },
-    impact_category = "metal-large",
-    crafting_speed = 1,
     launch_to_space_platforms = false,
     can_launch_without_landing_pads = true
 }

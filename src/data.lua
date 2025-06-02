@@ -72,6 +72,7 @@ local function declare_recipe(common, recipe)
             factoriopedia_alternative = recipe.factoriopedia_alternative,
             category = recipe.category or "crafting",
             icon = recipe.icon or common.icon,
+            icons = recipe.icons or common.icons,
             icon_size = icon_size,
             ingredients = ingredients,
             results = results,
@@ -137,6 +138,7 @@ local function declare_item(common, item)
             factoriopedia_simulation = item.factoriopedia_simulation,
             factoriopedia_alternative = item.factoriopedia_alternative,
             icon = item.icon or common.icon,
+            icons = item.icons or common.icons,
             icon_size = icon_size,
             stack_size = item.stack_size,
             dark_background_icons = item.dark_background_icons,
@@ -212,6 +214,7 @@ local function declare_resource(common, resource)
             factoriopedia_simulation = resource.factoriopedia_simulation,
             factoriopedia_alternative = resource.factoriopedia_alternative,
             icon = resource.icon or common.icon,
+            icons = resource.icons or common.icons,
             icon_size = icon_size,
             collision_box = resource.collision_box or { { -0.1, -0.1 }, { 0.1, 0.1 } },
             collision_mask = resource.collision_mask,
@@ -314,6 +317,7 @@ local function declare_entity(common, entity)
         factoriopedia_description = entity.factoriopedia_description or common.factoriopedia_description,
         subgroup = entity.subgroup or common.subgroup,
         icon = entity.icon or common.icon,
+        icons = entity.icons or common.icons,
         icon_size = icon_size,
     }
 

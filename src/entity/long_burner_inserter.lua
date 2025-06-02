@@ -7,7 +7,13 @@ return {
     {
         common = {
             name = _name,
-            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
+            icons = {
+                {
+                    icon = "__base__/graphics/icons/long-handed-inserter.png",
+                    tint = { 0.5, 0.3, 0.4 },
+                },
+            },
+            order = "c[long-handed-inserter]-2",
         },
         item = {
             stack_size = 50,
@@ -15,7 +21,6 @@ return {
             place_result = _name,
             subgroup = "inserter",
             color_hint = { text = "L" },
-            order = "c[long-handed-inserter]-f",
         },
         recipe = {
             ingredients = {
