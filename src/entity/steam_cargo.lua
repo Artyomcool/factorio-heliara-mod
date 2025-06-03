@@ -8,7 +8,7 @@ return {
     {
         common = {
             name = _name,
-            icon = "__heliara__/graphics/icons/fullerene.png", --fixme
+            icon = "__heliara__/graphics/icons/default.png", --fixme
             icon_size = 128,
         },
         recipe = {

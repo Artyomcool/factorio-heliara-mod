@@ -12,9 +12,9 @@ data:extend({
                 use_icon_overlay_constant = true
             },
         },
-        prerequisites = { "planet-discovery-vulcanus", "planet-discovery-fulgora", "planet-discovery-aquilo" },
+        prerequisites = { "planet-discovery-vulcanus", "planet-discovery-fulgora" },
         unit = {
-            count = 4000,
+            count = 100,
             ingredients = {
                 { "automation-science-pack", 1 },
                 { "logistic-science-pack", 1 },
@@ -24,7 +24,7 @@ data:extend({
                 { "space-science-pack", 1 },
                 { "metallurgic-science-pack", 1 },
                 { "electromagnetic-science-pack", 1 },
-                { "cryogenic-science-pack", 1 },
+                --{ "cryogenic-science-pack", 1 },
             },
             time = 60
         }
@@ -32,7 +32,7 @@ data:extend({
     {
         type = "technology",
         name = "fullerene_extraction_bath",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -50,7 +50,7 @@ data:extend({
     {
         type = "technology",
         name = "fullerene_solar_panel",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -68,7 +68,7 @@ data:extend({
     {
         type = "technology",
         name = "fullerene",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -121,7 +121,7 @@ data:extend({
     {
         type = "technology",
         name = "fullerene_lab",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -390,7 +390,7 @@ data:extend({
     {
         type = "technology",
         name = "fullerene_rocket_fuel",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -413,7 +413,7 @@ data:extend({
     {
         type = "technology",
         name = "steam_cargo",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -436,7 +436,7 @@ data:extend({
     {
         type = "technology",
         name = "fullerene_pole_length",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = false,
         upgrade = true,
@@ -461,7 +461,7 @@ data:extend({
     {
         type = "technology",
         name = "heliara_navigation",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -490,7 +490,7 @@ data:extend({
     {
         type = "technology",
         name = "advanced-fullerene",
-        icon = "__heliara__/graphics/icons/fullerene.png",
+        icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = false,
         effects = {
