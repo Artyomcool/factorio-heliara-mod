@@ -45,13 +45,19 @@ script.on_event({ defines.events.on_research_finished, defines.events.on_researc
 end)
 
 script.on_event(defines.events.on_cargo_pod_finished_descending, function(event)
-    local force = event.cargo_pod.force
-    if force.technologies["heliara_navigation"].researched then
+    local cargo_pod = event.cargo_pod
+
+    if cargo_pod.name == "cargo-pod-no-payload" then
+        cargo_pod.destroy()
         return
     end
 
-    local cargo_pod = event.cargo_pod
     if cargo_pod.get_passenger() ~= nil then
+        return
+    end
+
+    local force = event.cargo_pod.force
+    if force.technologies["heliara_navigation"].researched then
         return
     end
 
