@@ -46,8 +46,17 @@ end)
 
 script.on_event(defines.events.on_cargo_pod_finished_descending, function(event)
     local cargo_pod = event.cargo_pod
+    local force = cargo_pod.force
 
     if cargo_pod.name == "cargo-pod-no-payload" then
+        cargo_pod.destroy()
+        return
+    end
+
+    if cargo_pod.name == "cargo-dyson_swarm_element" then
+        -- todo translation
+        force.print('dyson!')
+
         cargo_pod.destroy()
         return
     end
@@ -56,7 +65,6 @@ script.on_event(defines.events.on_cargo_pod_finished_descending, function(event)
         return
     end
 
-    local force = event.cargo_pod.force
     if force.technologies["heliara_navigation"].researched then
         return
     end
@@ -117,9 +125,18 @@ script.on_event(defines.events.on_tick, function(event)
                 v.pole = create_hidden_pole(burner)
             end
         elseif silos and silos.valid then
-            --fixme: reinsert modules
             if silos.get_recipe() ~= nil then
-                if silos.get_recipe().name == 'solar_refractor' then
+                if silos.get_recipe().name == 'dyson_swarm_element' then
+                    if silos.rocket then
+                        if silos.launch_rocket() then
+                            for _, vv in pairs(silos.force.platforms or {}) do
+                                local surface = vv.surface
+                                surface.solar_power_multiplier = surface.solar_power_multiplier + 0.05
+                                game.print('changed surface.solar_power_multiplier: -> ' .. surface.solar_power_multiplier)
+                            end
+                        end
+                    end
+                elseif silos.get_recipe().name == 'solar_refractor' then
                     if silos.name ~= 'solar_refractor_silo' then
                         silos = silos.surface.create_entity {
                             name = "solar_refractor_silo",
@@ -155,6 +172,7 @@ script.on_event(defines.events.on_tick, function(event)
                                 surface.dusk = surface.evening - (surface.dawn - surface.morning)
                             end
                             surface.solar_power_multiplier = surface.solar_power_multiplier + 0.05
+                            game.print('surface.solar_power_multiplier -> ' .. surface.solar_power_multiplier)
                         end
                     end
                 elseif silos.get_recipe().name == 'steam_cargo' then
@@ -187,17 +205,16 @@ script.on_event(defines.events.on_built_entity, function(event)
     if entity.name == "fullerene_solar_panel" then
         storage.links = storage.links or {}
         storage.links[entity.unit_number] = { burner = entity }
-    elseif entity.name == "solar_refractor_silo" then
+    elseif entity.name == "solar_refractor_silo" or entity.name == 'dyson_swarm_launcher' then
         storage.links = storage.links or {}
         storage.links[entity.unit_number] = { silos = entity }
-        entity.surface.solar_power_multiplier = entity.surface.solar_power_multiplier + 1
     end
 end)
 
 script.on_event(defines.events.on_entity_died, function(event)
     local entity = event.entity
-    if entity.name == "fullerene_solar_panel" then
-        local links = storage.links[entity.unit_number]
+    local links = storage.links[entity.unit_number]
+    if links then
         if links.panel then
             links.panel.destroy()
         end

@@ -11,6 +11,10 @@ data:extend({
     {
         type = "recipe-category",
         name = "steam_rockets"
+    },
+    {
+        type = "recipe-category",
+        name = "space_rockets"
     }
 })
 
@@ -163,6 +167,16 @@ cargo_silo.rocket_entity = "steam_cargo"
 cargo_silo.crafting_categories = { "steam_rockets" }
 cargo_silo.to_be_inserted_to_rocket_inventory_size = 1
 
+local space_silo = table.deepcopy(retractor_silo)
+space_silo.name = 'dyson_swarm_launcher'
+space_silo.energy_source = { type = "electric", usage_priority = "primary-input", }
+space_silo.energy_usage = "250kW"
+space_silo.fixed_recipe = "dyson_swarm_element"
+space_silo.rocket_entity = "dyson_swarm_element"
+space_silo.crafting_categories = { "space_rockets" }
+space_silo.rocket_parts_required = 2 -- 20? 200?
+space_silo.minable = { mining_time = 5, result = space_silo.name }
+
 return {
     {
         common = {
@@ -192,5 +206,31 @@ return {
     },
     {
         entity = cargo_silo
+    },
+    {
+        common = {
+            name = 'dyson_swarm_launcher',
+            icon = "__heliara__/graphics/icons/" .. "default" .. ".png",
+        },
+        item = {
+            stack_size = 1,
+            random_tint_color = item_tints.iron_rust,
+            place_result = space_silo.name,
+        },
+        recipe = {
+            ingredients = {
+                ["stone-brick"] = 40,
+                ["concrete"] = 100,
+                ["steel-plate"] = 20,
+                ["iron-plate"] = 50,
+                ["iron-gear-wheel"] = 50,
+                ["engine-unit"] = 50,
+                ["graphite_circuit"] = 40,
+                ["heliara_assembling_machine"] = 4,
+            },
+            energy_required = 10,
+            enabled = false,
+        },
+        entity = space_silo
     }
 }

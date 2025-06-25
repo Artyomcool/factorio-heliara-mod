@@ -520,5 +520,32 @@ data:extend({
             time = 120
         }
     },
+    {
+        type = "technology",
+        name = "dyson_swarm",
+        icon = "__heliara__/graphics/icons/default.png",
+        icon_size = 1024,
+        essential = true,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "dyson_swarm_element",
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "dyson_swarm_launcher",
+            },
+        },
+        prerequisites = { "graphite-automation-science-pack", "graphite-logistic-science-pack" },
+        unit = {
+            count = 800,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        }
+    },
 
 })
