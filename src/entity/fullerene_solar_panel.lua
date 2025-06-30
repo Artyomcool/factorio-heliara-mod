@@ -48,13 +48,14 @@ return {
 
             animation = {
                 filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
-                width = 256,
-                height = 341,
-                frame_count = 1,
-                line_length = 1,
+                width = 240,
+                height = 320,
+                frame_count = 9,
+                line_length = 3,
                 scale = 0.5,
                 shift = { 0.0, 0.0 },
-            }
+            },
+            perceived_performance = {minimum = 0.1, maximum = 0.1}
         }
     },
     {

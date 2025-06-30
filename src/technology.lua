@@ -349,7 +349,7 @@ data:extend({
         icon_size = 500,
         essential = false,
         upgrade = true,
-        max_level = 4,
+        max_level = 3,
         show_levels_info = true,
         effects = {
             {
