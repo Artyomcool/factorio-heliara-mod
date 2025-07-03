@@ -39,11 +39,7 @@ script.on_event(defines.events.on_tick, function(event)
     each_entity_storage(function (v)
         tick_panel_energy(v)
         tick_steam_silo(v)
-        local silo = v.silo
-        if silo and silo.valid then
-            if silo.get_recipe() ~= nil then
-            end
-        end
+        tick_dyson_launcher(v)
     end)
 end)
 
@@ -84,16 +80,20 @@ end)
 
 script.on_event(defines.events.on_gui_opened, function(event)
     if event.entity and event.entity.name == 'fullerene_solar_panel' then
-        local g = create_ui(game.players[event.player_index], event.entity.surface)
-        g.visible = true
+        make_reflectors_ui(game.players[event.player_index], event.entity.surface)
+    elseif event.entity and event.entity.name == 'dyson_swarm_launcher' then
+        make_dyson_swarm_ui(game.players[event.player_index])
     end
 end)
 
 script.on_event(defines.events.on_gui_closed, function(event)
     if event.entity and event.entity.name == 'fullerene_solar_panel' then
-        local existed = game.players[event.player_index].gui.relative['relfectors_info']
-        if existed then
-            existed.destroy();
-        end
+        destroy_reflectors_ui(game.players[event.player_index])
+    elseif event.entity and event.entity.name == 'dyson_swarm_launcher' then
+        destroy_dyson_swarm_ui(game.players[event.player_index])
     end
+end)
+
+script.on_event(defines.events.on_forces_merging, function (event)
+    force_storage_destroy(event.source)
 end)

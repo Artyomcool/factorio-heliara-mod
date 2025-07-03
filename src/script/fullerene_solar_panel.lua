@@ -18,7 +18,7 @@ function create_hidden_pole(burner)
     }
 end
 
----@param wrapper {burner:LuaEntity|nil, pole:LuaEntity|nil, panel:LuaEntity|nil}
+---@param wrapper EntityStorage
 function tick_panel_energy(wrapper)
     if wrapper.burner and wrapper.burner.valid then
         wrapper.burner.energy = 0
@@ -48,11 +48,10 @@ function tick_panel_energy(wrapper)
 end
 
 function recreate_hidden_poles()
-
-    for _, v in pairs(storage.entities or {}) do
+    each_entity_storage(function (v)
         if v.burner and v.burner.valid and v.pole and v.pole.valid then
             v.pole.destroy()
             v.pole = create_hidden_pole(v.burner)
         end
-    end
+    end)
 end

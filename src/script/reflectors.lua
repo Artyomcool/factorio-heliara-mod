@@ -1,4 +1,4 @@
-require("__heliara__.script.storage")
+require("script.storage")
 
 local function interpolate(from, to, current)
     if current >= 1 then
