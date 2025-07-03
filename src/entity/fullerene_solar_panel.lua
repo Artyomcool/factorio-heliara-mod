@@ -32,10 +32,10 @@ return {
             selection_box = { { -1.99, -1.9 }, { 1.99, 2.4 } },
             energy_source = {
                 type = "electric",
-                buffer_capacity = "1J",
+                buffer_capacity = "1kJ",
                 usage_priority = "tertiary",
                 input_flow_limit = "0kW",
-                output_flow_limit = "1W",
+                output_flow_limit = "1kW",
                 render_no_power_icon = false,
                 render_no_network_icon = false,
             },
@@ -44,7 +44,7 @@ return {
                 fuel_inventory_size = 1,
                 fuel_categories = {"solar_fuel"}
             },
-            max_power_output = "500kW",
+            max_power_output = "1kW",
 
             animation = {
                 filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",

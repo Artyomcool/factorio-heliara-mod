@@ -96,6 +96,93 @@ script.on_event(defines.events.on_cargo_pod_finished_descending, function(event)
     force.print('Pod crashed because of navigation failure')
 end)
 
+---@param surface LuaSurface
+local function surface_storage(surface)
+    local index = surface.index
+
+    if not storage.surfaces then
+        storage.surfaces = {}
+    end
+    local result = storage.surfaces[index]
+    if not result then
+        result = {}
+        storage.surfaces[index] = result
+    end
+    return result
+end
+
+script.on_event(defines.events.on_surface_deleted, function(event)
+    if storage.surfaces then
+        storage.surfaces[event.surface_index] = nil
+    end
+end)
+
+local function daytime_parameters(day_duration, night_duration)
+    local min_distance = 0.000001
+    local dusk_dawn_duration = (1 - night_duration - day_duration) / 2
+    
+    -- 0 -> dusk = day
+    -- dusk -> evening = sunset process
+    -- evening -> morning = night
+    -- morning -> dawn = sunrise process (???)
+    -- dawn -> 1 = sunrise process (???)
+
+    return {
+        dusk = day_duration - min_distance * 3,
+        evening = day_duration + dusk_dawn_duration - min_distance * 2,
+        morning = day_duration + dusk_dawn_duration + night_duration - min_distance,
+        dawn = 1,
+    }
+end
+
+script.on_event(defines.events.on_surface_created, function(event)
+  local surface = game.surfaces[event.surface_index]
+
+  if surface.name == "heliara" then
+    -- we want a precise control here
+    surface.daytime_parameters = daytime_parameters(0.2, 0.2)
+    surface.solar_power_multiplier = 1
+  end
+end)
+
+
+local function interpolate(from, to, current)
+    if current >= 1 then
+        return to
+    end
+    
+    return from + (to - from) * current
+end
+
+local function day_duration(reflectors_count)
+    local count_to_make_it_always_day = 1000
+    return interpolate(0.2, 1, reflectors_count / count_to_make_it_always_day)
+end
+
+local function night_duration(reflectors_count)
+    local count_to_make_it_never_night = 500
+    return interpolate(0.2, 0, reflectors_count / count_to_make_it_never_night)
+end
+
+---@param surface LuaSurface
+---@param delta int32
+local function add_reflectors(surface, delta)
+
+    local surface_storage = surface_storage(surface)
+    local prev_count = surface_storage.reflectors_count or 0
+    local now_count = max(0, prev_count + delta)
+
+    if now_count == prev_count then
+        return
+    end
+
+    surface_storage.reflectors_count = now_count
+    surface.solar_power_multiplier = 1 + math.pow(now_count, 0.5) * 0.05
+
+
+    surface.daytime_parameters = daytime_parameters(day_duration(now_count), night_duration(now_count))
+end
+
 script.on_event(defines.events.on_tick, function(event)
     for _, v in pairs(storage.links or {}) do
         local burner = v.burner
@@ -152,27 +239,7 @@ script.on_event(defines.events.on_tick, function(event)
                     end
                     if silos.rocket then
                         if silos.launch_rocket() then
-                            -- dusk -> evening = sunset process
-                            -- evening -> morning = night
-                            -- morning -> dawn = sunrise process (???)
-                            -- dawn -> 1 = sunrise process (???)
-                            -- 0 -> dusk = day
-                            local step = 0.1
-                            local min_distance = 0.000001
-                            local surface = silos.surface
-                            if surface.morning - surface.evening > min_distance * 1.5 then
-                                surface.dawn = min(1, surface.dawn + step)
-                                surface.morning = max(surface.evening + min_distance, surface.morning - step / 2)
-                                surface.evening = min(surface.morning - min_distance, surface.morning + step / 2)
-                                surface.dusk = surface.evening - (surface.dawn - surface.morning)
-                            else
-                                surface.dawn = min(1, surface.dawn + step)
-                                surface.morning = min(surface.dawn - min_distance, surface.morning + step)
-                                surface.evening = min(surface.morning - min_distance, surface.evening + step * 2)
-                                surface.dusk = surface.evening - (surface.dawn - surface.morning)
-                            end
-                            surface.solar_power_multiplier = surface.solar_power_multiplier + 0.05
-                            game.print('surface.solar_power_multiplier -> ' .. surface.solar_power_multiplier)
+                            add_reflectors(silos.surface, 1)
                         end
                     end
                 elseif silos.get_recipe().name == 'steam_cargo' then
@@ -269,4 +336,42 @@ script.on_event(defines.events.on_chunk_generated, function(event)
     end
 
     surface.set_tiles(tiles, true)
+end)
+
+---@param player LuaPlayer
+---@param surface LuaSurface
+local function create_ui(player, surface)
+    add_reflectors(surface, 1)   -- fixme
+    local existed = player.gui.relative['heliara_HALLLO']
+    if existed then
+        existed.destroy();  -- for debug ony
+        -- return existed
+    end
+
+    local reflectors_count = surface_storage(surface).reflectors_count or 0
+
+    local anchor = {gui=defines.relative_gui_type.entity_with_energy_source_gui, position=defines.relative_gui_position.right}
+    local frame = player.gui.relative.add{type="frame", anchor=anchor, name='heliara_HALLLO', caption='[item=solar_refractor] Reflectors Info'}
+    local flow = frame.add{type="flow", direction="vertical"}
+
+    flow.add{type="label", caption='Count in atmosphere - ' .. reflectors_count}
+    flow.add{type="label", caption='Electicity bonus - ' .. string.format("%.1f", (surface.solar_power_multiplier - 1) * 100) .. '%'}
+    flow.add{type="label", caption='Day duration - ' .. string.format("%.1f", day_duration(reflectors_count) * 100) .. '%'}
+    flow.add{type="label", caption='Night duration - ' .. string.format("%.1f", night_duration(reflectors_count) * 100) .. '%'}
+
+    return frame
+end
+
+script.on_event(defines.events.on_gui_opened, function(event)
+    if event.entity and event.entity.name == 'fullerene_solar_panel' then
+        local g = create_ui(game.players[event.player_index], event.entity.surface)
+        g.visible = true
+    end
+end)
+
+script.on_event(defines.events.on_gui_closed, function(event)
+    if event.entity and event.entity.name == 'fullerene_solar_panel' then
+        local g = create_ui(game.players[event.player_index], event.entity.surface)
+        g.visible = false
+    end
 end)

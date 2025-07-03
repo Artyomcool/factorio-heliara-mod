@@ -1,0 +1,12 @@
+{
+    "factorio.versions": [
+        {
+            "name": "Local Installation",
+            "factorioPath": "c:\\GOG Games\\Factorio\\bin\\x64\\factorio.exe"
+        }
+    ],
+    "Lua.workspace.userThirdParty": [
+        "c:\\Users\\Raider\\AppData\\Roaming\\Code\\User\\workspaceStorage\\00dd7702700c6a6608339ef0a0d70e7c\\justarandomgeek.factoriomod-debug\\sumneko-3rd"
+    ],
+    "Lua.workspace.checkThirdParty": "ApplyInMemory"
+}
