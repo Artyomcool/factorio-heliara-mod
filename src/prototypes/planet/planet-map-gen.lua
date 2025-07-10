@@ -1,5 +1,120 @@
 local planet_map_gen = require("__space-age__/prototypes/planet/planet-map-gen")
 
+local function transition_masks()
+  return {
+    mask_spritesheet = "__base__/graphics/terrain/masks/transition-1.png",
+    mask_layout =
+    {
+      scale = 0.5,
+      inner_corner =
+      {
+        count = 8,
+      },
+      outer_corner =
+      {
+        count = 8,
+        x = 64*9
+      },
+      side =
+      {
+        count = 8,
+        x = 64*9*2
+      },
+      u_transition =
+      {
+        count = 1,
+        x = 64*9*3
+      },
+      o_transition =
+      {
+        count = 1,
+        x = 64*9*4
+      }
+    }
+  }
+end
+
+data:extend({
+  -- Сам тайл
+  {
+    type = "tile",
+    name = "heliara_dust",
+    needs_correction = false,
+    walking_speed_modifier = 1.0,
+    collision_mask = {
+        layers={
+            ground_tile=true
+        }
+    },
+    layer = 50,
+    variants = {
+      transition = transition_masks(),
+      main = {
+        {
+          picture = "__heliara__/graphics/terrain/heliara_dust.png",
+          count   = 16,
+          size    = 1,
+          line_length = 8
+        },
+        {
+          picture = "__heliara__/graphics/terrain/heliara_dust.png",
+          count   = 12,
+          size    = 2,
+          line_length = 4,
+          y = 64
+        },
+      },
+    },
+    map_color = { r = 0, g = 50, b = 50 },
+    decorative_removal_probability = 0.5,
+
+--    transitions = {},
+
+    autoplace = {probability_expression = "expression_in_range_base(-10, 0.7, 11, 11) + noise_layer_noise(19)"},
+  }
+})
+data:extend({
+  -- Сам тайл
+  {
+    type = "tile",
+    name = "heliara_dirt",
+    needs_correction = false,
+    walking_speed_modifier = 1.0,
+    collision_mask = {
+        layers={
+            ground_tile=true
+        }
+    },
+    layer = 60,
+    variants = {
+      transition = transition_masks(),
+      main = {
+        {
+          picture = "__heliara__/graphics/terrain/heliara_dirt.png",
+          count   = 16,
+          size    = 1,
+          line_length = 8,
+          scale = 0.5
+        },
+        {
+          picture = "__heliara__/graphics/terrain/heliara_dirt.png",
+          count   = 12,
+          size    = 2,
+          line_length = 4,
+          y = 128,
+          scale = 0.5
+        },
+      },
+    },
+    map_color = { r = 50, g = 50, b = 50 },
+    decorative_removal_probability = 0.5,
+
+--    transitions = {},
+
+    autoplace = {probability_expression = "expression_in_range_base(-10, 0.7, 11, 11) + noise_layer_noise(20)"},
+  }
+})
+
 data:extend({
     {
         type = "noise-expression",
@@ -77,48 +192,50 @@ planet_map_gen.heliara = function()
             {
                 settings =
                 {
-                    ["volcanic-ash-soil"] = {},
-                    ["natural-yumako-soil"] = {},
-                    ["natural-jellynut-soil"] = {},
-                    ["wetland-yumako"] = {},
-                    ["wetland-jellynut"] = {},
-                    ["wetland-blue-slime"] = {},
-                    ["wetland-light-green-slime"] = {},
-                    ["wetland-green-slime"] = {},
-                    ["wetland-light-dead-skin"] = {},
-                    ["wetland-dead-skin"] = {},
-                    ["wetland-pink-tentacle"] = {},
-                    ["wetland-red-tentacle"] = {},
-                    ["gleba-deep-lake"] = {},
-                    ["lowland-brown-blubber"] = {},
-                    ["lowland-olive-blubber"] = {},
-                    ["lowland-olive-blubber-2"] = {},
-                    ["lowland-olive-blubber-3"] = {},
-                    ["lowland-pale-green"] = {},
-                    ["lowland-cream-cauliflower"] = {},
-                    ["lowland-cream-cauliflower-2"] = {},
-                    ["lowland-dead-skin"] = {},
-                    ["lowland-dead-skin-2"] = {},
-                    ["lowland-cream-red"] = {},
-                    ["lowland-red-vein"] = {},
-                    ["lowland-red-vein-2"] = {},
-                    ["lowland-red-vein-3"] = {},
-                    ["lowland-red-vein-4"] = {},
-                    ["lowland-red-vein-dead"] = {},
-                    ["lowland-red-infection"] = {},
-                    ["midland-turquoise-bark"] = {},
-                    ["midland-turquoise-bark-2"] = {},
-                    ["midland-cracked-lichen"] = {},
-                    ["midland-cracked-lichen-dull"] = {},
-                    ["midland-cracked-lichen-dark"] = {},
-                    ["midland-yellow-crust"] = {},
-                    ["midland-yellow-crust-2"] = {},
-                    ["midland-yellow-crust-3"] = {},
-                    ["midland-yellow-crust-4"] = {},
-                    ["highland-dark-rock"] = {},
-                    ["highland-dark-rock-2"] = {},
-                    ["highland-yellow-rock"] = {},
-                    ["pit-rock"] = {}
+                    -- ["volcanic-ash-soil"] = {},
+                    -- ["natural-yumako-soil"] = {},
+                    -- ["natural-jellynut-soil"] = {},
+                    -- ["wetland-yumako"] = {},
+                    -- ["wetland-jellynut"] = {},
+                    -- ["wetland-blue-slime"] = {},
+                    -- ["wetland-light-green-slime"] = {},
+                    -- ["wetland-green-slime"] = {},
+                    -- ["wetland-light-dead-skin"] = {},
+                    -- ["wetland-dead-skin"] = {},
+                    -- ["wetland-pink-tentacle"] = {},
+                    -- ["wetland-red-tentacle"] = {},
+                    -- ["gleba-deep-lake"] = {},
+                    -- ["lowland-brown-blubber"] = {},
+                    -- ["lowland-olive-blubber"] = {},
+                    -- ["lowland-olive-blubber-2"] = {},
+                    -- ["lowland-olive-blubber-3"] = {},
+                    -- ["lowland-pale-green"] = {},
+                    -- ["lowland-cream-cauliflower"] = {},
+                    -- ["lowland-cream-cauliflower-2"] = {},
+                    -- ["lowland-dead-skin"] = {},
+                    -- ["lowland-dead-skin-2"] = {},
+                    -- ["lowland-cream-red"] = {},
+                    -- ["lowland-red-vein"] = {},
+                    -- ["lowland-red-vein-2"] = {},
+                    -- ["lowland-red-vein-3"] = {},
+                    -- ["lowland-red-vein-4"] = {},
+                    -- ["lowland-red-vein-dead"] = {},
+                    -- ["lowland-red-infection"] = {},
+                    -- ["midland-turquoise-bark"] = {},
+                    -- ["midland-turquoise-bark-2"] = {},
+                    -- ["midland-cracked-lichen"] = {},
+                    -- ["midland-cracked-lichen-dull"] = {},
+                    -- ["midland-cracked-lichen-dark"] = {},
+                    -- ["midland-yellow-crust"] = {},
+                    -- ["midland-yellow-crust-2"] = {},
+                    -- ["midland-yellow-crust-3"] = {},
+                    -- ["midland-yellow-crust-4"] = {},
+                    -- ["highland-dark-rock"] = {},
+                    -- ["highland-dark-rock-2"] = {},
+                    -- ["highland-yellow-rock"] = {},
+                    -- ["pit-rock"] = {},
+                    ["heliara_dust"] = {},
+                    ["heliara_dirt"] = {}
                 }
             },
             ["decorative"] =
@@ -154,7 +271,7 @@ planet_map_gen.heliara = function()
                 {
                     ["shungite"] = {},
                     ["stone"] = {},
-                    ["huge_fullerene_rock"] = {},
+                    --["huge_fullerene_rock"] = {},
                 }
             }
         }
