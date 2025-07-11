@@ -1,4 +1,5 @@
 require("__heliara__.prototypes.planet.planet")
+require("__heliara__.prototypes.noise")
 require("util")
 require("__heliara__.technology")
 

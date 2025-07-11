@@ -65,15 +65,15 @@ local function tile(name, layer, map_color, expression_base)
       },
     },
     map_color = map_color,
-    autoplace = {probability_expression = expression_base .. " + noise_layer_noise(" .. layer .. ") * 0.5"},
+    autoplace = {probability_expression = expression_base .. " + abs(noise_layer_noise(" .. layer .. ")) / 9"},
   }
 end
 
 data:extend({
-  tile('heliara_dust', 5, { r = 4, g = 4, b = 5 }, "1 - moisture * 10"),
-  tile('heliara_rusty_sand', 6, {  r = 13, g = 8, b = 2 }, "1 - moisture * 5"),
-  tile('heliara_iron_carbon_slag', 7, {  r = 22, g = 17, b = 17 }, "clamp(1 - elevation, 0, 1) * clamp(1 - moisture, 0, 1)"),
-  tile('heliara_clay_shale', 8, {  r = 65, g = 70, b = 27  }, "clamp(1 - elevation, 0, 1) * clamp(moisture, 0, 1)"),
+  tile('heliara_dust', 5, { r = 4, g = 4, b = 5 }, "peak(elevation, 0.6, 0.9) * peak(moisture, 0, 0.4) + 0.91"),
+  tile('heliara_rusty_sand', 6, {  r = 13, g = 8, b = 2 }, "peak(elevation, 0.2, 0.8) * peak(moisture, 0.4, 0.8) + 0.89"),
+  tile('heliara_iron_carbon_slag', 7, {  r = 22, g = 17, b = 17 }, "1 + abs(noise_layer_noise(1)) / 4"),
+  tile('heliara_clay_shale', 8, {  r = 65, g = 70, b = 27  }, "peak(elevation, 0, 0.2) * peak(moisture, 0.8, 1) + 0.86"),
 })
 
 data:extend({
@@ -99,12 +99,28 @@ data:extend({
                         grid_size = 113, \z
                         distance_type = 'euclidean', \z
                         jitter = 0.8 \z
-                      } < (1 - moisture * 4) * 0.1, 1, 0)"
+                      } < (1 - moisture * 100) * 0.1, 1, 0)"
     },
     {
         type = "noise-expression",
         name = "heliara_shungite_richness",
         expression = "random_penalty(x, y, 400, 1, 380)",
+    },
+    {
+        type = "noise-function",
+        name = "parabola",
+        parameters = {
+          "value", "left_zero", "right_zero"
+        },
+        expression = "(value - left_zero) * (value - right_zero)"
+    },
+    {
+        type = "noise-function",
+        name = "peak",
+        parameters = {
+          "value", "left_zero", "right_zero"
+        },
+        expression = "clamp(parabola(value, left_zero, right_zero) / parabola((left_zero + right_zero) / 2, left_zero, right_zero), 0, 1)"
     },
     {
         type = "noise-expression",
@@ -117,7 +133,7 @@ data:extend({
                 grid_size = 97, \z
                 distance_type = 'euclidean', \z
                 jitter = 0.7 \z
-                } * 7.5 - 5.5, 0, 1) * clamp(-elevation/2, 0, 1)"
+                } * 7.5 - 5.75, 0, 1) * min(1, peak(elevation, 0.05, 0.2) * 20)"
     },
     {
         type = "noise-expression",
@@ -136,10 +152,8 @@ planet_map_gen.heliara = function()
     {
         property_expression_names =
         {
-            elevation = "heliara_elevation",
-            temperature = "heliara_temperature",
-            moisture = "heliara_moisture",
-            aux = "heliara_aux",
+            moisture = "moisture_heliara",
+            elevation = "elevation_heliara",
             ["entity:shungite:probability"] = "heliara_shungite_probability",
             ["entity:shungite:richness"] = "heliara_shungite_richness",
             ["entity:stone:probability"] = "heliara_stone_probability",
@@ -156,8 +170,8 @@ planet_map_gen.heliara = function()
                 settings =
                 {
                     ["heliara_dust"] = {},
-                    ["heliara_iron_carbon_slag"] = {},
                     ["heliara_rusty_sand"] = {},
+                    ["heliara_iron_carbon_slag"] = {},
                     ["heliara_clay_shale"] = {}
                 }
             },
