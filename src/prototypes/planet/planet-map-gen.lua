@@ -65,15 +65,15 @@ local function tile(name, layer, map_color, expression_base)
       },
     },
     map_color = map_color,
-    autoplace = {probability_expression = expression_base .. " + abs(noise_layer_noise(" .. layer .. ")) / 9"},
+    autoplace = {probability_expression = expression_base .. " + abs(noise_layer_noise(" .. layer .. ")) / 5"},
   }
 end
 
 data:extend({
   tile('heliara_dust', 5, { r = 4, g = 4, b = 5 }, "peak(elevation, 0.2, 0.9) * peak(moisture, 0, 0.5) + 0.91"),
   tile('heliara_rusty_sand', 6, {  r = 13, g = 8, b = 2 }, "peak(elevation, 0.2, 0.8) * peak(moisture, 0.2, 0.8) + 0.79"),
-  tile('heliara_iron_carbon_slag', 7, {  r = 22, g = 17, b = 17 }, "1 + abs(noise_layer_noise(1)) / 4"),
-  tile('heliara_clay_shale', 8, {  r = 65, g = 70, b = 27  }, "peak(elevation, 0, 0.2) * peak(moisture, 0.6, 1) + 0.86"),
+  tile('heliara_iron_carbon_slag', 7, {  r = 22, g = 17, b = 17 }, "1 + abs(noise_layer_noise(1)) / 2"),
+  tile('heliara_clay_shale', 8, {  r = 65, g = 70, b = 27  }, "peak(elevation, 0, 0.2) * peak(moisture, 0.7, 1) + 0.86"),
 })
 
 data:extend({
