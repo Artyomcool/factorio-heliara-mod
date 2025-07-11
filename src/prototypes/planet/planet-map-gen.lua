@@ -76,6 +76,82 @@ data:extend({
   tile('heliara_clay_shale', 8, {  r = 65, g = 70, b = 27  }, "peak(elevation, 0, 0.2) * peak(moisture, 0.7, 1) + 0.86"),
 })
 
+local function decals()
+  local pictures = {
+  }
+  local x = 0
+  local y = 0
+  local w = 32
+  local h = 32
+  local d = function()
+    table.insert(pictures, {
+        filename = "__heliara__/graphics/decal/decals.png",
+        priority = "extra-high",
+        x = x,
+        y = y,
+        width = w,
+        height = h,
+        scale = 0.5,
+    })
+  end
+  local stripe = function(c)
+    for i = 1, c, 1 do
+      d();
+      y = y + h
+    end
+  end
+
+  stripe(8)
+  h = 48
+  stripe(2)
+
+  x = 32
+  y = 0
+  w = 48
+  h = 48
+  stripe(5)
+  h = 64
+  stripe(3)
+  x = 80
+  y = 0
+  w = 64
+  h = 64
+  stripe(1)
+  h = 48
+  stripe(1)
+  h = 64
+  stripe(1)
+  h = 96
+  stripe(1)
+  h = 48
+  stripe(1)
+  h = 64
+  stripe(4)
+  h = 48
+  stripe(2)
+  h = 64
+  stripe(2)
+
+  return pictures
+end
+
+data:extend({
+  {
+    name = "rust_crystals",
+    type = "optimized-decorative",
+    order = "a[vulcanus]-b[decorative]",
+    collision_box = {{-1.5, -1.5}, {1.5, 1.5}},
+    --collision_mask = {},
+    render_layer = "decals",
+    tile_layer =  255,
+    autoplace = {
+      order = "d[ground-surface]-e[crater]-a[small]",
+      probability_expression = "peak(moisture, 0.2, 0.8) * peak(elevation, 0.2, 1) * 0.05"
+    },
+    pictures = decals()
+  },
+})
+
 data:extend({
     {
         type = "noise-expression",
@@ -199,7 +275,7 @@ planet_map_gen.heliara = function()
                     -- ["small-sulfur-rock"] = {},
                     -- ["tiny-sulfur-rock"] = {},
                     -- ["sulfur-rock-cluster"] = {},
-                    -- ["waves-decal"] = {},
+                    ["rust_crystals"] = {},
                 }
             },
             ["entity"] =
