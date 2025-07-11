@@ -34,11 +34,10 @@ local function transition_masks()
   }
 end
 
-data:extend({
-  -- Сам тайл
-  {
+local function tile(name, layer, map_color, expression_base)
+  return {
     type = "tile",
-    name = "heliara_dust",
+    name = name,
     needs_correction = false,
     walking_speed_modifier = 1.0,
     collision_mask = {
@@ -46,18 +45,18 @@ data:extend({
             ground_tile=true
         }
     },
-    layer = 50,
+    layer = layer,
     variants = {
       transition = transition_masks(),
       main = {
         {
-          picture = "__heliara__/graphics/terrain/heliara_dust.png",
+          picture = "__heliara__/graphics/terrain/" .. name .. ".png",
           count   = 16,
           size    = 1,
           line_length = 8
         },
         {
-          picture = "__heliara__/graphics/terrain/heliara_dust.png",
+          picture = "__heliara__/graphics/terrain/" .. name .. ".png",
           count   = 12,
           size    = 2,
           line_length = 4,
@@ -65,54 +64,16 @@ data:extend({
         },
       },
     },
-    map_color = { r = 0, g = 50, b = 50 },
-    decorative_removal_probability = 0.5,
-
---    transitions = {},
-
-    autoplace = {probability_expression = "expression_in_range_base(-10, 0.7, 11, 11) + noise_layer_noise(19)"},
+    map_color = map_color,
+    autoplace = {probability_expression = expression_base .. " + noise_layer_noise(" .. layer .. ") * 0.5"},
   }
-})
+end
+
 data:extend({
-  -- Сам тайл
-  {
-    type = "tile",
-    name = "heliara_dirt",
-    needs_correction = false,
-    walking_speed_modifier = 1.0,
-    collision_mask = {
-        layers={
-            ground_tile=true
-        }
-    },
-    layer = 60,
-    variants = {
-      transition = transition_masks(),
-      main = {
-        {
-          picture = "__heliara__/graphics/terrain/heliara_dirt.png",
-          count   = 16,
-          size    = 1,
-          line_length = 8,
-          scale = 0.5
-        },
-        {
-          picture = "__heliara__/graphics/terrain/heliara_dirt.png",
-          count   = 12,
-          size    = 2,
-          line_length = 4,
-          y = 128,
-          scale = 0.5
-        },
-      },
-    },
-    map_color = { r = 50, g = 50, b = 50 },
-    decorative_removal_probability = 0.5,
-
---    transitions = {},
-
-    autoplace = {probability_expression = "expression_in_range_base(-10, 0.7, 11, 11) + noise_layer_noise(20)"},
-  }
+  tile('heliara_dust', 5, { r = 4, g = 4, b = 5 }, "1 - moisture * 10"),
+  tile('heliara_rusty_sand', 6, {  r = 13, g = 8, b = 2 }, "1 - moisture * 5"),
+  tile('heliara_iron_carbon_slag', 7, {  r = 22, g = 17, b = 17 }, "clamp(1 - elevation, 0, 1) * clamp(1 - moisture, 0, 1)"),
+  tile('heliara_clay_shale', 8, {  r = 65, g = 70, b = 27  }, "clamp(1 - elevation, 0, 1) * clamp(moisture, 0, 1)"),
 })
 
 data:extend({
@@ -138,7 +99,7 @@ data:extend({
                         grid_size = 113, \z
                         distance_type = 'euclidean', \z
                         jitter = 0.8 \z
-                      } < 0.1, 1, 0)"
+                      } < (1 - moisture * 4) * 0.1, 1, 0)"
     },
     {
         type = "noise-expression",
@@ -156,12 +117,12 @@ data:extend({
                 grid_size = 97, \z
                 distance_type = 'euclidean', \z
                 jitter = 0.7 \z
-                } * 7.5 - 6, 0, 1)"
+                } * 7.5 - 5.5, 0, 1) * clamp(-elevation/2, 0, 1)"
     },
     {
         type = "noise-expression",
         name = "heliara_stone_richness",
-        expression = "random_penalty(x, y, 500, 2, 100)",
+        expression = "random_penalty(x, y, 500, 2, 400)",
     },
     {
         type = "noise-expression",
@@ -183,8 +144,10 @@ planet_map_gen.heliara = function()
             ["entity:shungite:richness"] = "heliara_shungite_richness",
             ["entity:stone:probability"] = "heliara_stone_probability",
             ["entity:stone:richness"] = "heliara_stone_richness",
-            ["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
+            --["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
         },
+
+        autoplace_controls = {},
 
         autoplace_settings =
         {
@@ -192,50 +155,10 @@ planet_map_gen.heliara = function()
             {
                 settings =
                 {
-                    -- ["volcanic-ash-soil"] = {},
-                    -- ["natural-yumako-soil"] = {},
-                    -- ["natural-jellynut-soil"] = {},
-                    -- ["wetland-yumako"] = {},
-                    -- ["wetland-jellynut"] = {},
-                    -- ["wetland-blue-slime"] = {},
-                    -- ["wetland-light-green-slime"] = {},
-                    -- ["wetland-green-slime"] = {},
-                    -- ["wetland-light-dead-skin"] = {},
-                    -- ["wetland-dead-skin"] = {},
-                    -- ["wetland-pink-tentacle"] = {},
-                    -- ["wetland-red-tentacle"] = {},
-                    -- ["gleba-deep-lake"] = {},
-                    -- ["lowland-brown-blubber"] = {},
-                    -- ["lowland-olive-blubber"] = {},
-                    -- ["lowland-olive-blubber-2"] = {},
-                    -- ["lowland-olive-blubber-3"] = {},
-                    -- ["lowland-pale-green"] = {},
-                    -- ["lowland-cream-cauliflower"] = {},
-                    -- ["lowland-cream-cauliflower-2"] = {},
-                    -- ["lowland-dead-skin"] = {},
-                    -- ["lowland-dead-skin-2"] = {},
-                    -- ["lowland-cream-red"] = {},
-                    -- ["lowland-red-vein"] = {},
-                    -- ["lowland-red-vein-2"] = {},
-                    -- ["lowland-red-vein-3"] = {},
-                    -- ["lowland-red-vein-4"] = {},
-                    -- ["lowland-red-vein-dead"] = {},
-                    -- ["lowland-red-infection"] = {},
-                    -- ["midland-turquoise-bark"] = {},
-                    -- ["midland-turquoise-bark-2"] = {},
-                    -- ["midland-cracked-lichen"] = {},
-                    -- ["midland-cracked-lichen-dull"] = {},
-                    -- ["midland-cracked-lichen-dark"] = {},
-                    -- ["midland-yellow-crust"] = {},
-                    -- ["midland-yellow-crust-2"] = {},
-                    -- ["midland-yellow-crust-3"] = {},
-                    -- ["midland-yellow-crust-4"] = {},
-                    -- ["highland-dark-rock"] = {},
-                    -- ["highland-dark-rock-2"] = {},
-                    -- ["highland-yellow-rock"] = {},
-                    -- ["pit-rock"] = {},
                     ["heliara_dust"] = {},
-                    ["heliara_dirt"] = {}
+                    ["heliara_iron_carbon_slag"] = {},
+                    ["heliara_rusty_sand"] = {},
+                    ["heliara_clay_shale"] = {}
                 }
             },
             ["decorative"] =
@@ -248,21 +171,21 @@ planet_map_gen.heliara = function()
                     --["v-brown-hairy-grass"] = {},
                     --["v-red-pita"] = {},
                     -- end of nauvis
-                    ["sulfur-stain"] = {},
-                    ["sulfur-stain-small"] = {},
-                    ["sulfuric-acid-puddle"] = {},
-                    ["sulfuric-acid-puddle-small"] = {},
-                    ["crater-small"] = {},
-                    ["crater-large"] = {},
-                    ["pumice-relief-decal"] = {},
-                    ["small-volcanic-rock"] = {},
-                    ["medium-volcanic-rock"] = {},
-                    ["tiny-volcanic-rock"] = {},
-                    ["tiny-rock-cluster"] = {},
-                    ["small-sulfur-rock"] = {},
-                    ["tiny-sulfur-rock"] = {},
-                    ["sulfur-rock-cluster"] = {},
-                    ["waves-decal"] = {},
+                    -- ["sulfur-stain"] = {},
+                    -- ["sulfur-stain-small"] = {},
+                    -- ["sulfuric-acid-puddle"] = {},
+                    -- ["sulfuric-acid-puddle-small"] = {},
+                    -- ["crater-small"] = {},
+                    -- ["crater-large"] = {},
+                    -- ["pumice-relief-decal"] = {},
+                    -- ["small-volcanic-rock"] = {},
+                    -- ["medium-volcanic-rock"] = {},
+                    -- ["tiny-volcanic-rock"] = {},
+                    -- ["tiny-rock-cluster"] = {},
+                    -- ["small-sulfur-rock"] = {},
+                    -- ["tiny-sulfur-rock"] = {},
+                    -- ["sulfur-rock-cluster"] = {},
+                    -- ["waves-decal"] = {},
                 }
             },
             ["entity"] =
