@@ -72,10 +72,12 @@ local function tile(name, layer, map_color, expression_base)
 end
 
 data:extend({
-  tile('heliara_dust', 5, { r = 5, g = 4, b = 6 }, "peak(elevation, 0.2, 0.9) * peak(moisture, 0, 0.5) + 0.91"),
-  tile('heliara_rusty_sand', 6, {  r = 13, g = 8, b = 2 }, "peak(elevation, 0.2, 0.8) * peak(moisture, 0.2, 0.8) + 0.79"),
-  tile('heliara_iron_carbon_slag', 7, {  r = 22, g = 17, b = 17 }, "1 + abs(noise_layer_noise(1)) / 2"),
-  tile('heliara_clay_shale', 8, {  r = 65, g = 70, b = 27  }, "peak(elevation, 0, 0.2) * peak(moisture, 0.7, 1) + 0.86"),
+  tile('heliara_dust', 5, { r = 5, g = 4, b = 7 }, "heliara_dust_base"),
+  tile('heliara_rusty_sand', 6, {  r = 40, g = 20, b = 4 }, "heliara_rusty_sand_base"),
+  tile('heliara_iron_carbon_slag', 7, {  r = 30, g = 24, b = 24 }, "heliara_iron_carbon_slag"),
+  tile('heliara_clay_shale', 8, {  r = 65, g = 70, b = 27  }, "heliara_clay_shale_base"),
+  tile('heliara_weathered_siliceous_crust', 9, {  r = 80, g = 90, b = 100 }, "heliara_weathered_siliceous_crust"),
+  tile('heliara_ferocalcite_crust', 10, {  r = 80, g = 90, b = 100 }, "heliara_ferocalcite_crust"),
 })
 
 local function decal(x, y, w, h)
@@ -88,54 +90,6 @@ local function decal(x, y, w, h)
         height = h,
         scale = 0.5,
     }
-end
-
-local function rust_decals()
-  local pictures = {
-  }
-  local x = 0
-  local y = 0
-  local w = 32
-  local h = 32
-  local stripe = function(c)
-    for i = 1, c, 1 do
-      table.insert(pictures, decal(x, y, w, h))
-      y = y + h
-    end
-  end
-
-  stripe(8)
-  h = 48
-  stripe(2)
-
-  x = 32
-  y = 0
-  w = 48
-  h = 48
-  stripe(5)
-  h = 64
-  stripe(3)
-  x = 80
-  y = 0
-  w = 64
-  h = 64
-  stripe(1)
-  h = 48
-  stripe(1)
-  h = 64
-  stripe(1)
-  h = 96
-  stripe(1)
-  h = 48
-  stripe(1)
-  h = 64
-  stripe(4)
-  h = 48
-  stripe(2)
-  h = 64
-  stripe(2)
-
-  return pictures
 end
 
 local function clay_cracks_decals()
@@ -174,60 +128,6 @@ local function clay_cracks_decals()
   return pictures
 end
 
-local function stones_decals()
-  local pictures = {
-  }
-  local x = 0
-  local y = 38*16
-  local w = 16
-  local h = 16
-  local stripe = function(c)
-    for i = 1, c, 1 do
-      table.insert(pictures, decal(x, y, w, h))
-      y = y + h
-    end
-  end
-  local next = function(nw,nh)
-    y = 0
-    x = x + w
-    w = nw
-    h = nh
-  end
-
-  stripe(6)
-  x = 16
-  y = 38*16
-  stripe(6)
-  x = 0
-  w = 32
-  h = 32
-  stripe(10)
-  x = 32
-  y = 24*16
-  w = 48
-  h = 48
-  stripe(6)
-
-  return pictures
-end
-
-data:extend({
-  {
-    name = "rust_crystals",
-    type = "optimized-decorative",
-    order = "a[vulcanus]-b[decorative]",
-    collision_box = {{-1.5, -1.5}, {1.5, 1.5}},
-    --collision_mask = {},
-    render_layer = "decals",
-    tile_layer =  255,
-    autoplace = {
-      order = "d[ground-surface]-e[crater]-a[small]",
-      probability_expression = "peak(moisture, 0.4, 1) * peak(elevation, 0.2, 1) * 0.02"
-    },
-    pictures = rust_decals()
-  },
-})
-
 data:extend({
   {
     name = "clay_cracks",
@@ -239,28 +139,12 @@ data:extend({
     tile_layer =  255,
     autoplace = {
       order = "d[ground-surface]-e[crater]-a[small]",
-      probability_expression = "peak(elevation, 0, 0.3) * peak(moisture, 0.7, 1) * 0.01"
+      probability_expression = "clay_cracks"
     },
     pictures = clay_cracks_decals()
   },
 })
 
-data:extend({
-  {
-    name = "stones",
-    type = "optimized-decorative",
-    order = "a[vulcanus]-b[decorative]",
-    collision_box = {{-4.5, -4.5}, {4.5, 4.5}},
-    --collision_mask = {},
-    render_layer = "decals",
-    tile_layer =  255,
-    autoplace = {
-      order = "d[ground-surface]-e[crater]-a[small]",
-      probability_expression = "peak(elevation, 0, 0.75) * 0.01"
-    },
-    pictures = stones_decals()
-  },
-})
 
 
 data:extend({
@@ -287,27 +171,6 @@ data:extend({
                         distance_type = 'euclidean', \z
                         jitter = 0.8 \z
                       } < (1 - moisture * 100) * 0.1, 1, 0)"
-    },
-    {
-        type = "noise-expression",
-        name = "heliara_shungite_richness",
-        expression = "random_penalty(x, y, 400, 1, 380)",
-    },
-    {
-        type = "noise-function",
-        name = "parabola",
-        parameters = {
-          "value", "left_zero", "right_zero"
-        },
-        expression = "(value - left_zero) * (value - right_zero)"
-    },
-    {
-        type = "noise-function",
-        name = "peak",
-        parameters = {
-          "value", "left_zero", "right_zero"
-        },
-        expression = "clamp(parabola(value, left_zero, right_zero) / parabola((left_zero + right_zero) / 2, left_zero, right_zero), 0, 1)"
     },
     {
         type = "noise-expression",
@@ -359,36 +222,31 @@ planet_map_gen.heliara = function()
                     ["heliara_dust"] = {},
                     ["heliara_rusty_sand"] = {},
                     ["heliara_iron_carbon_slag"] = {},
-                    ["heliara_clay_shale"] = {}
+                    ["heliara_clay_shale"] = {},
+                    ["heliara_weathered_siliceous_crust"] = {},
+                    ["heliara_ferocalcite_crust"] = {},
                 }
             },
             ["decorative"] =
             {
                 settings =
                 {
-                    -- nauvis decoratives
-                    --["v-brown-carpet-grass"] = {},
-                    --["v-green-hairy-grass"] = {},
-                    --["v-brown-hairy-grass"] = {},
-                    --["v-red-pita"] = {},
-                    -- end of nauvis
-                    -- ["sulfur-stain"] = {},
-                    -- ["sulfur-stain-small"] = {},
-                    -- ["sulfuric-acid-puddle"] = {},
-                    -- ["sulfuric-acid-puddle-small"] = {},
-                    -- ["crater-small"] = {},
-                    -- ["crater-large"] = {},
-                    -- ["pumice-relief-decal"] = {},
-                    -- ["small-volcanic-rock"] = {},
-                    -- ["medium-volcanic-rock"] = {},
-                    -- ["tiny-volcanic-rock"] = {},
-                    -- ["tiny-rock-cluster"] = {},
-                    -- ["small-sulfur-rock"] = {},
-                    -- ["tiny-sulfur-rock"] = {},
-                    -- ["sulfur-rock-cluster"] = {},
-                    ["rust_crystals"] = {},
-                    ["clay_cracks"] = {},
-                    ["stones"] = {},
+
+                  -- ["small-sand-rock"] = {}, -- todo make black and red tints
+                  -- ["sand-dune-decal"] = {},  -- todo make black and red tints
+                  -- ["sand-decal"] = {},  -- todo make 4 tints
+                  --["red-desert-decal"] = {},  -- todo make 4 tints
+                  --["light-mud-decal"] = {},  -- todo make glue tints
+                  --["dark-mud-decal"] = {},  -- todo make default tints
+                  --["large-volcanic-stone"] = {},  -- todo make default, black and red tints
+                  --["huge-cold-cracks"] = {},  -- todo make default, black and red tints
+                  --["large-cold-cracks"] = {},  -- todo make default, black and red tints
+                  ["clay_cracks"] = {},
+                  ["heliara_tiny_rock_1"] = {},
+                  ["heliara_tiny_rock_2"] = {},
+                  ["heliara_tiny_rock_3"] = {},
+                  ["heliara_waves_decal"] = {},
+                  ["heliara_calcite_small"] = {},
                 }
             },
             ["entity"] =
