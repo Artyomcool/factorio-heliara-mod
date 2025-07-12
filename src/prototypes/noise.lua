@@ -91,7 +91,7 @@ data:extend({
             seed1 = 503,\z
             input_scale = 1 / 128,\z
             octaves = 5,\z
-            persistence = 0.5,\z
+            persistence = 0.25,\z
             output_scale = 1\z
             } + 1\z
         ) / 2,\z
