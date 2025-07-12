@@ -44,7 +44,7 @@ data:extend({
   {
     type = "noise-expression",
     name = "heliara_segmentation_multiplier",
-    expression = "1.5"
+    expression = "16"
   },
   {
     type = "noise-expression",
@@ -89,7 +89,7 @@ data:extend({
             y = y,\z
             seed0 = map_seed,\z
             seed1 = 503,\z
-            input_scale = 1 / 128,\z
+            input_scale = 1 / 32,\z
             octaves = 5,\z
             persistence = 0.25,\z
             output_scale = 1\z

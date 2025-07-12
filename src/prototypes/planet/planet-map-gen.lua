@@ -174,6 +174,43 @@ local function clay_cracks_decals()
   return pictures
 end
 
+local function stones_decals()
+  local pictures = {
+  }
+  local x = 0
+  local y = 38*16
+  local w = 16
+  local h = 16
+  local stripe = function(c)
+    for i = 1, c, 1 do
+      table.insert(pictures, decal(x, y, w, h))
+      y = y + h
+    end
+  end
+  local next = function(nw,nh)
+    y = 0
+    x = x + w
+    w = nw
+    h = nh
+  end
+
+  stripe(6)
+  x = 16
+  y = 38*16
+  stripe(6)
+  x = 0
+  w = 32
+  h = 32
+  stripe(10)
+  x = 32
+  y = 24*16
+  w = 48
+  h = 48
+  stripe(6)
+
+  return pictures
+end
+
 data:extend({
   {
     name = "rust_crystals",
@@ -207,6 +244,24 @@ data:extend({
     pictures = clay_cracks_decals()
   },
 })
+
+data:extend({
+  {
+    name = "stones",
+    type = "optimized-decorative",
+    order = "a[vulcanus]-b[decorative]",
+    collision_box = {{-4.5, -4.5}, {4.5, 4.5}},
+    --collision_mask = {},
+    render_layer = "decals",
+    tile_layer =  255,
+    autoplace = {
+      order = "d[ground-surface]-e[crater]-a[small]",
+      probability_expression = "peak(elevation, 0, 0.75) * 0.01"
+    },
+    pictures = stones_decals()
+  },
+})
+
 
 data:extend({
     {
@@ -333,6 +388,7 @@ planet_map_gen.heliara = function()
                     -- ["sulfur-rock-cluster"] = {},
                     ["rust_crystals"] = {},
                     ["clay_cracks"] = {},
+                    ["stones"] = {},
                 }
             },
             ["entity"] =
