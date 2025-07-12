@@ -53,14 +53,16 @@ local function tile(name, layer, map_color, expression_base)
           picture = "__heliara__/graphics/terrain/" .. name .. ".png",
           count   = 16,
           size    = 1,
-          line_length = 8
+          line_length = 8,
+          scale = 0.5
         },
         {
           picture = "__heliara__/graphics/terrain/" .. name .. ".png",
           count   = 12,
           size    = 2,
           line_length = 4,
-          y = 64
+          y = 128,
+          scale = 0.5
         },
       },
     },
@@ -70,21 +72,14 @@ local function tile(name, layer, map_color, expression_base)
 end
 
 data:extend({
-  tile('heliara_dust', 5, { r = 4, g = 4, b = 5 }, "peak(elevation, 0.2, 0.9) * peak(moisture, 0, 0.5) + 0.91"),
+  tile('heliara_dust', 5, { r = 5, g = 4, b = 6 }, "peak(elevation, 0.2, 0.9) * peak(moisture, 0, 0.5) + 0.91"),
   tile('heliara_rusty_sand', 6, {  r = 13, g = 8, b = 2 }, "peak(elevation, 0.2, 0.8) * peak(moisture, 0.2, 0.8) + 0.79"),
   tile('heliara_iron_carbon_slag', 7, {  r = 22, g = 17, b = 17 }, "1 + abs(noise_layer_noise(1)) / 2"),
   tile('heliara_clay_shale', 8, {  r = 65, g = 70, b = 27  }, "peak(elevation, 0, 0.2) * peak(moisture, 0.7, 1) + 0.86"),
 })
 
-local function decals()
-  local pictures = {
-  }
-  local x = 0
-  local y = 0
-  local w = 32
-  local h = 32
-  local d = function()
-    table.insert(pictures, {
+local function decal(x, y, w, h)
+    return {
         filename = "__heliara__/graphics/decal/decals.png",
         priority = "extra-high",
         x = x,
@@ -92,11 +87,19 @@ local function decals()
         width = w,
         height = h,
         scale = 0.5,
-    })
-  end
+    }
+end
+
+local function rust_decals()
+  local pictures = {
+  }
+  local x = 0
+  local y = 0
+  local w = 32
+  local h = 32
   local stripe = function(c)
     for i = 1, c, 1 do
-      d();
+      table.insert(pictures, decal(x, y, w, h))
       y = y + h
     end
   end
@@ -135,6 +138,42 @@ local function decals()
   return pictures
 end
 
+local function clay_cracks_decals()
+  local pictures = {
+  }
+  local x = 144
+  local y = 0
+  local w = 256
+  local h = 336
+  local stripe = function(c)
+    for i = 1, c, 1 do
+      table.insert(pictures, decal(x, y, w, h))
+      y = y + h
+    end
+  end
+  local next = function(nw,nh)
+    y = 0
+    x = x + w
+    w = nw
+    h = nh
+  end
+
+  stripe(1)
+  h=21*16
+  stripe(1)
+  h=14*16
+  stripe(1)
+
+  next(4*16,4*16)
+  stripe(1)
+  h=11*16
+  stripe(1)
+  h=8*16
+  stripe(1)
+
+  return pictures
+end
+
 data:extend({
   {
     name = "rust_crystals",
@@ -146,9 +185,26 @@ data:extend({
     tile_layer =  255,
     autoplace = {
       order = "d[ground-surface]-e[crater]-a[small]",
-      probability_expression = "peak(moisture, 0.2, 0.8) * peak(elevation, 0.2, 1) * 0.05"
+      probability_expression = "peak(moisture, 0.4, 1) * peak(elevation, 0.2, 1) * 0.02"
     },
-    pictures = decals()
+    pictures = rust_decals()
+  },
+})
+
+data:extend({
+  {
+    name = "clay_cracks",
+    type = "optimized-decorative",
+    order = "a[vulcanus]-b[decorative]",
+    collision_box = {{-4.5, -4.5}, {4.5, 4.5}},
+    --collision_mask = {},
+    render_layer = "decals",
+    tile_layer =  255,
+    autoplace = {
+      order = "d[ground-surface]-e[crater]-a[small]",
+      probability_expression = "peak(elevation, 0, 0.3) * peak(moisture, 0.7, 1) * 0.01"
+    },
+    pictures = clay_cracks_decals()
   },
 })
 
@@ -276,6 +332,7 @@ planet_map_gen.heliara = function()
                     -- ["tiny-sulfur-rock"] = {},
                     -- ["sulfur-rock-cluster"] = {},
                     ["rust_crystals"] = {},
+                    ["clay_cracks"] = {},
                 }
             },
             ["entity"] =
