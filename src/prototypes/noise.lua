@@ -133,8 +133,8 @@ data:extend({
   {
     type = "noise-expression",
     name = "moisture_heliara",
-    expression = "clamp(\z
-        (multioctave_noise {\z
+    expression = "min(1,\z
+        abs(multioctave_noise {\z
             x = x,\z
             y = y,\z
             seed0 = map_seed,\z
@@ -142,11 +142,9 @@ data:extend({
             input_scale = 1 / 32,\z
             octaves = 5,\z
             persistence = 0.25,\z
-            output_scale = 1\z
-            } + 1\z
-        ) / 2,\z
-        0,\z
-        1\z
+            output_scale = 0.9\z
+            }\z
+        )\z
     )"
   },
 
@@ -154,7 +152,7 @@ data:extend({
   {
     type = "noise-expression",
     name = "heliara_dust_base",
-    expression = "lpos(moisture, 0.1, 0)"
+    expression = "lpos(moisture, 0.5, 0)"
   },
   {
     type = "noise-expression",
@@ -164,22 +162,27 @@ data:extend({
   {
     type = "noise-expression",
     name = "heliara_clay_shale_base",
-    expression = "lpos(moisture, 0.9, 1) - elevation / 4"
+    expression = "lpos(moisture, 0.9, 1) * 0.8 - elevation / 2"
   },
   {
     type = "noise-expression",
     name = "heliara_iron_carbon_slag",
-    expression = "max(peak(elevation, 0.2, 1), peak(moisture, 0.05, 0.4), peak(moisture, 0.6, 0.95)) + noise_layer_noise(7)"
+    expression = "1 - max(heliara_dust_base, heliara_rusty_sand_base, heliara_clay_shale_base) + noise_layer_noise(7)"
   },
   {
     type = "noise-expression",
     name = "heliara_weathered_siliceous_crust",
-    expression = "clamp(lpos(elevation, 0.8, 1) * 2 - moisture, 0, 1)"
+    expression = "clamp(lpos(elevation, 0.6, 1) * 3 - moisture / 8, 0, 1)"
   },
   {
     type = "noise-expression",
     name = "heliara_ferocalcite_crust",
-    expression = "cut(peak(elevation, 0.5, 0.9), 0.1)"
+    expression = "cut(peak(elevation, 0.2, 0.8), 0.1) * 0.25"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_silcrete_crust",
+    expression = "lpos(elevation, 0.4, 0)"
   },
   
 

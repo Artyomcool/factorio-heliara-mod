@@ -72,12 +72,13 @@ local function tile(name, layer, map_color, expression_base)
 end
 
 data:extend({
-  tile('heliara_dust', 5, { r = 5, g = 4, b = 7 }, "heliara_dust_base"),
+  tile('heliara_dust', 5, { r = 6, g = 5, b = 8 }, "heliara_dust_base"),
   tile('heliara_rusty_sand', 6, {  r = 40, g = 20, b = 4 }, "heliara_rusty_sand_base"),
   tile('heliara_iron_carbon_slag', 7, {  r = 30, g = 24, b = 24 }, "heliara_iron_carbon_slag"),
-  tile('heliara_clay_shale', 8, {  r = 65, g = 70, b = 27  }, "heliara_clay_shale_base"),
+  tile('heliara_clay_shale', 8, {  r = 65, g = 67, b = 27  }, "heliara_clay_shale_base"),
   tile('heliara_weathered_siliceous_crust', 9, {  r = 80, g = 90, b = 100 }, "heliara_weathered_siliceous_crust"),
-  tile('heliara_ferocalcite_crust', 10, {  r = 80, g = 90, b = 100 }, "heliara_ferocalcite_crust"),
+  tile('heliara_ferocalcite_crust', 10, {  r = 125, g = 120, b = 40 }, "heliara_ferocalcite_crust"),
+  tile('heliara_silcrete_crust', 11, {  r = 15, g = 15, b = 10 }, "heliara_silcrete_crust"),
 })
 
 local function decal(x, y, w, h)
@@ -225,6 +226,7 @@ planet_map_gen.heliara = function()
                     ["heliara_clay_shale"] = {},
                     ["heliara_weathered_siliceous_crust"] = {},
                     ["heliara_ferocalcite_crust"] = {},
+                    ["heliara_silcrete_crust"] = {},
                 }
             },
             ["decorative"] =
