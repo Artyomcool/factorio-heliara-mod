@@ -81,6 +81,92 @@ data:extend({
   tile('heliara_silcrete_crust', 11, {  r = 15, g = 15, b = 10 }, "heliara_silcrete_crust"),
 })
 
+local t = {}
+
+for i = 1, 255, 1 do
+  t["c-" .. i] = {}
+  data:extend({{
+    type = "tile",
+    name = "c-" .. i,
+    needs_correction = false,
+    walking_speed_modifier = 1.0,
+    collision_mask = {
+        layers={
+            ground_tile=true
+        }
+    },
+    layer = 4,
+    variants = {
+      transition = transition_masks(),
+      main = {
+        {
+          picture = "__core__/graphics/white-square.png",
+          count = 1,
+          size = 1,
+          scale = 32,
+        },
+      },
+    },
+    map_color = {i/255, i/255, i/255},
+    tint = {i/255, i/255, i/255},
+    autoplace = {probability_expression = "between(elevation," .. (i-1)/255 .. "," .. i/255 .. ")"},
+  }});
+end
+  t["c-" .. 256] = {}
+  data:extend({{
+    type = "tile",
+    name = "c-" .. 256,
+    needs_correction = false,
+    walking_speed_modifier = 1.0,
+    collision_mask = {
+        layers={
+            ground_tile=true
+        }
+    },
+    layer = 4,
+    variants = {
+      transition = transition_masks(),
+      main = {
+        {
+          picture = "__core__/graphics/white-square.png",
+          count = 1,
+          size = 1,
+          scale = 32,
+        },
+      },
+    },
+    map_color = {255,0,0},
+    tint = {255,0,0},
+    autoplace = {probability_expression = "if (elevation < 0, 1, 0)"},
+  }});
+  t["c-" .. 257] = {}
+  data:extend({{
+    type = "tile",
+    name = "c-" .. 257,
+    needs_correction = false,
+    walking_speed_modifier = 1.0,
+    collision_mask = {
+        layers={
+            ground_tile=true
+        }
+    },
+    layer = 4,
+    variants = {
+      transition = transition_masks(),
+      main = {
+        {
+          picture = "__core__/graphics/white-square.png",
+          count = 1,
+          size = 1,
+          scale = 32,
+        },
+      },
+    },
+    map_color = {255,255,0},
+    tint = {255,255,0},
+    autoplace = {probability_expression = "if (elevation > 1, 1, 0)"},
+  }});
+
 local function decal(x, y, w, h)
     return {
         filename = "__heliara__/graphics/decal/decals.png",
@@ -205,29 +291,35 @@ planet_map_gen.heliara = function()
         {
             moisture = "moisture_heliara",
             elevation = "elevation_heliara",
-            ["entity:shungite:probability"] = "heliara_shungite_probability",
-            ["entity:shungite:richness"] = "heliara_shungite_richness",
-            ["entity:stone:probability"] = "heliara_stone_probability",
-            ["entity:stone:richness"] = "heliara_stone_richness",
+            --["entity:shungite:probability"] = "heliara_shungite_probability",
+            --["entity:shungite:richness"] = "heliara_shungite_richness",
+            --["entity:stone:probability"] = "heliara_stone_probability",
+            --["entity:stone:richness"] = "heliara_stone_richness",
             --["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
         },
 
-        autoplace_controls = {},
+        autoplace_controls = {
+          ["big_noise"] = {frequency = 1/6, size = 1},
+          ["big_noise_details"] = {frequency = 1, size = 1},
+          ["small_noise_1"] = {frequency = 1/3, size = 1/3},
+          ["small_noise_2"] = {frequency = 1, size = 1/3},
+          ["global_cut"] = {frequency = 1, size = 0.2},
+        },
 
         autoplace_settings =
         {
             ["tile"] =
             {
-                settings =
-                {
-                    ["heliara_dust"] = {},
-                    ["heliara_rusty_sand"] = {},
-                    ["heliara_iron_carbon_slag"] = {},
-                    ["heliara_clay_shale"] = {},
-                    ["heliara_weathered_siliceous_crust"] = {},
-                    ["heliara_ferocalcite_crust"] = {},
-                    ["heliara_silcrete_crust"] = {},
-                }
+                settings = t
+                --{
+                    --["heliara_dust"] = {},
+                    --["heliara_rusty_sand"] = {},
+                    --["heliara_iron_carbon_slag"] = {},
+                    --["heliara_clay_shale"] = {},
+                    --["heliara_weathered_siliceous_crust"] = {},
+                    --["heliara_ferocalcite_crust"] = {},
+                    --["heliara_silcrete_crust"] = {},
+                --}
             },
             ["decorative"] =
             {
@@ -243,12 +335,12 @@ planet_map_gen.heliara = function()
                   --["large-volcanic-stone"] = {},  -- todo make default, black and red tints
                   --["huge-cold-cracks"] = {},  -- todo make default, black and red tints
                   --["large-cold-cracks"] = {},  -- todo make default, black and red tints
-                  ["clay_cracks"] = {},
-                  ["heliara_tiny_rock_1"] = {},
-                  ["heliara_tiny_rock_2"] = {},
-                  ["heliara_tiny_rock_3"] = {},
-                  ["heliara_waves_decal"] = {},
-                  ["heliara_calcite_small"] = {},
+                  --["clay_cracks"] = {},
+                  --["heliara_tiny_rock_1"] = {},
+                  --["heliara_tiny_rock_2"] = {},
+                  --["heliara_tiny_rock_3"] = {},
+                  --["heliara_waves_decal"] = {},
+                  --["heliara_calcite_small"] = {},
                 }
             },
             ["entity"] =

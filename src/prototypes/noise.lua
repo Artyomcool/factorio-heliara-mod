@@ -48,11 +48,138 @@ data:extend({
     },
     expression = "clamp((value - from) / (to - from), 0, 1)"
   },
+  {
+    type = "noise-function",
+    name = "between",
+    parameters = {
+      "value", "from", "to"
+    },
+    expression = "if (value < from, 0, if (value > to, 0, 1))"
+  },
+  {
+    type = "noise-function",
+    name = "multioctave_normal",
+    parameters = {
+      "seed", "scale", "octaves", "p"
+    },
+    expression = "1 - min(1, abs(multioctave_noise {x=x,y=y,seed0=map_seed,seed1=seed,input_scale=scale,octaves=octaves,persistence=p,output_scale=(1-p)/(1-pow(p,octaves))}) * 2)"
+  },
+  {
+    type = "noise-expression",
+    name = "s1",
+    expression = "control:big_noise:size"
+  },
+  {
+    type = "noise-expression",
+    name = "f1",
+    expression = "control:big_noise:frequency"
+  },
+  {
+    type = "noise-expression",
+    name = "ss1",
+    expression = "control:big_noise_details:size"
+  },
+  {
+    type = "noise-expression",
+    name = "ff1",
+    expression = "control:big_noise_details:frequency"
+  },
+  {
+    type = "noise-expression",
+    name = "small_noise_1_size",
+    expression = "control:small_noise_1:size"
+  },
+  {
+    type = "noise-expression",
+    name = "small_noise_1_freq",
+    expression = "control:small_noise_1:frequency"
+  },
+  {
+    type = "noise-expression",
+    name = "small_noise_2_size",
+    expression = "control:small_noise_2:size"
+  },
+  {
+    type = "noise-expression",
+    name = "small_noise_2_freq",
+    expression = "control:small_noise_2:frequency"
+  },
+  {
+    type = "noise-expression",
+    name = "global_cut_left",
+    expression = "control:global_cut:size / 6"
+  },
+  {
+    type = "noise-expression",
+    name = "global_cut_right",
+    expression = "control:global_cut:frequency / 6"
+  },
+  {
+    type = "autoplace-control",
+    name = "big_noise",
+    order = "aa1",
+    category = "terrain"
+  },
+  {
+    type = "autoplace-control",
+    name = "big_noise_details",
+    order = "aa2",
+    category = "terrain"
+  },
+  {
+    type = "autoplace-control",
+    name = "small_noise_1",
+    order = "aa3",
+    category = "terrain"
+  },
+  {
+    type = "autoplace-control",
+    name = "small_noise_2",
+    order = "aa3",
+    category = "terrain"
+  },
+  {
+    type = "autoplace-control",
+    name = "global_cut",
+    order = "aa4",
+    category = "terrain"
+  },
 
   -- elevation
   {
     type = "noise-expression",
     name = "elevation_heliara",
+    expression = "(\z
+        clamp(\z
+            multioctave_normal(503, 1/128 * f1, 1 + ss1 * 6, ff1 / 6) * s1\z
+             + basis_noise{x = x, y = y, seed0 = map_seed, seed1 = 504, input_scale = small_noise_1_freq, output_scale = small_noise_1_size}\z
+             + basis_noise{x = x, y = y, seed0 = map_seed, seed1 = 505, input_scale = small_noise_2_freq, output_scale = small_noise_2_size},\z
+            global_cut_left,\z
+            global_cut_right\z
+        ) - global_cut_left)\z
+    /(global_cut_right - global_cut_left)",
+    local_expressions = {
+        e1 = "multioctave_noise{x = x,\z
+                                    y = y,\z
+                                    persistence = 0.5,\z
+                                    seed0 = map_seed,\z
+                                    seed1 = 701,\z
+                                    octaves = 4,\z
+                                    input_scale = 1}",
+        e2 = "multioctave_noise{x = x,\z
+                                    y = y,\z
+                                    persistence = 0.5,\z
+                                    seed0 = map_seed,\z
+                                    seed1 = 701,\z
+                                    octaves = 4,\z
+                                    input_scale = 1 / 150,\z
+                                    output_scale = 0.5}",
+        e = "e1",
+    }
+  },
+  {
+    type = "noise-expression",
+    name = "elevation_heliara-ttt",
     --intended_property = "elevation", --removed as an option as it is the default
     expression = "min(1, abs(wlc_elevation/max_elevation))",
     local_expressions =
