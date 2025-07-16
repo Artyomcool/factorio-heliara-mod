@@ -65,24 +65,63 @@ data:extend({
     expression = "1 - min(1, abs(multioctave_noise {x=x,y=y,seed0=map_seed,seed1=seed,input_scale=scale,octaves=octaves,persistence=p,output_scale=(1-p)/(1-pow(p,octaves))}) * 2)"
   },
   {
+    type = "noise-function",
+    name = "control_index",
+    parameters = {
+      "v", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10", "v11", "v12"
+    },
+    expression =
+      "if(v<0.18, v1,\z
+        if(v<0.26, v2,\z
+          if(v<0.34, v3,\z
+            if(v<0.51, v4,\z
+              if(v<0.76, v5,\z
+                if(v<1.01, v6,\z
+                  if(v<1.34, v7,\z
+                    if(v<1.51, v8,\z
+                      if(v<2.01, v9,\z
+                        if(v<3.01, v10,\z
+                          if(v<4.01, v11,\z
+                            v12\z
+      ) ) ) ) ) ) ) ) ) ) )"
+  },
+  {
+    type = "noise-function",
+    name = "control_i",
+    parameters = {
+      "v", "s"
+    },
+    expression = "control_index(v, s+0, s+1, s+2, s+3, s+4, s+5, s+6, s+7, s+8, s+9, s+10, s+11)"
+  },
+  {
     type = "noise-expression",
-    name = "s1",
+    name = "big_noise_size",
     expression = "control:big_noise:size"
   },
   {
     type = "noise-expression",
-    name = "f1",
+    name = "big_noise_freq",
     expression = "control:big_noise:frequency"
   },
   {
     type = "noise-expression",
-    name = "ss1",
+    name = "big_noise_rich",
+    expression = "control:big_noise:richness"
+  },
+  {
+    type = "noise-expression",
+    name = "big_noise_details_size",
     expression = "control:big_noise_details:size"
   },
   {
     type = "noise-expression",
-    name = "ff1",
+    name = "big_noise_details_freq",
     expression = "control:big_noise_details:frequency"
+  },
+  {
+    type = "noise-expression",
+    name = "big_noise_details_rich",
+    expression = "control:big_noise_details:richness"
   },
   {
     type = "noise-expression",
@@ -96,6 +135,11 @@ data:extend({
   },
   {
     type = "noise-expression",
+    name = "small_noise_1_rich",
+    expression = "control:small_noise_1:richness"
+  },
+  {
+    type = "noise-expression",
     name = "small_noise_2_size",
     expression = "control:small_noise_2:size"
   },
@@ -106,173 +150,114 @@ data:extend({
   },
   {
     type = "noise-expression",
+    name = "small_noise_2_rich",
+    expression = "control:small_noise_2:richness"
+  },
+  {
+    type = "noise-expression",
     name = "global_cut_left",
-    expression = "control:global_cut:size / 6"
+    expression = "control:global_cut:size"
+  },
+  {
+    type = "noise-expression",
+    name = "global_cut_mid",
+    expression = "control:global_cut:frequency"
   },
   {
     type = "noise-expression",
     name = "global_cut_right",
-    expression = "control:global_cut:frequency / 6"
+    expression = "control:global_cut:richness"
   },
   {
     type = "autoplace-control",
     name = "big_noise",
-    order = "aa1",
-    category = "terrain"
+    order = "_aa1",
+    category = "resource",
+    richness = true
   },
   {
     type = "autoplace-control",
     name = "big_noise_details",
-    order = "aa2",
-    category = "terrain"
+    order = "_aa2",
+    category = "resource",
+    richness = true
   },
   {
     type = "autoplace-control",
     name = "small_noise_1",
-    order = "aa3",
-    category = "terrain"
+    order = "_aa3",
+    category = "resource",
+    richness = true
   },
   {
     type = "autoplace-control",
     name = "small_noise_2",
-    order = "aa3",
-    category = "terrain"
+    order = "_aa3",
+    category = "resource",
+    richness = true
   },
   {
     type = "autoplace-control",
     name = "global_cut",
-    order = "aa4",
-    category = "terrain"
+    order = "_aa4",
+    category = "resource",
+    richness = true
   },
 
   -- elevation
   {
     type = "noise-expression",
     name = "elevation_heliara",
-    expression = "(\z
-        clamp(\z
-            multioctave_normal(503, 1/128 * f1, 1 + ss1 * 6, ff1 / 6) * s1\z
-             + basis_noise{x = x, y = y, seed0 = map_seed, seed1 = 504, input_scale = small_noise_1_freq, output_scale = small_noise_1_size}\z
-             + basis_noise{x = x, y = y, seed0 = map_seed, seed1 = 505, input_scale = small_noise_2_freq, output_scale = small_noise_2_size},\z
-            global_cut_left,\z
-            global_cut_right\z
-        ) - global_cut_left)\z
-    /(global_cut_right - global_cut_left)",
-    local_expressions = {
-        e1 = "multioctave_noise{x = x,\z
-                                    y = y,\z
-                                    persistence = 0.5,\z
+    expression = "clamp(expr(700, 1/25) - expr(600, 1/24) + 0.5, 0, 1)",--"clamp(((1 - max(0, e1)) - abs(e1) * big_noise_details_freq)*global_cut_mid, global_cut_left-1/6, global_cut_right) * (global_cut_right - global_cut_left)",
+    local_functions = {
+      base = {
+        parameters = {
+            "seed", "multiply", "scale"
+        },
+        expression = "1 - (abs(multioctave_noise{\z
+                                    x = x + multioctave_noise{x=x, y=y, seed0=map_seed, seed1=seed+1, octaves=5, input_scale=1/3,persistence = 0.75} * 5,\z
+                                    y = y + multioctave_noise{x=x, y=y, seed0=map_seed, seed1=seed+2, octaves=5, input_scale=1/3,persistence = 0.75} * 5,\z
+                                    persistence = 0.25,\z
                                     seed0 = map_seed,\z
-                                    seed1 = 701,\z
-                                    octaves = 4,\z
-                                    input_scale = 1}",
-        e2 = "multioctave_noise{x = x,\z
-                                    y = y,\z
-                                    persistence = 0.5,\z
-                                    seed0 = map_seed,\z
-                                    seed1 = 701,\z
-                                    octaves = 4,\z
-                                    input_scale = 1 / 150,\z
-                                    output_scale = 0.5}",
-        e = "e1",
+                                    seed1 = seed,\z
+                                    octaves = 6,\z
+                                    input_scale = scale,\z
+                                    output_scale = multiply})) ^ 0.5"
+      },
+      expr = {
+        parameters = {
+          "seed", "scale"
+        },
+        expression = "max(0, (base(seed, 1, scale) - clamp(base(seed + 5, 0.75, scale), 0, 1)) - 0.1) * 2"
+      }
     }
-  },
-  {
-    type = "noise-expression",
-    name = "elevation_heliara-ttt",
-    --intended_property = "elevation", --removed as an option as it is the default
-    expression = "min(1, abs(wlc_elevation/max_elevation))",
-    local_expressions =
-    {
-      -- comparing to navius: we have here scaled to 0-1 values, not just random elevations
-      wlc_elevation = "(0.1 + 0.5 * heliara_bridges) + 0.25 * abs(heliara_detail) + 3 * heliara_macro",
-      max_elevation = "3.85"    -- wlc_elevation with all variables = max possible value
-    }
-  },
-  {
-    type = "noise-expression",
-    name = "heliara_detail", -- the small scale details with variable persistance for a mix of smooth and jagged coastline
-    expression = "variable_persistence_multioctave_noise{x = x,\z
-                                                         y = y,\z
-                                                         seed0 = map_seed,\z
-                                                         seed1 = 601,\z
-                                                         input_scale = heliara_segmentation_multiplier / 14,\z
-                                                         output_scale = 0.03,\z
-                                                         offset_x = 10000 / heliara_segmentation_multiplier,\z
-                                                         octaves = 5,\z
-                                                         persistence = heliara_persistance}"
-  },
-  {
-    type = "noise-expression",
-    name = "heliara_bridges", -- large scale land-bridges for land connectivity
-    expression = "1 - (0.1 * heliara_bridge_billows + 0.9 * max(0, -0.1 + heliara_bridge_billows))"
-  },
-  {
-    type = "noise-expression",
-    name = "heliara_bridge_billows", -- original: large scale land-bridges for land connectivity, probably we could make it vise versa to make canions?
-    expression = "min(1, abs(multioctave_noise{x = x,\z
-                                        y = y,\z
-                                        persistence = 0.5,\z
-                                        seed0 = map_seed,\z
-                                        seed1 = 701,\z
-                                        octaves = 4,\z
-                                        input_scale = 1 / 150}))"
-  },
-  {
-    type = "noise-expression",
-    name = "heliara_segmentation_multiplier",
-    expression = "16"
-  },
-  {
-    type = "noise-expression",
-    name = "heliara_persistance",
-    expression = "clamp(amplitude_corrected_multioctave_noise{x = x,\z
-                                                              y = y,\z
-                                                              seed0 = map_seed,\z
-                                                              seed1 = 500,\z
-                                                              octaves = 5,\z
-                                                              input_scale = heliara_segmentation_multiplier / 2,\z
-                                                              offset_x = 10000 / heliara_segmentation_multiplier,\z
-                                                              persistence = 0.7,\z
-                                                              amplitude = 0.5} + 0.55,\z
-                      0.5, 0.65)"
-  },
-  {
-    type = "noise-expression",
-    name = "heliara_macro",
-    expression = "multioctave_noise{x = x,\z
-                                    y = y,\z
-                                    persistence = 0.6,\z
-                                    seed0 = map_seed,\z
-                                    seed1 = 1000,\z
-                                    octaves = 2,\z
-                                    input_scale = heliara_segmentation_multiplier / 1600}\z
-                  * max(0, multioctave_noise{x = x,\z
-                                    y = y,\z
-                                    persistence = 0.6,\z
-                                    seed0 = map_seed,\z
-                                    seed1 = 1100,\z
-                                    octaves = 1,\z
-                                    input_scale = heliara_segmentation_multiplier / 1600})",
   },
   
   -- moisture
   {
     type = "noise-expression",
     name = "moisture_heliara",
-    expression = "min(1,\z
-        abs(multioctave_noise {\z
-            x = x,\z
-            y = y,\z
-            seed0 = map_seed,\z
-            seed1 = 503,\z
-            input_scale = 1 / 32,\z
-            octaves = 5,\z
-            persistence = 0.25,\z
-            output_scale = 0.9\z
-            }\z
-        )\z
-    )"
+    expression = "(1 - elevation)^4 * (1 - elevation + elevation * base(1, 1/32)^0.25)",
+    local_functions = {
+      base = {
+        parameters = {
+            "multiply", "scale"
+        },
+        expression = "min(1,\z
+            abs(multioctave_noise {\z
+                x = x,\z
+                y = y,\z
+                seed0 = map_seed,\z
+                seed1 = 503,\z
+                input_scale = scale,\z
+                octaves = 5,\z
+                persistence = 0.25,\z
+                output_scale = multiply\z
+              }\z
+            )\z
+        )"
+      }
+    },
   },
 
   -- terrains

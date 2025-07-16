@@ -67,18 +67,18 @@ local function tile(name, layer, map_color, expression_base)
       },
     },
     map_color = map_color,
-    autoplace = {probability_expression = expression_base .. " + abs(noise_layer_noise(" .. layer .. ")) / 5"},
+    autoplace = {probability_expression = expression_base .. " + abs(noise_layer_noise(" .. layer .. ")) / 15"},
   }
 end
 
 data:extend({
-  tile('heliara_dust', 5, { r = 6, g = 5, b = 8 }, "heliara_dust_base"),
-  tile('heliara_rusty_sand', 6, {  r = 40, g = 20, b = 4 }, "heliara_rusty_sand_base"),
-  tile('heliara_iron_carbon_slag', 7, {  r = 30, g = 24, b = 24 }, "heliara_iron_carbon_slag"),
-  tile('heliara_clay_shale', 8, {  r = 65, g = 67, b = 27  }, "heliara_clay_shale_base"),
-  tile('heliara_weathered_siliceous_crust', 9, {  r = 80, g = 90, b = 100 }, "heliara_weathered_siliceous_crust"),
-  tile('heliara_ferocalcite_crust', 10, {  r = 125, g = 120, b = 40 }, "heliara_ferocalcite_crust"),
-  tile('heliara_silcrete_crust', 11, {  r = 15, g = 15, b = 10 }, "heliara_silcrete_crust"),
+  tile('heliara_dust', 5, { r = 6, g = 5, b = 8 }, "max(0, 0.05 - moisture) / 0.1 * 4"),
+  tile('heliara_rusty_sand', 6, {  r = 40, g = 20, b = 4 }, "max(0, 0.25 - max(0, 0.5 - moisture)) / 0.25 * 4"),
+  tile('heliara_iron_carbon_slag', 7, {  r = 30, g = 24, b = 24 }, "0.5"),
+  tile('heliara_clay_shale', 8, {  r = 65, g = 67, b = 27  }, "(max(0, moisture - 0.8) / 0.2)^0.25 * 5"),
+  tile('heliara_weathered_siliceous_crust', 9, {  r = 80, g = 90, b = 100 }, "max(0, elevation - 0.8) / 0.2 * 5"),
+  tile('heliara_ferocalcite_crust', 10, {  r = 125, g = 120, b = 40 }, "max(0, 0.15 - max(0, 0.5 - elevation)) / 0.35 * 1.1"),
+  tile('heliara_silcrete_crust', 11, {  r = 15, g = 15, b = 10 }, "max(0, 0.35 - elevation) / 0.35 * 5"),
 })
 
 local t = {}
@@ -284,6 +284,8 @@ data:extend({
     },
 })
 
+local debug = false
+
 planet_map_gen.heliara = function()
     return
     {
@@ -299,27 +301,27 @@ planet_map_gen.heliara = function()
         },
 
         autoplace_controls = {
-          ["big_noise"] = {frequency = 1/6, size = 1},
-          ["big_noise_details"] = {frequency = 1, size = 1},
-          ["small_noise_1"] = {frequency = 1/3, size = 1/3},
-          ["small_noise_2"] = {frequency = 1, size = 1/3},
-          ["global_cut"] = {frequency = 1, size = 0.2},
+          ["big_noise"] = {frequency = 1, size = 1, richness = 1, tmp = 1},
+          ["big_noise_details"] = {frequency = 1, size = 1, richness = 1},
+          ["small_noise_1"] = {frequency = 1, size = 1, richness = 1},
+          ["small_noise_2"] = {frequency = 1, size = 1, richness = 1},
+          ["global_cut"] = {frequency = 1, size = 1, richness = 1},
         },
 
         autoplace_settings =
         {
             ["tile"] =
             {
-                settings = t
-                --{
-                    --["heliara_dust"] = {},
-                    --["heliara_rusty_sand"] = {},
-                    --["heliara_iron_carbon_slag"] = {},
-                    --["heliara_clay_shale"] = {},
-                    --["heliara_weathered_siliceous_crust"] = {},
-                    --["heliara_ferocalcite_crust"] = {},
-                    --["heliara_silcrete_crust"] = {},
-                --}
+                settings = debug and t or
+                {
+                    ["heliara_dust"] = {},
+                    ["heliara_rusty_sand"] = {},
+                    ["heliara_iron_carbon_slag"] = {},
+                    ["heliara_clay_shale"] = {},
+                    ["heliara_weathered_siliceous_crust"] = {},
+                    ["heliara_ferocalcite_crust"] = {},
+                    ["heliara_silcrete_crust"] = {},
+                }
             },
             ["decorative"] =
             {
