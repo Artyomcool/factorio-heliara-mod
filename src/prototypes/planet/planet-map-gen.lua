@@ -34,16 +34,16 @@ local function transition_masks()
   }
 end
 
-local function tile(name, layer, map_color, expression_base)
+data:extend({{ type = "collision-layer", name = "fragile" }})
+
+local function tile(name, layer, map_color, allow_build)
   return {
     type = "tile",
     name = name,
     needs_correction = false,
     walking_speed_modifier = 1.0,
     collision_mask = {
-        layers={
-            ground_tile=true
-        }
+        layers = allow_build and { ground_tile = true } or { fragile=true, is_lower_object = true }
     },
     layer = layer,
     variants = {
@@ -67,18 +67,19 @@ local function tile(name, layer, map_color, expression_base)
       },
     },
     map_color = map_color,
-    autoplace = {probability_expression = expression_base .. " + abs(noise_layer_noise(" .. layer .. ")) / 15"},
+    autoplace = {probability_expression = name},
+    default_cover_tile = not allow_build and "concrete" or nil
   }
 end
 
 data:extend({
-  tile('heliara_dust', 5, { r = 6, g = 5, b = 8 }, "max(0, 0.05 - moisture) / 0.1 * 4"),
-  tile('heliara_rusty_sand', 6, {  r = 40, g = 20, b = 4 }, "max(0, 0.25 - max(0, 0.5 - moisture)) / 0.25 * 4"),
-  tile('heliara_iron_carbon_slag', 7, {  r = 30, g = 24, b = 24 }, "0.5"),
-  tile('heliara_clay_shale', 8, {  r = 65, g = 67, b = 27  }, "(max(0, moisture - 0.8) / 0.2)^0.25 * 5"),
-  tile('heliara_weathered_siliceous_crust', 9, {  r = 80, g = 90, b = 100 }, "max(0, elevation - 0.8) / 0.2 * 5"),
-  tile('heliara_ferocalcite_crust', 10, {  r = 125, g = 120, b = 40 }, "max(0, 0.15 - max(0, 0.5 - elevation)) / 0.35 * 1.1"),
-  tile('heliara_silcrete_crust', 11, {  r = 15, g = 15, b = 10 }, "max(0, 0.35 - elevation) / 0.35 * 5"),
+  tile('heliara_dust', 5, { r = 6, g = 5, b = 8 }, false),
+  tile('heliara_rusty_sand', 6, {  r = 40, g = 20, b = 4 }, false),
+  tile('heliara_iron_carbon_slag', 7, {  r = 30, g = 24, b = 24 }, true),
+  tile('heliara_clay_shale', 8, {  r = 65, g = 67, b = 27 }, false),
+  tile('heliara_weathered_siliceous_crust', 9, {  r = 80, g = 90, b = 100 }, true),
+  tile('heliara_ferocalcite_crust', 10, {  r = 125, g = 120, b = 40 }, false),
+  tile('heliara_silcrete_crust', 11, {  r = 15, g = 15, b = 10 }, true),
 })
 
 local t = {}
@@ -337,12 +338,12 @@ planet_map_gen.heliara = function()
                   --["large-volcanic-stone"] = {},  -- todo make default, black and red tints
                   --["huge-cold-cracks"] = {},  -- todo make default, black and red tints
                   --["large-cold-cracks"] = {},  -- todo make default, black and red tints
-                  --["clay_cracks"] = {},
-                  --["heliara_tiny_rock_1"] = {},
-                  --["heliara_tiny_rock_2"] = {},
-                  --["heliara_tiny_rock_3"] = {},
-                  --["heliara_waves_decal"] = {},
-                  --["heliara_calcite_small"] = {},
+                  ["clay_cracks"] = {},
+                  ["heliara_tiny_rock_1"] = {},
+                  ["heliara_tiny_rock_2"] = {},
+                  ["heliara_tiny_rock_3"] = {},
+                  ["heliara_waves_decal"] = {},
+                  ["heliara_calcite_small"] = {},
                 }
             },
             ["entity"] =

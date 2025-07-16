@@ -263,70 +263,69 @@ data:extend({
   -- terrains
   {
     type = "noise-expression",
-    name = "heliara_dust_base",
-    expression = "lpos(moisture, 0.5, 0)"
+    name = "heliara_dust",
+    expression = "max(0, 0.05 - moisture) / 0.1 * 4 + noise_layer_noise(1) / 4"
   },
   {
     type = "noise-expression",
-    name = "heliara_rusty_sand_base",
-    expression = "peak(moisture, 0.1, 0.9)"
+    name = "heliara_rusty_sand",
+    expression = "max(0, 0.25 - max(0, 0.5 - moisture)) / 0.25 * 4 + noise_layer_noise(2) / 10 + abs(noise_layer_noise(21)) * min(moisture, 0.5) * 6"
   },
   {
     type = "noise-expression",
-    name = "heliara_clay_shale_base",
-    expression = "lpos(moisture, 0.9, 1) * 0.8 - elevation / 2"
+    name = "heliara_clay_shale",
+    expression = "(max(0, moisture - 0.8) / 0.2)^0.25 * 5 + noise_layer_noise(3) / 10"
   },
   {
     type = "noise-expression",
     name = "heliara_iron_carbon_slag",
-    expression = "1 - max(heliara_dust_base, heliara_rusty_sand_base, heliara_clay_shale_base) + noise_layer_noise(7)"
+    expression = "0.5"
   },
   {
     type = "noise-expression",
     name = "heliara_weathered_siliceous_crust",
-    expression = "clamp(lpos(elevation, 0.6, 1) * 3 - moisture / 8, 0, 1)"
+    expression = "max(0, elevation - 0.8) / 0.2 * 5 + noise_layer_noise(4) / 10"
   },
   {
     type = "noise-expression",
     name = "heliara_ferocalcite_crust",
-    expression = "cut(peak(elevation, 0.2, 0.8), 0.1) * 0.25"
+    expression = "max(0, 0.15 - max(0, 0.5 - elevation))*2 + noise_layer_noise(5) / 2"
   },
   {
     type = "noise-expression",
     name = "heliara_silcrete_crust",
-    expression = "lpos(elevation, 0.4, 0)"
+    expression = "max(0, 0.35 - elevation) / 0.35 * 5 + noise_layer_noise(6) / 10"
   },
-  
 
   -- decals
   {
     type = "noise-expression",
     name = "heliara_tiny_rock_1",
-    expression = "cut(heliara_rusty_sand_base, 0.4) * 0.1"
+    expression = "cut(heliara_rusty_sand - heliara_clay_shale, 0.4) * 0.02"
   },
   {
     type = "noise-expression",
     name = "heliara_tiny_rock_2",
-    expression = "cut(heliara_dust_base, 0.4) * 0.1"
+    expression = "cut(heliara_dust - heliara_weathered_siliceous_crust, 0.4) * 0.02"
   },
   {
     type = "noise-expression",
     name = "heliara_tiny_rock_3",
-    expression = "cut(heliara_iron_carbon_slag, 0.4) * 0.1"
+    expression = "(heliara_iron_carbon_slag - heliara_dust - heliara_rusty_sand - heliara_silcrete_crust - heliara_ferocalcite_crust - heliara_weathered_siliceous_crust) * 0.1"
   },
   {
     type = "noise-expression",
     name = "heliara_waves_decal",
-    expression = "cut(max(heliara_rusty_sand_base, heliara_dust_base), 0.65) * 0.0005"
+    expression = "cut(heliara_rusty_sand + heliara_dust - heliara_weathered_siliceous_crust - heliara_silcrete_crust - heliara_ferocalcite_crust - heliara_clay_shale, 0.65) * 0.0005"
   },
   {
     type = "noise-expression",
     name = "clay_cracks",
-    expression = "cut(heliara_clay_shale_base, 0.4) * 0.025"
+    expression = "cut(heliara_clay_shale, 1) * 0.005"
   },
   {
     type = "noise-expression",
     name = "heliara_calcite_small",
-    expression = "cut(1 - heliara_dust_base - heliara_rusty_sand_base + heliara_clay_shale_base / 4, 0.2) * 0.002"
+    expression = "cut(heliara_ferocalcite_crust, 0.2) * 0.002"
   },
 })

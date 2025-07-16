@@ -21,4 +21,10 @@ copy_decal("tiny-volcanic-rock", "heliara_tiny_rock_3", {0.2, 0.2, 0.22})
 copy_decal("waves-decal", "heliara_waves_decal", nil)
 copy_decal("calcite-stain-small", "heliara_calcite_small", {0.9, 0.9, 0.9})
 
+table.insert(data.raw["item"]["foundation"].place_as_tile.tile_condition, "heliara_dust")
+table.insert(data.raw["item"]["foundation"].place_as_tile.tile_condition, "heliara_rusty_sand")
+table.insert(data.raw["item"]["foundation"].place_as_tile.tile_condition, "heliara_clay_shale")
+table.insert(data.raw["item"]["foundation"].place_as_tile.tile_condition, "heliara_ferocalcite_crust")
+data.raw["item"]["stone-brick"].place_as_tile.condition.layers["fragile"] = true
+
 --
