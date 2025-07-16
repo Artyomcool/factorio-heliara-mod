@@ -75,7 +75,7 @@ end
 data:extend({
   tile('heliara_dust', 5, { r = 6, g = 5, b = 8 }, false),
   tile('heliara_rusty_sand', 6, {  r = 40, g = 20, b = 4 }, false),
-  tile('heliara_iron_carbon_slag', 7, {  r = 30, g = 24, b = 24 }, true),
+  tile('heliara_iron_carbon_slag', 7, {  r = 30, g = 24, b = 24 }, false),
   tile('heliara_clay_shale', 8, {  r = 65, g = 67, b = 27 }, false),
   tile('heliara_weathered_siliceous_crust', 9, {  r = 80, g = 90, b = 100 }, true),
   tile('heliara_ferocalcite_crust', 10, {  r = 125, g = 120, b = 40 }, false),
