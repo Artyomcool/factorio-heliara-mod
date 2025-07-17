@@ -183,10 +183,10 @@ end
 local function clay_cracks_decals()
   local pictures = {
   }
-  local x = 144
+  local x = 0
   local y = 0
   local w = 256
-  local h = 336
+  local h = 256
   local stripe = function(c)
     for i = 1, c, 1 do
       table.insert(pictures, decal(x, y, w, h))
@@ -200,18 +200,13 @@ local function clay_cracks_decals()
     h = nh
   end
 
-  stripe(1)
-  h=21*16
-  stripe(1)
-  h=14*16
-  stripe(1)
-
-  next(4*16,4*16)
-  stripe(1)
-  h=11*16
-  stripe(1)
-  h=8*16
-  stripe(1)
+  stripe(4)
+  next(256,256)
+  stripe(4)
+  next(256,256)
+  stripe(4)
+  next(256,256)
+  stripe(4)
 
   return pictures
 end
@@ -221,7 +216,7 @@ data:extend({
     name = "clay_cracks",
     type = "optimized-decorative",
     order = "a[vulcanus]-b[decorative]",
-    collision_box = {{-4.5, -4.5}, {4.5, 4.5}},
+    collision_box = {{-8, -8}, {8, 8}},
     --collision_mask = {},
     render_layer = "decals",
     tile_layer =  255,
@@ -329,15 +324,19 @@ planet_map_gen.heliara = function()
                 settings =
                 {
 
-                  -- ["small-sand-rock"] = {}, -- todo make black and red tints
-                  -- ["sand-dune-decal"] = {},  -- todo make black and red tints
-                  -- ["sand-decal"] = {},  -- todo make 4 tints
-                  --["red-desert-decal"] = {},  -- todo make 4 tints
-                  --["light-mud-decal"] = {},  -- todo make glue tints
-                  --["dark-mud-decal"] = {},  -- todo make default tints
-                  --["large-volcanic-stone"] = {},  -- todo make default, black and red tints
-                  --["huge-cold-cracks"] = {},  -- todo make default, black and red tints
-                  --["large-cold-cracks"] = {},  -- todo make default, black and red tints
+                  ["heliara_sand_dune_blue"] = {},
+                  ["heliara_sand_dune_red"] = {},
+                  ["heliara_sand_blue"] = {},
+                  ["heliara_sand_gray"] = {},
+                  ["heliara_sand_red"] = {},
+                  ["heliara_sand_yellow"] = {},
+                  ["heliara_red_desert_decal_blue"] = {},
+                  ["heliara_red_desert_decal_gray"] = {},
+                  ["heliara_red_desert_decal_yellow"] = {},
+                  ["heliara_light_mud_decal"] = {},
+                  ["heliara_mud_decal"] = {},
+                  ["heliara_huge_cracks"] = {},
+                  ["heliara_cracks"] = {},
                   ["clay_cracks"] = {},
                   ["heliara_tiny_rock_1"] = {},
                   ["heliara_tiny_rock_2"] = {},
