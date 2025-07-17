@@ -297,6 +297,13 @@ data:extend({
     expression = "max(0, 0.35 - elevation) / 0.35 * 5 + noise_layer_noise(6) / 10"
   },
 
+  -- resources
+  {
+    type = "noise-expression",
+    name = "heliara_stone_probability",
+    expression = "peak(elevation, 0.97, 1.05) * basis_noise{x=x, y=y, seed0=map_seed, seed1=301, input_scale=1/512} - abs(basis_noise{x=x, y=y, seed0=map_seed, seed1=302, input_scale=1/16}) - abs(basis_noise{x=x, y=y, seed0=map_seed, seed1=302, input_scale=1/128})"
+  },
+
   -- decals
   {
     type = "noise-expression",

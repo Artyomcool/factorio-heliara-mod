@@ -257,19 +257,6 @@ data:extend({
     },
     {
         type = "noise-expression",
-        name = "heliara_stone_probability",
-        expression = "clamp(voronoi_spot_noise{ \z
-                x = x + 4.1 * cos(0.13 * y), \z
-                y = y + 5.3 * sin(0.21 * x), \z
-                seed0 = map_seed + 1, \z
-                seed1 = 'heliara-stone', \z
-                grid_size = 97, \z
-                distance_type = 'euclidean', \z
-                jitter = 0.7 \z
-                } * 7.5 - 5.75, 0, 1) * min(1, peak(elevation, 0.05, 0.2) * 20)"
-    },
-    {
-        type = "noise-expression",
         name = "heliara_stone_richness",
         expression = "random_penalty(x, y, 500, 2, 400)",
     },
@@ -291,8 +278,8 @@ planet_map_gen.heliara = function()
             elevation = "elevation_heliara",
             --["entity:shungite:probability"] = "heliara_shungite_probability",
             --["entity:shungite:richness"] = "heliara_shungite_richness",
-            --["entity:stone:probability"] = "heliara_stone_probability",
-            --["entity:stone:richness"] = "heliara_stone_richness",
+            ["entity:stone:probability"] = "heliara_stone_probability",
+            ["entity:stone:richness"] = "heliara_stone_richness",
             --["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
         },
 
