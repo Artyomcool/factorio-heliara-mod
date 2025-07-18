@@ -280,6 +280,8 @@ planet_map_gen.heliara = function()
             --["entity:shungite:richness"] = "heliara_shungite_richness",
             ["entity:stone:probability"] = "heliara_stone_probability",
             ["entity:stone:richness"] = "heliara_stone_richness",
+            ["entity:calcite:probability"] = "heliara_calcite_probability",
+            ["entity:calcite:richness"] = "100",
             --["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
         },
 
@@ -338,6 +340,7 @@ planet_map_gen.heliara = function()
                 {
                     ["shungite"] = {},
                     ["stone"] = {},
+                    ["calcite"] = {},
                     --["huge_fullerene_rock"] = {},
                 }
             }

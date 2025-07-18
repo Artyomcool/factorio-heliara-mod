@@ -17,7 +17,7 @@ data:extend({
     type = "noise-function",
     name = "parabola",
     parameters = {
-    "value", "left_zero", "right_zero"
+      "value", "left_zero", "right_zero"
     },
     expression = "(value - left_zero) * (value - right_zero)"
   },
@@ -302,6 +302,18 @@ data:extend({
     type = "noise-expression",
     name = "heliara_stone_probability",
     expression = "peak(elevation, 0.97, 1.05) * basis_noise{x=x, y=y, seed0=map_seed, seed1=301, input_scale=1/512} - abs(basis_noise{x=x, y=y, seed0=map_seed, seed1=302, input_scale=1/16}) - abs(basis_noise{x=x, y=y, seed0=map_seed, seed1=302, input_scale=1/128})"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_calcite_probability",
+    expression = "max(0, spot_noise { x=x, y=y, density_expression=0.01, spot_quantity_expression=2000, spot_radius_expression = 20, spot_favorability_expression =max(heliara_ferocalcite_crust, heliara_clay_shale) - max(heliara_silcrete_crust, heliara_weathered_siliceous_crust, heliara_iron_carbon_slag, heliara_rusty_sand, heliara_dust), seed0=map_seed, seed1=301, basement_value=-1000, maximum_spot_basement_radius=40}) * multioctave_noise {\z
+                x = x,\z
+                y = y,\z
+                seed0 = map_seed,\z
+                seed1 = 341,\z
+                input_scale = 1/4,\z
+                octaves = 4,\z
+                persistence = 0.5}"
   },
 
   -- decals
