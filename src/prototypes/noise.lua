@@ -306,14 +306,52 @@ data:extend({
   {
     type = "noise-expression",
     name = "heliara_calcite_probability",
-    expression = "max(0, spot_noise { x=x, y=y, density_expression=0.01, spot_quantity_expression=2000, spot_radius_expression = 20, spot_favorability_expression =max(heliara_ferocalcite_crust, heliara_clay_shale) - max(heliara_silcrete_crust, heliara_weathered_siliceous_crust, heliara_iron_carbon_slag, heliara_rusty_sand, heliara_dust), seed0=map_seed, seed1=301, basement_value=-1000, maximum_spot_basement_radius=40}) * multioctave_noise {\z
-                x = x,\z
-                y = y,\z
-                seed0 = map_seed,\z
-                seed1 = 341,\z
-                input_scale = 1/4,\z
-                octaves = 4,\z
-                persistence = 0.5}"
+    expression = "max(\z
+      0,\z
+      spot_noise{\z
+        x=x,\z
+        y=y,\z
+        density_expression=0.01,\z
+        spot_quantity_expression=2000,\z
+        spot_radius_expression = 20,\z
+        spot_favorability_expression=max(heliara_ferocalcite_crust, heliara_clay_shale)\z
+            - max(heliara_silcrete_crust, heliara_weathered_siliceous_crust, heliara_iron_carbon_slag, heliara_rusty_sand, heliara_dust),\z
+        seed0=map_seed,\z
+        seed1=301,\z
+        basement_value=-1000,\z
+        maximum_spot_basement_radius=40\z
+      }\z
+    )\z
+        * multioctave_noise {\z
+            x = x,\z
+            y = y,\z
+            seed0 = map_seed,\z
+            seed1 = 341,\z
+            input_scale = 1/4,\z
+            octaves = 4,\z
+            persistence = 0.5\z
+          }"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_shungite_probability",
+    local_expressions = {
+      dy = "(y + 3 * (floor(x / 7) % 2)) % 6",
+    },
+    expression = "(abs(x % 7 - 3) < 4 - abs(dy - 2)*1.334)\z
+                  *\z
+                  spot_noise{\z
+                    x=x,\z
+                    y=y,\z
+                    density_expression=0.01,\z
+                    spot_quantity_expression=2000,\z
+                    spot_radius_expression = 20,\z
+                    spot_favorability_expression=heliara_dust-heliara_weathered_siliceous_crust/5-heliara_rusty_sand*4,\z
+                    seed0=map_seed,\z
+                    seed1=305,\z
+                    basement_value=-1000,\z
+                    maximum_spot_basement_radius=40\z
+                  } * max(0, 0.6-voronoi_spot_noise{x=x,y=y,seed0=map_seed,seed1=306,grid_size=32,distance_type=2})"
   },
 
   -- decals

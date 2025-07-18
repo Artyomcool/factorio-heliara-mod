@@ -233,32 +233,13 @@ data:extend({
 data:extend({
     {
         type = "noise-expression",
-        name = "heliara_shungite_probability",
-        expression = "if ((y + 3 * (floor(x / 7) % 2)) % 6 > 4, \z
-                        0, \z
-                        if ((y + 3 * (floor(x / 7) % 2)) % 6 == 2, \z
-                          1, \z
-                          if (abs((y + 3 * (floor(x / 7) % 2)) % 6 - 2) - 1 == 0, \z
-                            if (abs(x % 7 - 3) - 1 < 2, 1, 0), \z
-                            if (abs(x % 7 - 3) - 1 < 1, 1, 0) \z
-                          ) \z
-                        ) \z
-                      ) \z
-                      * \z
-                      if(voronoi_spot_noise{ \z
-                        x = x + 5.2 * sin(0.17 * y), \z
-                        y = y + 2.7 * cos(0.12 * x), \z
-                        seed0 = map_seed, \z
-                        seed1 = 'heliara-shungite', \z
-                        grid_size = 113, \z
-                        distance_type = 'euclidean', \z
-                        jitter = 0.8 \z
-                      } < (1 - moisture * 100) * 0.1, 1, 0)"
+        name = "heliara_stone_richness",
+        expression = "random_penalty(x, y, 500, 2, 400)",
     },
     {
         type = "noise-expression",
-        name = "heliara_stone_richness",
-        expression = "random_penalty(x, y, 500, 2, 400)",
+        name = "heliara_calcite_richness",
+        expression = "abs(noise_layer_noise(37)) * 300",
     },
     {
         type = "noise-expression",
@@ -276,12 +257,12 @@ planet_map_gen.heliara = function()
         {
             moisture = "moisture_heliara",
             elevation = "elevation_heliara",
-            --["entity:shungite:probability"] = "heliara_shungite_probability",
-            --["entity:shungite:richness"] = "heliara_shungite_richness",
+            ["entity:shungite:probability"] = "heliara_shungite_probability",
+            ["entity:shungite:richness"] = "heliara_shungite_richness",
             ["entity:stone:probability"] = "heliara_stone_probability",
             ["entity:stone:richness"] = "heliara_stone_richness",
             ["entity:calcite:probability"] = "heliara_calcite_probability",
-            ["entity:calcite:richness"] = "100",
+            ["entity:calcite:richness"] = "heliara_calcite_richness",
             --["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
         },
 
