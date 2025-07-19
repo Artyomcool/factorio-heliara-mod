@@ -243,6 +243,16 @@ data:extend({
     },
     {
         type = "noise-expression",
+        name = "heliara_carbon_coal_richness",
+        expression = "random_penalty(x, y, 600, 2, 300)",
+    },
+    {
+        type = "noise-expression",
+        name = "heliara_silcrete_richness",
+        expression = "random_penalty(x, y, 3000, 2, 2950)",
+    },
+    {
+        type = "noise-expression",
         name = "heliara_huge_fullerene_rock_probability",
         expression = 0.01,
     },
@@ -263,6 +273,10 @@ planet_map_gen.heliara = function()
             ["entity:stone:richness"] = "heliara_stone_richness",
             ["entity:calcite:probability"] = "heliara_calcite_probability",
             ["entity:calcite:richness"] = "heliara_calcite_richness",
+            ["entity:carbon_coal:probability"] = "heliara_carbon_coal_probability",
+            ["entity:carbon_coal:richness"] = "heliara_carbon_coal_richness",
+            ["entity:silcrete:probability"] = "heliara_silcrete_probability",
+            ["entity:silcrete:richness"] = "heliara_silcrete_richness",
             --["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
         },
 
@@ -322,6 +336,8 @@ planet_map_gen.heliara = function()
                     ["shungite"] = {},
                     ["stone"] = {},
                     ["calcite"] = {},
+                    ["carbon_coal"] = {},
+                    ["silcrete"] = {},
                     --["huge_fullerene_rock"] = {},
                 }
             }

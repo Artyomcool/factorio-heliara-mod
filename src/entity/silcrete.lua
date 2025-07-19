@@ -1,11 +1,11 @@
-local _name = "shungite"
+local _name = "silcrete"
 
 return {
     {
         common = {
             name = _name,
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
-            icon_size = 500,
+            icon_size = 64,
         },
         resource = {
             flags = { "placeable-neutral" },
@@ -14,12 +14,11 @@ return {
             stage_counts = { 1500, 1200, 950, 550, 290, 130, 50 },
             stages = {
                 sheet = {
-                    filename = "__base__/graphics/entity/stone/stone.png",
+                    filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name ..  ".png",
                     size = 128,
                     frame_count = 8,
                     variation_count = 8,
                     scale = 0.5,
-                    tint = { r = .43, g = .42, b = .49 },
                 }
             },
             autoplace = {
@@ -41,24 +40,24 @@ return {
             weight = 1 * kg
         }
     },
-    {
-        recipe = {
-            icon = "__heliara__/graphics/icons/carbon_from_shungite.png",
-            name = "carbon-from-shungite",
-            ingredients = {
-                shungite = 100,
-            },
-            fluid_ingredients = {
-                water = 200,
-            },
-            results = {
-                carbon = 40,
-                ["iron-ore"] = 5,
-            },
-            energy_required = 10,
-            category = "fullerene-chemistry",
-            enabled = false,
-            main_product = "carbon",
-        },
-    },
+    -- {
+    --     recipe = {
+    --         icon = "__heliara__/graphics/icons/carbon_from_shungite.png",
+    --         name = "carbon-from-shungite",
+    --         ingredients = {
+    --             shungite = 100,
+    --         },
+    --         fluid_ingredients = {
+    --             water = 200,
+    --         },
+    --         results = {
+    --             carbon = 40,
+    --             ["iron-ore"] = 5,
+    --         },
+    --         energy_required = 10,
+    --         category = "fullerene-chemistry",
+    --         enabled = false,
+    --         main_product = "carbon",
+    --     },
+    -- },
 }

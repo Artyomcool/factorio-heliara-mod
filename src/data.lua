@@ -7,6 +7,7 @@ local declare = {
     require("__heliara__.entity.fullerene_solar_panel"),
     require("__heliara__.entity.fullerene_extraction_bath"),
     require("__heliara__.entity.shungite"),
+    require("__heliara__.entity.carbon_coal"),
     require("__heliara__.entity.rocks"),
     require("__heliara__.entity.fullerene"),
     require("__heliara__.entity.silicon_substrate"),
@@ -23,6 +24,7 @@ local declare = {
     require("__heliara__.entity.fast_burner_inserter"),
     require("__heliara__.entity.long_burner_inserter"),
     require("__heliara__.entity.steam_cargo"),
+    require("__heliara__.entity.silcrete"),
 }
 
 local function declare_recipe(common, recipe)
@@ -194,8 +196,8 @@ local function declare_resource(common, resource)
         icon_size = resource.icon_size
     end
 
-    local minable = nil
-    if resource.mining_time then
+    local minable = resource.minable
+    if not minable and resource.mining_time then
         minable = {
             mining_time = resource.mining_time,
             result = resource.mining_result or common.name

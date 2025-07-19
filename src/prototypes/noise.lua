@@ -9,11 +9,6 @@ data:extend({
     expression = "(max(value, lower_bound) - lower_bound) / lower_bound"
   },
   {
-    type = "noise-expression",
-    name = "heliara_shungite_richness",
-    expression = "random_penalty(x, y, 400, 1, 380)",
-  },
-  {
     type = "noise-function",
     name = "parabola",
     parameters = {
@@ -346,12 +341,44 @@ data:extend({
                     density_expression=0.01,\z
                     spot_quantity_expression=2000,\z
                     spot_radius_expression = 20,\z
-                    spot_favorability_expression=heliara_dust-heliara_weathered_siliceous_crust/5-heliara_rusty_sand*4,\z
+                    spot_favorability_expression=heliara_dust*5+heliara_weathered_siliceous_crust/3-heliara_rusty_sand*2,\z
                     seed0=map_seed,\z
                     seed1=305,\z
                     basement_value=-1000,\z
                     maximum_spot_basement_radius=40\z
                   } * max(0, 0.6-voronoi_spot_noise{x=x,y=y,seed0=map_seed,seed1=306,grid_size=32,distance_type=2})"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_carbon_coal_probability",
+    expression = "spot_noise{\z
+                    x=x,\z
+                    y=y,\z
+                    density_expression=0.005,\z
+                    spot_quantity_expression=2000,\z
+                    spot_radius_expression = 20,\z
+                    spot_favorability_expression=heliara_dust*5-heliara_weathered_siliceous_crust*2-heliara_rusty_sand,\z
+                    seed0=map_seed,\z
+                    seed1=306,\z
+                    basement_value=-1000,\z
+                    maximum_spot_basement_radius=40\z
+                  } * random_penalty_between(0.1, 0.4, 307)"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_silcrete_probability",
+    expression = "spot_noise{\z
+                    x=x,\z
+                    y=y,\z
+                    density_expression=0.001,\z
+                    spot_quantity_expression=20000,\z
+                    spot_radius_expression = 200,\z
+                    spot_favorability_expression=heliara_silcrete_crust * 20 + heliara_clay_shale * 4 - (heliara_rusty_sand + heliara_ferocalcite_crust + heliara_iron_carbon_slag),\z
+                    seed0=map_seed,\z
+                    seed1=308,\z
+                    basement_value=0,\z
+                    maximum_spot_basement_radius=400\z
+                  } * 10 * clamp((heliara_silcrete_crust * 1.6 - (heliara_rusty_sand + heliara_ferocalcite_crust + heliara_clay_shale*0.75)), 0, 1)"
   },
 
   -- decals
