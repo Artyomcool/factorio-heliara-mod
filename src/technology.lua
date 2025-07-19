@@ -1,34 +1,36 @@
-data:extend({
-    {
-        type = "technology",
-        name = "planet-discovery-heliara",
-        icons = util.technology_icon_constant_planet("__heliara__/graphics/icons/heliara.png"),
-        icon_size = 2048,
-        essential = true,
-        effects = {
-            {
-                type = "unlock-space-location",
-                space_location = "heliara",
-                use_icon_overlay_constant = true
-            },
+local planet = {
+    type = "technology",
+    name = "planet-discovery-heliara",
+    icons = util.technology_icon_constant_planet("__heliara__/graphics/icons/heliara.png"),
+    essential = true,
+    effects = {
+        {
+            type = "unlock-space-location",
+            space_location = "heliara",
+            use_icon_overlay_constant = true
         },
-        prerequisites = { "planet-discovery-vulcanus", "planet-discovery-fulgora" },
-        unit = {
-            count = 100,
-            ingredients = {
-                { "automation-science-pack", 1 },
-                { "logistic-science-pack", 1 },
-                { "chemical-science-pack", 1 },
-                { "production-science-pack", 1 },
-                { "utility-science-pack", 1 },
-                { "space-science-pack", 1 },
-                { "metallurgic-science-pack", 1 },
-                { "electromagnetic-science-pack", 1 },
-                --{ "cryogenic-science-pack", 1 },
-            },
-            time = 60
-        }
     },
+    prerequisites = { "planet-discovery-vulcanus", "planet-discovery-fulgora" },
+    unit = {
+        count = 100,
+        ingredients = {
+            { "automation-science-pack", 1 },
+            { "logistic-science-pack", 1 },
+            { "chemical-science-pack", 1 },
+            { "production-science-pack", 1 },
+            { "utility-science-pack", 1 },
+            { "space-science-pack", 1 },
+            { "metallurgic-science-pack", 1 },
+            { "electromagnetic-science-pack", 1 },
+            --{ "cryogenic-science-pack", 1 },
+        },
+        time = 60
+    }
+}
+planet.icons[1].icon_size = 512
+
+data:extend({
+    planet,
     {
         type = "technology",
         name = "fullerene_extraction_bath",
