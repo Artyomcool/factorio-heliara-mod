@@ -370,15 +370,15 @@ data:extend({
     expression = "spot_noise{\z
                     x=x,\z
                     y=y,\z
-                    density_expression=0.001,\z
+                    density_expression=0.01,\z
                     spot_quantity_expression=20000,\z
-                    spot_radius_expression = 200,\z
+                    spot_radius_expression=300,\z
                     spot_favorability_expression=heliara_silcrete_crust * 20 + heliara_clay_shale * 4 - (heliara_rusty_sand + heliara_ferocalcite_crust + heliara_iron_carbon_slag),\z
                     seed0=map_seed,\z
                     seed1=308,\z
                     basement_value=0,\z
-                    maximum_spot_basement_radius=400\z
-                  } * 10 * clamp((heliara_silcrete_crust * 1.6 - (heliara_rusty_sand + heliara_ferocalcite_crust + heliara_clay_shale*0.75)), 0, 1)"
+                    maximum_spot_basement_radius=600\z
+                  } * 20 * cut(heliara_silcrete_crust - heliara_rusty_sand, 0.6) * cut(heliara_silcrete_crust - heliara_clay_shale * 0.95, 0.15)"
   },
 
   -- decals
