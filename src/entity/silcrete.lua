@@ -32,32 +32,22 @@ return {
             order = "a-b-c",
             --subgroup = "heliara",
             color_hint = { text = "T" },
-            fuel_value = "500kJ",
-            fuel_category = "chemical",
             subgroup = "raw-material",
 
-            stack_size = 100,
-            weight = 1 * kg
+            stack_size = 50
+        },
+        recipe = {
+            category = "smelting",
+            energy_required = 5,
+            enabled = false,
+            ingredients = {
+                [_name] = 10,
+            },
+            results = {
+                concrete = 10
+            },
+            allow_productivity = true,
+            main_product = "concrete"
         }
     },
-    -- {
-    --     recipe = {
-    --         icon = "__heliara__/graphics/icons/carbon_from_shungite.png",
-    --         name = "carbon-from-shungite",
-    --         ingredients = {
-    --             shungite = 100,
-    --         },
-    --         fluid_ingredients = {
-    --             water = 200,
-    --         },
-    --         results = {
-    --             carbon = 40,
-    --             ["iron-ore"] = 5,
-    --         },
-    --         energy_required = 10,
-    --         category = "fullerene-chemistry",
-    --         enabled = false,
-    --         main_product = "carbon",
-    --     },
-    -- },
 }

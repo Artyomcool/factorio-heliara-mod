@@ -161,6 +161,27 @@ data:extend({
     },
     {
         type = "technology",
+        name = "silcrete",
+        icon = "__heliara__/graphics/icons/silcrete.png",
+        icon_size = 128,
+        essential = false,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "silcrete",
+            },
+        },
+        prerequisites = { "fullerene_lab" },
+        unit = {
+            count = 15,
+            ingredients = {
+                { "fullerene-science-pack", 1 },
+            },
+            time = 45
+        }
+    },
+    {
+        type = "technology",
         name = "graphite_circuit",
         icon = "__heliara__/graphics/icons/graphite_circuit.png",
         icon_size = 64,
