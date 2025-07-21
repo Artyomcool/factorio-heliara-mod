@@ -4,6 +4,22 @@ local planet_catalogue_vulcanus = require("__space-age__.prototypes.planet.proce
 local planet_map_gen = require("__heliara__/prototypes/planet/planet-map-gen")
 local effects = require("__core__.lualib.surface-render-parameter-effects")
 
+for i = 1, 9 do
+    data:extend({
+        {
+            type = "ambient-sound",
+            name = "heliara-" .. i,
+            track_type = "main-track",
+            planet = "heliara",
+            sound = {
+                filename = "__heliara__/sound/" .. i .. ".ogg",
+                volume = 0.8,
+            },
+            weight = 10
+        },
+    })
+end
+
 data:extend(
         {
             -------------------------------------------------------------------------- LOCATIONS
