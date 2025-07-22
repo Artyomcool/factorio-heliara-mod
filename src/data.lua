@@ -25,6 +25,7 @@ local declare = {
     require("__heliara__.entity.long_burner_inserter"),
     require("__heliara__.entity.steam_cargo"),
     require("__heliara__.entity.silcrete"),
+    require("__heliara__.entity.wireless_pole"),
 }
 
 local function declare_recipe(common, recipe)
