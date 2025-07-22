@@ -1,24 +1,23 @@
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
 local decorative_trigger_effects = require("__base__.prototypes.decorative.decorative-trigger-effects")
-local tungsten_rock_tint = {.6,.8,.9}
 
 return {
     {
         common = {
             name = "huge_fullerene_rock",
-            icon = "__space-age__/graphics/icons/huge-volcanic-rock.png"
+            icon = "__heliara__/graphics/icons/huge-heliara-rock.png",
         },
         entity = {
             type = "simple-entity",
             subgroup = "grass",
             order = "c[decorative]-l[rock]-f[huge-fullerene-rock]",
-            collision_box = { { -1.5, -1.1 }, { 1.5, 1.1 } },
-            selection_box = { { -1.7, -1.3 }, { 1.7, 1.3 } },
+            collision_box = { { -1.7, -1.2 }, { 1.7, 1.2 } },
+            selection_box = { { -1.8, -1.3 }, { 1.8, 1.3 } },
             damaged_trigger_effect = hit_effects.rock(),
             dying_trigger_effect = decorative_trigger_effects.huge_rock(),
             minable = {
                 mining_particle = "stone-particle",
-                mining_time = 3,
+                mining_time = 5,
                 results = {
                     { type = "item", name = "stone", amount_min = 6, amount_max = 18 },
                     { type = "item", name = "iron-ore", amount_min = 9, amount_max = 27 },
@@ -51,133 +50,47 @@ return {
             },
             pictures = {
                 {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-05.png",
-                    width = 201,
-                    height = 179,
+                    filename = "__heliara__/graphics/decorative/huge-heliara-rock/huge-heliara-rock-00.png",
+                    width = 309,
+                    height = 247,
                     scale = 0.5,
-                    shift = { 0.25, 0.0625 },
-                    tint = tungsten_rock_tint
+                    shift = { 0.65, -0.6 },
                 },
                 {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-06.png",
-                    width = 233,
-                    height = 171,
+                    filename = "__heliara__/graphics/decorative/huge-heliara-rock/huge-heliara-rock-01.png",
+                    width = 254,
+                    height = 186,
                     scale = 0.5,
-                    shift = { 0.429688, 0.046875 },
-                    tint = tungsten_rock_tint
+                    shift = { 0.22, -0.45 },
                 },
                 {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-07.png",
-                    width = 240,
-                    height = 192,
+                    filename = "__heliara__/graphics/decorative/huge-heliara-rock/huge-heliara-rock-02.png",
+                    width = 279,
+                    height = 193,
                     scale = 0.5,
-                    shift = { 0.398438, 0.03125 },
-                    tint = tungsten_rock_tint
+                    shift = { 0.55, -0.45 },
                 },
                 {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-08.png",
-                    width = 219,
-                    height = 175,
+                    filename = "__heliara__/graphics/decorative/huge-heliara-rock/huge-heliara-rock-03.png",
+                    width = 272,
+                    height = 206,
                     scale = 0.5,
-                    shift = { 0.148438, 0.132812 },
-                    tint = tungsten_rock_tint
+                    shift = { 0.5, -0.6 },
                 },
                 {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-09.png",
-                    width = 240,
-                    height = 208,
+                    filename = "__heliara__/graphics/decorative/huge-heliara-rock/huge-heliara-rock-04.png",
+                    width = 268,
+                    height = 230,
                     scale = 0.5,
-                    shift = { 0.3125, 0.0625 },
-                    tint = tungsten_rock_tint
+                    shift = { 0.5, -0.7 },
                 },
                 {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-10.png",
-                    width = 243,
-                    height = 190,
-                    scale = 0.5,
-                    shift = { 0.1875, 0.046875 },
-                    tint = tungsten_rock_tint
-                },
-                {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-11.png",
-                    width = 249,
-                    height = 185,
-                    scale = 0.5,
-                    shift = { 0.398438, 0.0546875 },
-                    tint = tungsten_rock_tint
-                },
-                {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-12.png",
-                    width = 273,
-                    height = 163,
-                    scale = 0.5,
-                    shift = { 0.34375, 0.0390625 },
-                    tint = tungsten_rock_tint
-                },
-                {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-13.png",
-                    width = 275,
-                    height = 175,
-                    scale = 0.5,
-                    shift = { 0.273438, 0.0234375 },
-                    tint = tungsten_rock_tint
-                },
-                {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-14.png",
-                    width = 241,
-                    height = 215,
-                    scale = 0.5,
-                    shift = { 0.195312, 0.0390625 },
-                    tint = tungsten_rock_tint
-                },
-                {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-15.png",
-                    width = 318,
-                    height = 181,
-                    scale = 0.5,
-                    shift = { 0.523438, 0.03125 },
-                    tint = tungsten_rock_tint
-                },
-                {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-16.png",
-                    width = 217,
-                    height = 224,
-                    scale = 0.5,
-                    shift = { 0.0546875, 0.0234375 },
-                    tint = tungsten_rock_tint
-                },
-                {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-17.png",
-                    width = 332,
+                    filename = "__heliara__/graphics/decorative/huge-heliara-rock/huge-heliara-rock-05.png",
+                    width = 265,
                     height = 228,
                     scale = 0.5,
-                    shift = { 0.226562, 0.046875 },
-                    tint = tungsten_rock_tint
+                    shift = { 0.4, -0.66 },
                 },
-                {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-18.png",
-                    width = 290,
-                    height = 243,
-                    scale = 0.5,
-                    shift = { 0.195312, 0.0390625 },
-                    tint = tungsten_rock_tint
-                },
-                {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-19.png",
-                    width = 349,
-                    height = 225,
-                    scale = 0.5,
-                    shift = { 0.609375, 0.0234375 },
-                    tint = tungsten_rock_tint
-                },
-                {
-                    filename = "__space-age__/graphics/decorative/huge-volcanic-rock/huge-volcanic-rock-20.png",
-                    width = 287,
-                    height = 250,
-                    scale = 0.5,
-                    shift = { 0.132812, 0.03125 },
-                    tint = tungsten_rock_tint
-                }
             }
         }
     }

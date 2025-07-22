@@ -277,7 +277,7 @@ planet_map_gen.heliara = function()
             ["entity:carbon_coal:richness"] = "heliara_carbon_coal_richness",
             ["entity:silcrete:probability"] = "heliara_silcrete_probability",
             ["entity:silcrete:richness"] = "heliara_silcrete_richness",
-            --["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
+            ["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
         },
 
         autoplace_controls = {
@@ -338,7 +338,7 @@ planet_map_gen.heliara = function()
                     ["calcite"] = {},
                     ["carbon_coal"] = {},
                     ["silcrete"] = {},
-                    --["huge_fullerene_rock"] = {},
+                    ["huge_fullerene_rock"] = {},
                 }
             }
         }
