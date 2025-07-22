@@ -1,16 +1,10 @@
 require("script.ui")
 require("script.reflectors")
-require("script.fullerene_solar_panel")
 require("script.pod_crash")
 require("script.storage")
 require("script.steam_silo")
 require("script.dyson_launcher")
-
-script.on_event({ defines.events.on_research_finished, defines.events.on_research_reversed }, function(event)
-    if event.research == "fullerene_pole_length" then
-        recreate_hidden_poles();
-    end
-end)
+require("script.event_handlers")
 
 script.on_event(defines.events.on_cargo_pod_finished_descending, function(event)
     local surface = event.cargo_pod.surface
@@ -35,12 +29,39 @@ script.on_event(defines.events.on_surface_created, function(event)
   end
 end)
 
+create_heliara_for_player = nil
+
+-- remove on release
+commands.add_command("re", nil, function(command)
+    if game.surfaces["heliara"] then
+        create_heliara_for_player = game.get_player(command.player_index)
+        game.delete_surface("heliara")
+    else
+        game.planets["heliara"].create_surface()
+        game.players[command.player_index].teleport({0,0}, "heliara")
+    end
+end)
+
+script.on_event(defines.events.on_surface_deleted, function(event)
+    if create_heliara_for_player ~= nil then
+        game.planets["heliara"].create_surface()
+        create_heliara_for_player.teleport({0,0}, "heliara")
+        create_heliara_for_player = nil
+    end
+end)
+
 script.on_event(defines.events.on_tick, function(event)
     each_entity_storage(function (v)
-        tick_panel_energy(v)
         tick_steam_silo(v)
         tick_dyson_launcher(v)
     end)
+    local t = next_tick
+    if t then
+        next_tick = nil
+        for _, value in ipairs(t) do
+            value()
+        end
+    end
 end)
 
 script.on_event(
@@ -55,14 +76,8 @@ script.on_event(
     if not entity or not entity.valid then
         return
     end
-
-    if entity.name == "fullerene_solar_panel" then
-        entity_storage(entity).burner = entity
-    elseif entity.name == "solar_refractor_silo" then
-        entity_storage(entity).silo = entity
-    elseif entity.name == "dyson_swarm_launcher" then
-        entity_storage(entity).dyson_launcher = entity
-    end
+    local f = on_build_entity[entity.name]
+    if f then f() end
 end)
 
 
@@ -74,23 +89,21 @@ script.on_event(
         defines.events.script_raised_destroy,
         defines.events.on_space_platform_mined_entity
     }, function(event)
----@diagnostic disable-next-line: undefined-field
-    entity_storage_destroy(event.entity)
+    local f = on_destroy_entity[event.entity.name]
+    if f then f() end
 end)
 
 script.on_event(defines.events.on_gui_opened, function(event)
-    if event.entity and event.entity.name == 'fullerene_solar_panel' then
-        make_reflectors_ui(game.players[event.player_index], event.entity.surface)
-    elseif event.entity and event.entity.name == 'dyson_swarm_launcher' then
-        make_dyson_swarm_ui(game.players[event.player_index])
+    if event.entity then
+        local f = on_gui_opened_entity[event.entity.name]
+        if f then f(game.players[event.player_index], event.entity) end
     end
 end)
 
 script.on_event(defines.events.on_gui_closed, function(event)
-    if event.entity and event.entity.name == 'fullerene_solar_panel' then
-        destroy_reflectors_ui(game.players[event.player_index])
-    elseif event.entity and event.entity.name == 'dyson_swarm_launcher' then
-        destroy_dyson_swarm_ui(game.players[event.player_index])
+    if event.entity then
+        local f = on_gui_destroy_entity[event.entity.name]
+        if f then f(game.players[event.player_index], event.entity) end
     end
 end)
 

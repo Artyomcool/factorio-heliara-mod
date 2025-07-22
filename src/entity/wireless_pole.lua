@@ -29,7 +29,7 @@ return {
             flags = { "placeable-neutral", "placeable-player", "player-creation" },
             collision_box = {{-0.15, -0.15}, {0.15, 0.15}},
             selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
-            maximum_wire_distance = 0.01,
+            maximum_wire_distance = 1,
             supply_area_distance = 0.95,
             minable = { mining_time = 0.2, result = _name },
             draw_copper_wires = false,

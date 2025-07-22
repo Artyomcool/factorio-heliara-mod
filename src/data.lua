@@ -1,31 +1,32 @@
-require("__heliara__.prototypes.planet.planet")
-require("__heliara__.prototypes.noise")
+require("prototypes.planet.planet")
+require("prototypes.noise")
 require("util")
-require("__heliara__.technology")
+require("technology")
+require("script.event_handlers")
 
 local declare = {
-    require("__heliara__.entity.fullerene_solar_panel"),
-    require("__heliara__.entity.fullerene_extraction_bath"),
-    require("__heliara__.entity.shungite"),
-    require("__heliara__.entity.carbon_coal"),
-    require("__heliara__.entity.rocks"),
-    require("__heliara__.entity.fullerene"),
-    require("__heliara__.entity.silicon_substrate"),
-    require("__heliara__.entity.graphite"),
-    require("__heliara__.entity.graphite_circuit"),
-    require("__heliara__.entity.solar_refractor"),
-    require("__heliara__.entity.dyson_swarm_element"),
-    require("__heliara__.entity.solar_refractor_silo"),
-    require("__heliara__.entity.heliara_assembling_machine"),
-    require("__heliara__.entity.fullerene-science-pack"),
-    require("__heliara__.entity.graphite-automation-science-pack"),
-    require("__heliara__.entity.graphite-logistic-science-pack"),
-    require("__heliara__.entity.fullerene_lab"),
-    require("__heliara__.entity.fast_burner_inserter"),
-    require("__heliara__.entity.long_burner_inserter"),
-    require("__heliara__.entity.steam_cargo"),
-    require("__heliara__.entity.silcrete"),
-    require("__heliara__.entity.wireless_pole"),
+    require("entity.fullerene_solar_panel"),
+    require("entity.fullerene_extraction_bath"),
+    require("entity.shungite"),
+    require("entity.carbon_coal"),
+    require("entity.rocks"),
+    require("entity.fullerene"),
+    require("entity.silicon_substrate"),
+    require("entity.graphite"),
+    require("entity.graphite_circuit"),
+    require("entity.solar_refractor"),
+    require("entity.dyson_swarm_element"),
+    require("entity.solar_refractor_silo"),
+    require("entity.heliara_assembling_machine"),
+    require("entity.fullerene-science-pack"),
+    require("entity.graphite-automation-science-pack"),
+    require("entity.graphite-logistic-science-pack"),
+    require("entity.fullerene_lab"),
+    require("entity.fast_burner_inserter"),
+    require("entity.long_burner_inserter"),
+    require("entity.steam_cargo"),
+    require("entity.silcrete"),
+    require("entity.wireless_pole"),
 }
 
 local function declare_recipe(common, recipe)
@@ -332,9 +333,58 @@ local function declare_entity(common, entity)
         end
     end
 
-    data:extend({
-        result
-    })
+    local function add(e)
+        for k, table in pairs(entity_events) do
+            local h = e[k]
+            if h then
+                e[k] = nil
+                table[e.name] = h
+            end
+        end
+        data:extend({e})
+    end
+
+    add(result)
+
+    if entity.bound_entities then
+        local f = entity_events.on_build[result.name] or function (...) end
+        entity_events.on_build[result.name] = function (e)
+            local s = entity_storage(e)
+            s.entity = e
+            for _, child in ipairs(entity.bound_entities) do
+                s[child.name] = e.surface.create_entity {
+                    name = child.name,
+                    position = e.position,
+                    force = e.force,
+                    create_build_effect_smoke = false
+                }
+            end
+            f()
+        end
+
+        f = entity_events.on_destroy[result.name] or function (...) end
+        entity_events.on_destroy[result.name] = function (e)
+            local s = entity_storage(e)
+            for _, child in ipairs(entity.bound_entities) do
+                local c = s[child.name]
+                if c then
+                    c.destroy()
+                end
+            end
+            entity_storage_destroy(e)
+            f()
+        end
+        for _, child in ipairs(entity.bound_entities) do
+            add(child)
+        end
+    else
+        entity_events.on_build[result.name] = function (e)
+            entity_storage(e).entity = e
+        end
+        entity_events.on_destroy[result.name] = function (e)
+            entity_storage_destroy(e)
+        end
+    end
 end
 
 for _, to_declares in ipairs(declare) do

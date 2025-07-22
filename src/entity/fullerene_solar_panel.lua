@@ -38,6 +38,7 @@ return {
                 output_flow_limit = "1kW",
                 render_no_power_icon = false,
                 render_no_network_icon = false,
+                drain = "1kW"
             },
             burner = {
                 type = "burner",
@@ -55,167 +56,35 @@ return {
                 scale = 0.5,
                 shift = { 0.0, 0.0 },
             },
-            perceived_performance = {minimum = 0.1, maximum = 0.1}
-        }
-    },
-    {
-        entity = {
-            type = "solar-panel",
-            name = "solar-panel-hidden-panel",
-            flags = { "not-on-map", "placeable-off-grid" },
-            selection_priority = 50,
-            --selectable_in_game = false,
-            --hidden = true,
-            --collision_box = { { -1.99, -1.99 }, { 1.99, 1.99 } },
-            selection_box = { { -1.3, -2.4 }, { 0.75, 0.8 } },
-            energy_source = {
-                type = "electric",
-                usage_priority = "solar",
-                render_no_power_icon = false,
-                render_no_network_icon = false,
-            },
-            production = "500kW",
+            perceived_performance = {minimum = 0.1, maximum = 0.1},
 
-            pictures = {
-                filename = "__core__/graphics/empty.png",
-                width = 1,
-                height = 1,
-                direction_count = 1
-            },
-        }
-    },
-    {
-        entity = {
-            type = "electric-pole",
-            name = "solar-panel-hidden-pole-1",
-            icon = "__core__/graphics/empty.png",
-            icon_size = 1,
-            flags = { "not-on-map", "placeable-off-grid" },
-            selectable_in_game = false,
-            hidden = true,
-            collision_box = { { 0, 0 }, { 0, 0 } },
-            selection_box = { { 0, 0 }, { 0, 0 } },
-            maximum_wire_distance = 0,
-            supply_area_distance = 2.5,
-            pictures = {
-                filename = "__core__/graphics/empty.png",
-                width = 1,
-                height = 1,
-                direction_count = 1
-            },
-            connection_points = {
-                {
-                    shadow = { copper = { 0, 0 } },
-                    wire = { copper = { 0, 0 } }
-                }
-            }
-        }
-    },
-    {
-        entity = {
-            type = "electric-pole",
-            name = "solar-panel-hidden-pole-2",
-            icon = "__core__/graphics/empty.png",
-            icon_size = 1,
-            flags = { "not-on-map", "placeable-off-grid" },
-            selectable_in_game = false,
-            hidden = true,
-            collision_box = { { 0, 0 }, { 0, 0 } },
-            selection_box = { { 0, 0 }, { 0, 0 } },
-            maximum_wire_distance = 0,
-            supply_area_distance = 2.5,
-            pictures = {
-                filename = "__core__/graphics/empty.png",
-                width = 1,
-                height = 1,
-                direction_count = 1
-            },
-            connection_points = {
-                {
-                    shadow = { copper = { 0, 0 } },
-                    wire = { copper = { 0, 0 } }
-                }
-            }
-        }
-    },
-    {
-        entity = {
-            type = "electric-pole",
-            name = "solar-panel-hidden-pole-2",
-            icon = "__core__/graphics/empty.png",
-            icon_size = 1,
-            flags = { "not-on-map", "placeable-off-grid" },
-            selectable_in_game = false,
-            hidden = true,
-            collision_box = { { 0, 0 }, { 0, 0 } },
-            selection_box = { { 0, 0 }, { 0, 0 } },
-            maximum_wire_distance = 0,
-            supply_area_distance = 3.5,
-            pictures = {
-                filename = "__core__/graphics/empty.png",
-                width = 1,
-                height = 1,
-                direction_count = 1
-            },
-            connection_points = {
-                {
-                    shadow = { copper = { 0, 0 } },
-                    wire = { copper = { 0, 0 } }
-                }
-            }
-        }
-    },
-    {
-        entity = {
-            type = "electric-pole",
-            name = "solar-panel-hidden-pole-3",
-            icon = "__core__/graphics/empty.png",
-            icon_size = 1,
-            flags = { "not-on-map", "placeable-off-grid" },
-            selectable_in_game = false,
-            hidden = true,
-            collision_box = { { 0, 0 }, { 0, 0 } },
-            selection_box = { { 0, 0 }, { 0, 0 } },
-            maximum_wire_distance = 0,
-            supply_area_distance = 4.5,
-            pictures = {
-                filename = "__core__/graphics/empty.png",
-                width = 1,
-                height = 1,
-                direction_count = 1
-            },
-            connection_points = {
-                {
-                    shadow = { copper = { 0, 0 } },
-                    wire = { copper = { 0, 0 } }
-                }
-            }
-        }
-    },
-    {
-        entity = {
-            type = "electric-pole",
-            name = "solar-panel-hidden-pole-4",
-            icon = "__core__/graphics/empty.png",
-            icon_size = 1,
-            flags = { "not-on-map", "placeable-off-grid" },
-            selectable_in_game = false,
-            hidden = true,
-            collision_box = { { 0, 0 }, { 0, 0 } },
-            selection_box = { { 0, 0 }, { 0, 0 } },
-            maximum_wire_distance = 0,
-            supply_area_distance = 5.5,
-            pictures = {
-                filename = "__core__/graphics/empty.png",
-                width = 1,
-                height = 1,
-                direction_count = 1
-            },
-            connection_points = {
-                {
-                    shadow = { copper = { 0, 0 } },
-                    wire = { copper = { 0, 0 } }
-                }
+            on_gui_opened_entity = make_reflectors_ui,
+            on_gui_destroy_entity = destroy_reflectors_ui,
+        },
+        child_entities = {
+            {
+                type = "solar-panel",
+                name = "solar-panel-hidden-panel",
+                flags = { "not-on-map", "placeable-off-grid" },
+                selection_priority = 50,
+                --selectable_in_game = false,
+                hidden = true,
+                --collision_box = { { -1.99, -1.99 }, { 1.99, 1.99 } },
+                selection_box = { { -1.3, -2.4 }, { 0.75, 0.8 } },
+                energy_source = {
+                    type = "electric",
+                    usage_priority = "solar",
+                    render_no_power_icon = false,
+                    render_no_network_icon = false,
+                },
+                production = "500kW",
+
+                pictures = {
+                    filename = "__core__/graphics/empty.png",
+                    width = 1,
+                    height = 1,
+                    direction_count = 1
+                },
             }
         }
     },

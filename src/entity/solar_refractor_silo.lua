@@ -176,6 +176,8 @@ space_silo.rocket_entity = "dyson_swarm_element"
 space_silo.crafting_categories = { "space_rockets" }
 space_silo.rocket_parts_required = 2 -- 20? 200?
 space_silo.minable = { mining_time = 5, result = space_silo.name }
+space_silo.on_gui_opened_entity = make_dyson_swarm_ui
+space_silo.on_gui_destroy_entity = destroy_dyson_swarm_ui
 
 return {
     {
@@ -231,6 +233,6 @@ return {
             energy_required = 10,
             enabled = false,
         },
-        entity = space_silo
+        entity = space_silo,
     }
 }
