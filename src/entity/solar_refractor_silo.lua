@@ -193,7 +193,7 @@ return {
         recipe = {
             ingredients = {
                 ["stone-brick"] = 40,
-                ["concrete"] = 100,
+                ["concrete"] = 400,
                 ["steel-plate"] = 20,
                 ["iron-plate"] = 50,
                 ["iron-gear-wheel"] = 50,

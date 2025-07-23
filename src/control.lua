@@ -76,7 +76,7 @@ script.on_event(
     if not entity or not entity.valid then
         return
     end
-    local f = on_build_entity[entity.name]
+    local f = entity_events.on_build[entity.name]
     if f then f() end
 end)
 
@@ -89,20 +89,20 @@ script.on_event(
         defines.events.script_raised_destroy,
         defines.events.on_space_platform_mined_entity
     }, function(event)
-    local f = on_destroy_entity[event.entity.name]
+    local f = entity_events.on_destroy[event.entity.name]
     if f then f() end
 end)
 
 script.on_event(defines.events.on_gui_opened, function(event)
     if event.entity then
-        local f = on_gui_opened_entity[event.entity.name]
+        local f = entity_events.on_gui_opened[event.entity.name]
         if f then f(game.players[event.player_index], event.entity) end
     end
 end)
 
 script.on_event(defines.events.on_gui_closed, function(event)
     if event.entity then
-        local f = on_gui_destroy_entity[event.entity.name]
+        local f = entity_events.on_gui_destroy[event.entity.name]
         if f then f(game.players[event.player_index], event.entity) end
     end
 end)

@@ -12,7 +12,7 @@ local planet = {
     },
     prerequisites = { "planet-discovery-vulcanus", "planet-discovery-fulgora" },
     unit = {
-        count = 100,
+        count = 2000,
         ingredients = {
             { "automation-science-pack", 1 },
             { "logistic-science-pack", 1 },
@@ -22,19 +22,50 @@ local planet = {
             { "space-science-pack", 1 },
             { "metallurgic-science-pack", 1 },
             { "electromagnetic-science-pack", 1 },
-            --{ "cryogenic-science-pack", 1 },
         },
         time = 60
     }
 }
+
+local planet_navigation =
+{
+    type = "technology",
+    name = "heliara_navigation",
+    icons = util.technology_icon_constant_range("__heliara__/graphics/icons/heliara.png"),
+    essential = true,
+    effects = {
+        {
+            type = "nothing",
+        },
+    },
+    prerequisites = { "steam_cargo", "cryogenic-science-pack" },
+    unit = {
+        count = 4000,
+        ingredients = {
+            { "automation-science-pack", 1 },
+            { "logistic-science-pack", 1 },
+            { "chemical-science-pack", 1 },
+            { "production-science-pack", 1 },
+            { "utility-science-pack", 1 },
+            { "space-science-pack", 1 },
+            { "metallurgic-science-pack", 1 },
+            { "electromagnetic-science-pack", 1 },
+            { "cryogenic-science-pack", 1 },
+            { "fullerene-science-pack", 1 },
+        },
+        time = 120
+    }
+}
+
 planet.icons[1].icon_size = 512
+planet_navigation.icons[1].icon_size = 512
 
 data:extend({
     planet,
     {
         type = "technology",
         name = "fullerene_extraction_bath",
-        icon = "__heliara__/graphics/icons/default.png",
+        icon = "__heliara__/graphics/icons/fullerene_extraction_bath.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -52,7 +83,7 @@ data:extend({
     {
         type = "technology",
         name = "fullerene_solar_panel",
-        icon = "__heliara__/graphics/icons/default.png",
+        icon = "__heliara__/graphics/icons/fullerene_solar_panel.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -61,7 +92,7 @@ data:extend({
                 recipe = "fullerene_solar_panel",
             },
         },
-        prerequisites = { "fullerene_extraction_bath" },
+        prerequisites = { "planet-discovery-heliara" },
         research_trigger = {
             type = "mine-entity",
             entity = "huge_fullerene_rock"
@@ -69,14 +100,22 @@ data:extend({
     },
     {
         type = "technology",
-        name = "fullerene",
-        icon = "__heliara__/graphics/icons/default.png",
-        icon_size = 128,
+        name = "carbon-electrolitic-processing",
+        icon = "__heliara__/graphics/icons/shungite.png",
+        icon_size = 500,
         essential = true,
         effects = {
             {
                 type = "unlock-recipe",
                 recipe = "fullerene",
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "graphite",
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "fullerene-science-pack",
             },
         },
         prerequisites = { "fullerene_extraction_bath", "fullerene_solar_panel" },
@@ -87,43 +126,8 @@ data:extend({
     },
     {
         type = "technology",
-        name = "graphite",
-        icon = "__heliara__/graphics/icons/graphite.png",
-        icon_size = 128,
-        essential = true,
-        effects = {
-            {
-                type = "unlock-recipe",
-                recipe = "graphite",
-            },
-        },
-        prerequisites = { "fullerene" },
-        research_trigger = {
-            type = "craft-item",
-            item = "fullerene"
-        },
-    },
-    {
-        type = "technology",
-        name = "fullerene-science-pack",
-        icon = "__heliara__/graphics/icons/fullerene-science-pack.png",
-        essential = true,
-        effects = {
-            {
-                type = "unlock-recipe",
-                recipe = "fullerene-science-pack",
-            },
-        },
-        prerequisites = { "graphite", "fullerene" },
-        research_trigger = {
-            type = "craft-item",
-            item = "graphite"
-        },
-    },
-    {
-        type = "technology",
         name = "fullerene_lab",
-        icon = "__heliara__/graphics/icons/default.png",
+        icon = "__heliara__/graphics/icons/fullerene_lab.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -132,7 +136,7 @@ data:extend({
                 recipe = "fullerene_lab",
             },
         },
-        prerequisites = { "fullerene-science-pack" },
+        prerequisites = { "carbon-electrolitic-processing" },
         research_trigger = {
             type = "craft-item",
             item = "fullerene-science-pack"
@@ -273,7 +277,7 @@ data:extend({
         effects = {
             {
                 type = "unlock-recipe",
-                recipe = "graphite-automation-science-pack",
+                recipe = "graphite-logistic-science-pack",
             },
         },
         prerequisites = { "graphite_circuit" },
@@ -323,7 +327,7 @@ data:extend({
                 recipe = "solar_refractor_silo",
             },
         },
-        prerequisites = { "graphite-automation-science-pack", "graphite-logistic-science-pack" },
+        prerequisites = { "graphite-automation-science-pack", "graphite-logistic-science-pack", "silcrete" },
         unit = {
             count = 800,
             ingredients = {
@@ -337,7 +341,7 @@ data:extend({
     {
         type = "technology",
         name = "advanced-shungite",
-        icon = "__heliara__/graphics/icons/shungite.png",
+        icon = "__heliara__/graphics/icons/fullerene_from_shungite.png",
         icon_size = 500,
         essential = false,
         effects = {
@@ -354,7 +358,7 @@ data:extend({
                 recipe = "carbon-from-shungite",
             },
         },
-        prerequisites = { "solar_refractor" },
+        prerequisites = { "graphite-automation-science-pack", "graphite-logistic-science-pack" },
         unit = {
             count = 400,
             ingredients = {
@@ -368,8 +372,7 @@ data:extend({
     {
         type = "technology",
         name = "advanced-character-distance",
-        icon = "__heliara__/graphics/icons/shungite.png",
-        icon_size = 500,
+        icon = "__core__/graphics/icons/entity/character.png",
         essential = false,
         upgrade = true,
         max_level = 3,
@@ -436,7 +439,7 @@ data:extend({
     {
         type = "technology",
         name = "steam_cargo",
-        icon = "__heliara__/graphics/icons/default.png",
+        icon = "__heliara__/graphics/icons/solar_refractor_silo.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -445,7 +448,7 @@ data:extend({
                 recipe = "steam_cargo",
             },
         },
-        prerequisites = { "fullerene_rocket_fuel" },
+        prerequisites = { "fullerene_rocket_fuel", "heliara_assembling_machine", "fast_burner_inserter", "solar_refractor" },
         unit = {
             count = 2000,
             ingredients = {
@@ -456,60 +459,7 @@ data:extend({
             time = 60
         }
     },
-    {
-        type = "technology",
-        name = "fullerene_pole_length",
-        icon = "__heliara__/graphics/icons/default.png",
-        icon_size = 128,
-        essential = false,
-        upgrade = true,
-        max_level = 3,
-        show_levels_info = true,
-        effects = {
-            {
-                type = "nothing",
-            },
-        },
-        prerequisites = { "solar_refractor" },
-        unit = {
-            count = 600,
-            ingredients = {
-                { "automation-science-pack", 1 },
-                { "logistic-science-pack", 1 },
-                { "fullerene-science-pack", 1 },
-            },
-            time = 180
-        }
-    },
-    {
-        type = "technology",
-        name = "heliara_navigation",
-        icon = "__heliara__/graphics/icons/default.png",
-        icon_size = 128,
-        essential = true,
-        effects = {
-            {
-                type = "nothing",
-            },
-        },
-        prerequisites = { "steam_cargo", "cryogenic-science-pack" },
-        unit = {
-            count = 4000,
-            ingredients = {
-                { "automation-science-pack", 1 },
-                { "logistic-science-pack", 1 },
-                { "chemical-science-pack", 1 },
-                { "production-science-pack", 1 },
-                { "utility-science-pack", 1 },
-                { "space-science-pack", 1 },
-                { "metallurgic-science-pack", 1 },
-                { "electromagnetic-science-pack", 1 },
-                { "cryogenic-science-pack", 1 },
-                { "fullerene-science-pack", 1 },
-            },
-            time = 120
-        }
-    },
+    planet_navigation,
     {
         type = "technology",
         name = "advanced-fullerene",
@@ -559,15 +509,21 @@ data:extend({
                 recipe = "dyson_swarm_launcher",
             },
         },
-        prerequisites = { "graphite-automation-science-pack", "graphite-logistic-science-pack" },
+        prerequisites = { "heliara_navigation" },
         unit = {
-            count = 800,
+            count = 24000,
             ingredients = {
                 { "automation-science-pack", 1 },
                 { "logistic-science-pack", 1 },
+                { "chemical-science-pack", 1 },
+                { "production-science-pack", 1 },
+                { "utility-science-pack", 1 },
+                { "space-science-pack", 1 },
+                { "electromagnetic-science-pack", 1 },
+                { "cryogenic-science-pack", 1 },
                 { "fullerene-science-pack", 1 },
             },
-            time = 60
+            time = 120
         }
     },
 
