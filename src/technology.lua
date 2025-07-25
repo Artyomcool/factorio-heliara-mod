@@ -100,6 +100,28 @@ data:extend({
     },
     {
         type = "technology",
+        name = "dryer",
+        icon = "__base__/graphics/icons/boiler.png",    -- fixme
+        icon_size = 64,
+        essential = true,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "dryer",
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "water-from-concrete",
+            },
+        },
+        prerequisites = { "planet-discovery-heliara" },
+        research_trigger = {
+            type = "mine-entity",
+            entity = "silcrete"
+        },
+    },
+    {
+        type = "technology",
         name = "carbon-electrolitic-processing",
         icon = "__heliara__/graphics/icons/shungite.png",
         icon_size = 500,
@@ -175,7 +197,7 @@ data:extend({
                 recipe = "silcrete",
             },
         },
-        prerequisites = { "fullerene_lab" },
+        prerequisites = { "fullerene_lab", "dryer" },
         unit = {
             count = 15,
             ingredients = {

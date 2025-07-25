@@ -27,6 +27,7 @@ local declare = {
     require("entity.steam_cargo"),
     require("entity.silcrete"),
     require("entity.wireless_pole"),
+    require("entity.dryer"),
 }
 
 local function declare_recipe(common, recipe)
@@ -46,13 +47,23 @@ local function declare_recipe(common, recipe)
 
     local results = {}
 
+    local function with_amount(v, r)
+        if type(v) == "table" then
+            r.amount_min = v[1]
+            r.amount_max = v[2]
+        else
+            r.amount = v
+        end
+        return r
+    end
+
     if recipe.results or recipe.fluid_results then
         for k, v in pairs(recipe.results or {}) do
-            table.insert(results, { type = "item", name = k, amount = v })
+            table.insert(results, with_amount(v, { type = "item", name = k}))
         end
 
         for k, v in pairs(recipe.fluid_results or {}) do
-            table.insert(results, { type = "fluid", name = k, amount = v })
+            table.insert(results, with_amount(v, { type = "fluid", name = k}))
         end
     else
         table.insert(results,  { type = "item", name = common.name, amount = 1 });
