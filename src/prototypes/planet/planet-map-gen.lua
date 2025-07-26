@@ -254,7 +254,7 @@ data:extend({
     {
         type = "noise-expression",
         name = "heliara_huge_fullerene_rock_probability",
-        expression = 0.01,
+        expression = 0.001,
     },
 })
 

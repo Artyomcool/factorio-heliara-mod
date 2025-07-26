@@ -280,15 +280,15 @@ data:extend({
     type = "noise-expression",
     name = "heliara_weathered_siliceous_crust",
     expression = "max(0, elevation - 0.9) / 0.1 * 5 + noise_layer_noise(4) / 8 - 5*5*max(0, 0.2 - abs(multioctave_noise {\z
-                x = x,\z
-                y = y,\z
-                seed0 = map_seed,\z
-                seed1 = 509,\z
-                input_scale = 1/3,\z
-                octaves = 5,\z
-                persistence = 0.25,\z
-                output_scale = 1\z
-              }))"
+                    x = x,\z
+                    y = y,\z
+                    seed0 = map_seed,\z
+                    seed1 = 509,\z
+                    input_scale = 1/3,\z
+                    octaves = 5,\z
+                    persistence = 0.25,\z
+                    output_scale = 1\z
+                  }))"
   },
   {
     type = "noise-expression",

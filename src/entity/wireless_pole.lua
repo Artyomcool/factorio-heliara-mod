@@ -22,7 +22,7 @@ return {
                 ["graphite"] = 12,
             },
             energy_required = 2,
-            enabled = true  -- fixme technology
+            enabled = false
         },
         entity = {
             type = "electric-pole",

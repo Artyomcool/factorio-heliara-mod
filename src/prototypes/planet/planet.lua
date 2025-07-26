@@ -55,7 +55,7 @@ data:extend(
                     ["magnetic-field"] = 40,
                     ["solar-power"] = 25,
                     pressure = 3500,
-                    gravity = 40
+                    gravity = 6,
                 },
                 asteroid_spawn_influence = 1,
                 asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.nauvis_vulcanus, 0.9),

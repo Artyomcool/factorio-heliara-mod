@@ -43,7 +43,7 @@ return {
             },
 
             inputs = {
-                "automation-science-pack", "logistic-science-pack", "fullerene-science-pack"
+                "automation-science-pack", "logistic-science-pack", "chemical-science-pack", "production-science-pack", "fullerene-science-pack"
             },
 
             off_animation = {

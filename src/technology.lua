@@ -91,6 +91,10 @@ data:extend({
                 type = "unlock-recipe",
                 recipe = "fullerene_solar_panel",
             },
+            {
+                type = "unlock-recipe",
+                recipe = "wireless_pole",
+            },
         },
         prerequisites = { "planet-discovery-heliara" },
         research_trigger = {
@@ -313,6 +317,29 @@ data:extend({
     },
     {
         type = "technology",
+        name = "graphite-chemical-science-pack",
+        icon = "__base__/graphics/icons/chemical-science-pack.png",
+        icon_size = 64,
+        essential = true,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "graphite-chemical-science-pack",
+            },
+        },
+        prerequisites = { "graphite-automation-science-pack", "graphite-logistic-science-pack", "silcrete" },
+        unit = {
+            count = 150,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        }
+    },
+    {
+        type = "technology",
         name = "heliara_assembling_machine",
         icon = "__heliara__/graphics/icons/heliara_assembling_machine.png",
         icon_size = 64,
@@ -328,6 +355,30 @@ data:extend({
             count = 20,
             ingredients = {
                 { "automation-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        }
+    },
+    {
+        type = "technology",
+        name = "graphite-production-science-pack",
+        icon = "__base__/graphics/icons/production-science-pack.png",
+        icon_size = 64,
+        essential = true,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "graphite-production-science-pack",
+            },
+        },
+        prerequisites = { "heliara_assembling_machine", "graphite-chemical-science-pack" },
+        unit = {
+            count = 200,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "chemical-science-pack", 1 },
                 { "fullerene-science-pack", 1 },
             },
             time = 60
@@ -380,7 +431,7 @@ data:extend({
                 recipe = "carbon-from-shungite",
             },
         },
-        prerequisites = { "graphite-automation-science-pack", "graphite-logistic-science-pack" },
+        prerequisites = { "graphite-chemical-science-pack" },
         unit = {
             count = 400,
             ingredients = {
@@ -470,7 +521,7 @@ data:extend({
                 recipe = "steam_cargo",
             },
         },
-        prerequisites = { "fullerene_rocket_fuel", "heliara_assembling_machine", "fast_burner_inserter", "solar_refractor" },
+        prerequisites = { "fullerene_rocket_fuel", "graphite-production-science-pack", "fast_burner_inserter", "solar_refractor" },
         unit = {
             count = 2000,
             ingredients = {
