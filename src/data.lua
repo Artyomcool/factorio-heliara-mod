@@ -27,6 +27,7 @@ local declare = {
     require("entity.silcrete"),
     require("entity.wireless_pole"),
     require("entity.dryer"),
+    require("entity.osmosis_pipejack"),
 }
 
 local function declare_recipe(common, recipe)

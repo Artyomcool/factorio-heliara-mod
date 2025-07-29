@@ -389,6 +389,24 @@ data:extend({
                     maximum_spot_basement_radius=600\z
                   } * 20 * cut(heliara_silcrete_crust - heliara_rusty_sand, 0.6) * cut(heliara_silcrete_crust - heliara_clay_shale * 0.95, 0.15)"
   },
+  {
+    type = "noise-expression",
+    name = "heliara_brackish_vent_probability",
+    expression = "clamp(spot_noise{\z
+                    x=x,\z
+                    y=y,\z
+                    density_expression=0.1,\z
+                    spot_quantity_expression=20000,\z
+                    spot_radius_expression=10,\z
+                    spot_favorability_expression=heliara_silcrete_crust * 4 + heliara_clay_shale * 20 - (heliara_rusty_sand + heliara_ferocalcite_crust + heliara_iron_carbon_slag),\z
+                    seed0=map_seed,\z
+                    seed1=309,\z
+                    basement_value=0,\z
+                    maximum_spot_basement_radius=20\z
+                  }, 0, 0.05)\z
+                    * cut(heliara_clay_shale - heliara_rusty_sand * 0.8, 0.6) * cut(heliara_clay_shale - heliara_silcrete_crust * 0.9, 0.15)"
+
+  },
 
   -- decals
   {

@@ -386,6 +386,34 @@ data:extend({
     },
     {
         type = "technology",
+        name = "osmosis_pipejack",
+        icon = "__heliara__/graphics/icons/osmosis_filter.png",
+        icon_size = 64,
+        essential = true,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "osmosis_pipejack",
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "osmosis_filter",
+            },
+        },
+        prerequisites = { "graphite-production-science-pack" },
+        unit = {
+            count = 200,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "production-science-pack", 1 },
+                { "chemical-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        }
+    },
+    {
+        type = "technology",
         name = "solar_refractor",
         icon = "__heliara__/graphics/icons/solar_refractor.png",
         icon_size = 1024,
@@ -521,12 +549,14 @@ data:extend({
                 recipe = "steam_cargo",
             },
         },
-        prerequisites = { "fullerene_rocket_fuel", "graphite-production-science-pack", "fast_burner_inserter", "solar_refractor" },
+        prerequisites = { "osmosis_pipejack", "fullerene_rocket_fuel", "solar_refractor" },
         unit = {
             count = 2000,
             ingredients = {
                 { "automation-science-pack", 1 },
                 { "logistic-science-pack", 1 },
+                { "production-science-pack", 1 },
+                { "chemical-science-pack", 1 },
                 { "fullerene-science-pack", 1 },
             },
             time = 60

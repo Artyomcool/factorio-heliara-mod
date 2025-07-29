@@ -278,6 +278,8 @@ planet_map_gen.heliara = function()
             ["entity:silcrete:probability"] = "heliara_silcrete_probability",
             ["entity:silcrete:richness"] = "heliara_silcrete_richness",
             ["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
+            ["entity:brackish_vent:richness"] = "1",
+            ["entity:brackish_vent:probability"] = "heliara_brackish_vent_probability",
         },
 
         autoplace_controls = {
@@ -339,6 +341,7 @@ planet_map_gen.heliara = function()
                     ["carbon_coal"] = {},
                     ["silcrete"] = {},
                     ["huge_fullerene_rock"] = {},
+                    ["brackish_vent"] = {},
                 }
             }
         }
