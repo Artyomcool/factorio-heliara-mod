@@ -1,3 +1,5 @@
+require("common")
+
 local _name = "graphite_circuit"
 
 return {

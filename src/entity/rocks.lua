@@ -1,5 +1,4 @@
-local hit_effects = require("__base__.prototypes.entity.hit-effects")
-local decorative_trigger_effects = require("__base__.prototypes.decorative.decorative-trigger-effects")
+require("common")
 
 return {
     {
@@ -24,6 +23,7 @@ return {
                     { type = "item", name = "fullerene", amount_min = 3, amount_max = 5 },
                     { type = "item", name = "shungite", amount_min = 1, amount_max = 7 },
                     { type = "item", name = "graphite", amount_min = 1, amount_max = 3 },
+                    { type = "item", name = "concrete", amount_min = 0, amount_max = 1 },
                 },
             },
             map_color = { 129, 105, 78 },

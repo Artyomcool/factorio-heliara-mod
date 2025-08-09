@@ -2,33 +2,8 @@ require("prototypes.planet.planet")
 require("prototypes.noise")
 require("util")
 require("technology")
-require("script.event_handlers")
 
-local declare = {
-    require("entity.fullerene_solar_panel"),
-    require("entity.fullerene_extraction_bath"),
-    require("entity.shungite"),
-    require("entity.carbon_coal"),
-    require("entity.rocks"),
-    require("entity.fullerene"),
-    require("entity.silicon_substrate"),
-    require("entity.graphite"),
-    require("entity.graphite_circuit"),
-    require("entity.solar_refractor"),
-    require("entity.dyson_swarm_element"),
-    require("entity.solar_refractor_silo"),
-    require("entity.heliara_assembling_machine"),
-    require("entity.fullerene-science-pack"),
-    require("entity.graphite-science-packs"),
-    require("entity.fullerene_lab"),
-    require("entity.fast_burner_inserter"),
-    require("entity.long_burner_inserter"),
-    require("entity.steam_cargo"),
-    require("entity.silcrete"),
-    require("entity.wireless_pole"),
-    require("entity.dryer"),
-    require("entity.osmosis_pipejack"),
-}
+local declare = require("entities")
 
 local function declare_recipe(common, recipe)
     if recipe == nil then
@@ -51,6 +26,7 @@ local function declare_recipe(common, recipe)
         if type(v) == "table" then
             r.amount_min = v[1]
             r.amount_max = v[2]
+            r.probability = v[3]
         else
             r.amount = v
         end
@@ -345,56 +321,13 @@ local function declare_entity(common, entity)
     end
 
     local function add(e)
-        for k, table in pairs(entity_events) do
-            local h = e[k]
-            if h then
-                e[k] = nil
-                table[e.name] = h
-            end
-        end
         data:extend({e})
     end
 
     add(result)
 
-    if entity.bound_entities then
-        local f = entity_events.on_build[result.name] or function (...) end
-        entity_events.on_build[result.name] = function (e)
-            local s = entity_storage(e)
-            s.entity = e
-            for _, child in ipairs(entity.bound_entities) do
-                s[child.name] = e.surface.create_entity {
-                    name = child.name,
-                    position = e.position,
-                    force = e.force,
-                    create_build_effect_smoke = false
-                }
-            end
-            f()
-        end
-
-        f = entity_events.on_destroy[result.name] or function (...) end
-        entity_events.on_destroy[result.name] = function (e)
-            local s = entity_storage(e)
-            for _, child in ipairs(entity.bound_entities) do
-                local c = s[child.name]
-                if c then
-                    c.destroy()
-                end
-            end
-            entity_storage_destroy(e)
-            f()
-        end
-        for _, child in ipairs(entity.bound_entities) do
-            add(child)
-        end
-    else
-        entity_events.on_build[result.name] = function (e)
-            entity_storage(e).entity = e
-        end
-        entity_events.on_destroy[result.name] = function (e)
-            entity_storage_destroy(e)
-        end
+    for _, child in ipairs(entity.bound_entities or {}) do
+        add(child)
     end
 end
 
@@ -405,6 +338,9 @@ for _, to_declares in ipairs(declare) do
         declare_item(common, to_declare.item)
         declare_entity(common, to_declare.entity)
         declare_resource(common, to_declare.resource)
+        if to_declare.raw then
+            data:extend(to_declare.raw) 
+        end
     end
 end
 

@@ -1,3 +1,5 @@
+require("common")
+
 local _name = "shungite"
 
 return {
@@ -33,8 +35,6 @@ return {
             order = "a-b-c",
             --subgroup = "heliara",
             color_hint = { text = "T" },
-            fuel_value = "500kJ",
-            fuel_category = "chemical",
             subgroup = "raw-material",
 
             stack_size = 100,
@@ -55,7 +55,7 @@ return {
                 carbon = 40,
                 ["iron-ore"] = 5,
             },
-            energy_required = 10,
+            energy_required = 5,
             category = "fullerene-chemistry",
             enabled = false,
             main_product = "carbon",

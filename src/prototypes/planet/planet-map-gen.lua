@@ -180,57 +180,13 @@ local function decal(x, y, w, h)
     }
 end
 
-local function clay_cracks_decals()
-  local pictures = {
-  }
-  local x = 0
-  local y = 0
-  local w = 256
-  local h = 256
-  local stripe = function(c)
-    for i = 1, c, 1 do
-      table.insert(pictures, decal(x, y, w, h))
-      y = y + h
-    end
-  end
-  local next = function(nw,nh)
-    y = 0
-    x = x + w
-    w = nw
-    h = nh
-  end
-
-  stripe(4)
-  next(256,256)
-  stripe(4)
-  next(256,256)
-  stripe(4)
-  next(256,256)
-  stripe(4)
-
-  return pictures
-end
 
 data:extend({
-  {
-    name = "clay_cracks",
-    type = "optimized-decorative",
-    order = "a[vulcanus]-b[decorative]",
-    collision_box = {{-8, -8}, {8, 8}},
-    --collision_mask = {},
-    render_layer = "decals",
-    tile_layer =  255,
-    autoplace = {
-      order = "d[ground-surface]-e[crater]-a[small]",
-      probability_expression = "clay_cracks"
+    {
+        type = "noise-expression",
+        name = "heliara_shungite_richness",
+        expression = "(noise_layer_noise(38) / 2 + 0.25) * 4000",
     },
-    pictures = clay_cracks_decals()
-  },
-})
-
-
-
-data:extend({
     {
         type = "noise-expression",
         name = "heliara_stone_richness",
@@ -239,7 +195,7 @@ data:extend({
     {
         type = "noise-expression",
         name = "heliara_calcite_richness",
-        expression = "abs(noise_layer_noise(37)) * 300",
+        expression = "(noise_layer_noise(37) / 2 + 0.25) * 300",
     },
     {
         type = "noise-expression",
@@ -278,7 +234,7 @@ planet_map_gen.heliara = function()
             ["entity:silcrete:probability"] = "heliara_silcrete_probability",
             ["entity:silcrete:richness"] = "heliara_silcrete_richness",
             ["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
-            ["entity:brackish_vent:richness"] = "1",
+            ["entity:brackish_vent:richness"] = "1000000",
             ["entity:brackish_vent:probability"] = "heliara_brackish_vent_probability",
         },
 
@@ -323,7 +279,6 @@ planet_map_gen.heliara = function()
                   ["heliara_mud_decal"] = {},
                   ["heliara_huge_cracks"] = {},
                   ["heliara_cracks"] = {},
-                  ["clay_cracks"] = {},
                   ["heliara_tiny_rock_1"] = {},
                   ["heliara_tiny_rock_2"] = {},
                   ["heliara_tiny_rock_3"] = {},

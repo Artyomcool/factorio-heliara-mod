@@ -9,12 +9,12 @@ local function interpolate(from, to, current)
 end
 
 local function day_duration(reflectors_count)
-    local count_to_make_it_always_day = 1000
+    local count_to_make_it_always_day = 500
     return interpolate(0.2, 1, reflectors_count / count_to_make_it_always_day)
 end
 
 local function night_duration(reflectors_count)
-    local count_to_make_it_never_night = 500
+    local count_to_make_it_never_night = 100
     return interpolate(0.2, 0, reflectors_count / count_to_make_it_never_night)
 end
 
@@ -52,7 +52,7 @@ function add_reflectors(surface, delta)
     end
 
     surface_storage.reflectors_count = now_count
-    surface.solar_power_multiplier = 1 + math.pow(now_count, 0.5) * 0.05
+    surface.solar_power_multiplier = 1 + math.pow(now_count, 0.5) * 0.10
 
 
     surface.daytime_parameters = daytime_parameters(day_duration(now_count), night_duration(now_count))

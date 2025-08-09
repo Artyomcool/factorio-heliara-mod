@@ -1,3 +1,5 @@
+require("common")
+
 local _name = "graphite"
 
 return {
@@ -9,7 +11,7 @@ return {
         },
         recipe = {
             ingredients = {
-                fullerene = 8,
+                fullerene = 6,
                 carbon = 6
             },
             fluid_ingredients = {
@@ -45,7 +47,7 @@ return {
                 graphite = 30,
                 ["iron-ore"] = 5,
             },
-            energy_required = 10,
+            energy_required = 5,
             category = "fullerene-chemistry",
             enabled = false,
         },

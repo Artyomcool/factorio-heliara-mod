@@ -1,17 +1,6 @@
+require("common")
+
 local _name = "osmosis_pipejack"
-
-local hit_effects = require("__base__.prototypes.entity.hit-effects")
-
-data:extend({
-    {
-        type = "fuel-category",
-        name = "osmosis"
-    },
-    {
-        type = "resource-category",
-        name = "osmosis-fluid"
-    },
-})
 
 return {
     {
@@ -31,8 +20,10 @@ return {
         },
         recipe = {
             ingredients = {
-                ["boiler"] = 1,
-                ["iron-plate"] = 2,
+                ["steel-plate"] = 5,
+                ["iron-gear-wheel"] = 10,
+                ["graphite_circuit"] = 10,
+                ["pipe"] = 10,
             },
             energy_required = 1,
             enabled = false,
@@ -62,8 +53,8 @@ return {
             },
             energy_usage = "10kW",
             mining_speed = 1,
-    resource_searching_radius = 0.49,
-    vector_to_place_result = {0, 0},
+            resource_searching_radius = 0.49,
+            vector_to_place_result = {0, 0},
             radius_visualisation_picture = {
                 filename = "__base__/graphics/entity/pumpjack/pumpjack-radius-visualization.png",
                 width = 12,
@@ -278,7 +269,7 @@ return {
 
             stack_size = 40,
             ingredient_to_weight_coefficient = 0.28,
-            fuel_value = "1MJ",
+            fuel_value = "5MJ",
             fuel_category = "osmosis",
         },
         recipe = {
@@ -304,20 +295,20 @@ return {
         },
         resource = {
             flags = { "placeable-neutral" },
-    collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
-    selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+            collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
+            selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
             mining_time = 1,
             autoplace = {
                 order = "c",
-                probability_expression = 0.01,
+                probability_expression = 0,
             },
-    category = "osmosis-fluid",
-    subgroup = "mineable-fluids",
-    resource_patch_search_radius = 16,
+            category = "osmosis-fluid",
+            subgroup = "mineable-fluids",
+            resource_patch_search_radius = 16,
             infinite = true,
             highlight = true,
-            minimum = 20000,
-            normal = 20000,
+            minimum = 1000000,
+            normal = 1000000,
             infinite_depletion_amount = 0,
             map_color = { 0.08, 0.05, 0.9 },
             --mining_visualisation_tint = { r = 0.1, g = 0.09, b = 0.9, a = 1.000 },
@@ -327,8 +318,8 @@ return {
                     {
                         type = "fluid",
                         name = "water",
-                        amount_min = 100,
-                        amount_max = 150,
+                        amount_min = 200,
+                        amount_max = 250,
                         probability = 0.9
                     }
                 }
@@ -345,6 +336,16 @@ return {
                         scale = 0.5,
                     }
                 }
+            },
+        },
+        raw = {
+            {
+                type = "fuel-category",
+                name = "osmosis"
+            },
+            {
+                type = "resource-category",
+                name = "osmosis-fluid"
             },
         },
     },

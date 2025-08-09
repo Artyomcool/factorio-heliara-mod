@@ -1,6 +1,6 @@
-local _name = "steam_cargo"
+require("common")
 
-require("util")
+local _name = "steam_cargo"
 
 local rocket_shift = 48
 

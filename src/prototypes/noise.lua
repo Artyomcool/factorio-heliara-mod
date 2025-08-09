@@ -431,11 +431,6 @@ data:extend({
   },
   {
     type = "noise-expression",
-    name = "clay_cracks",
-    expression = "cut(heliara_clay_shale - heliara_rusty_sand, 0.6) * 0.05"
-  },
-  {
-    type = "noise-expression",
     name = "heliara_calcite_small",
     expression = "cut(heliara_ferocalcite_crust, 0.2) * 0.002"
   },

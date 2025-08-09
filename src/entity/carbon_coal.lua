@@ -1,3 +1,5 @@
+require("common")
+
 local _name = "carbon_coal"
 
 return {

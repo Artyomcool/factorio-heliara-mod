@@ -1,15 +1,6 @@
+require("common")
+
 local _name = "dryer"
-
-require("__base__.prototypes.entity.pipecovers")
-require("__base__.prototypes.entity.assemblerpipes")
-local hit_effects = require("__base__.prototypes.entity.hit-effects")
-
-data:extend({
-    {
-        type = "recipe-category",
-        name = "dry"
-    }
-})
 
 return {
     {
@@ -334,9 +325,9 @@ return {
                 ["silcrete"] = 50,
             },
             results = {
-                ["stone"] = {30,50},
-                ["stone-brick"] = {15,20},
-                ["iron-ore"] = {4,5},
+                ["stone"] = {10,20},
+                ["stone-brick"] = {5,10},
+                ["iron-ore"] = {1,2},
             },
             fluid_results = {
                 water = 345
@@ -346,5 +337,11 @@ return {
             main_product = "water",
             category = "dry",
         },
+        raw = {
+            {
+                type = "recipe-category",
+                name = "dry"
+            }
+        }
     },
 }

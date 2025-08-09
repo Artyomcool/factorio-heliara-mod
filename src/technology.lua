@@ -1,7 +1,7 @@
 local planet = {
     type = "technology",
     name = "planet-discovery-heliara",
-    icons = util.technology_icon_constant_planet("__heliara__/graphics/icons/heliara.png"),
+    icons = util.technology_icon_constant_planet("__heliara__/graphics/icons/heliara_tech.png"),
     essential = true,
     effects = {
         {
@@ -386,6 +386,30 @@ data:extend({
     },
     {
         type = "technology",
+        name = "effective_wireless_pole",
+        icon = "__heliara__/graphics/icons/default.png",
+        icon_size = 64,
+        essential = true,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "effective_wireless_pole",
+            },
+        },
+        prerequisites = { "graphite-production-science-pack" },
+        unit = {
+            count = 275,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "production-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        }
+    },
+    {
+        type = "technology",
         name = "osmosis_pipejack",
         icon = "__heliara__/graphics/icons/osmosis_filter.png",
         icon_size = 64,
@@ -430,7 +454,7 @@ data:extend({
         },
         prerequisites = { "graphite-automation-science-pack", "graphite-logistic-science-pack", "silcrete" },
         unit = {
-            count = 800,
+            count = 300,
             ingredients = {
                 { "automation-science-pack", 1 },
                 { "logistic-science-pack", 1 },
@@ -458,6 +482,14 @@ data:extend({
                 type = "unlock-recipe",
                 recipe = "carbon-from-shungite",
             },
+            {
+                type = "unlock-recipe",
+                recipe = "brick_dust",
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "shungite_from_brick_dust",
+            },
         },
         prerequisites = { "graphite-chemical-science-pack" },
         unit = {
@@ -465,6 +497,7 @@ data:extend({
             ingredients = {
                 { "automation-science-pack", 1 },
                 { "logistic-science-pack", 1 },
+                { "chemical-science-pack", 1 },
                 { "fullerene-science-pack", 1 },
             },
             time = 60
@@ -589,6 +622,8 @@ data:extend({
                 { "production-science-pack", 1 },
                 { "utility-science-pack", 1 },
                 { "space-science-pack", 1 },
+                { "metallurgic-science-pack", 1},
+                { "agricultural-science-pack", 1},
                 { "electromagnetic-science-pack", 1 },
                 { "cryogenic-science-pack", 1 },
                 { "fullerene-science-pack", 1 },
@@ -598,10 +633,104 @@ data:extend({
     },
     {
         type = "technology",
+        name = "stone-asteroid-crushing",
+        icon = "__heliara__/graphics/icons/default.png",
+        icon_size = 128,
+        essential = false,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = "stone-asteroid-crushing",
+            },
+        },
+        prerequisites = { "advanced-fullerene" },
+        unit = {
+            count = 8000,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "chemical-science-pack", 1 },
+                { "production-science-pack", 1 },
+                { "utility-science-pack", 1 },
+                { "space-science-pack", 1 },
+                { "metallurgic-science-pack", 1},
+                { "agricultural-science-pack", 1},
+                { "electromagnetic-science-pack", 1 },
+                { "cryogenic-science-pack", 1 },
+                { "fullerene-science-pack", 1 },
+            },
+            time = 120
+        }
+    },
+    {
+        type = "technology",
+        name = "coal-productivity",
+        icons = util.technology_icon_constant_productivity("__heliara__/graphics/icons/coal.png"),
+        essential = false,
+        effects = {
+            {
+                type = "change-recipe-productivity",
+                recipe = "carbon",
+                change = 0.1
+            },
+            {
+                type = "change-recipe-productivity",
+                recipe = "coal-synthesis",
+                change = 0.1
+            },
+            {
+                type = "change-recipe-productivity",
+                recipe = "fullerene-from-shungite",
+                change = 0.1
+            },
+            {
+                type = "change-recipe-productivity",
+                recipe = "graphite-from-shungite",
+                change = 0.1
+            },
+            {
+                type = "change-recipe-productivity",
+                recipe = "carbon-from-shungite",
+                change = 0.1
+            },
+            {
+                type = "change-recipe-productivity",
+                recipe = "fullerene-from-graphite",
+                change = 0.1
+            },
+            {
+                type = "change-recipe-productivity",
+                recipe = "graphite-from-carbon",
+                change = 0.1
+            },
+        },
+        prerequisites = { "advanced-fullerene" },
+        unit = {
+            count_formula = "1.5^L*1000",
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "chemical-science-pack", 1 },
+                { "production-science-pack", 1 },
+                { "utility-science-pack", 1 },
+                { "space-science-pack", 1 },
+                { "electromagnetic-science-pack", 1 },
+                { "metallurgic-science-pack", 1},
+                { "cryogenic-science-pack", 1 },
+                { "agricultural-science-pack", 1},
+                { "fullerene-science-pack", 1 },
+            },
+            time = 60
+        },
+        max_level = "infinite",
+        upgrade = true
+    },
+    {
+        type = "technology",
         name = "dyson_swarm",
         icon = "__heliara__/graphics/icons/default.png",
         icon_size = 1024,
-        essential = true,
+        essential = false,
         effects = {
             {
                 type = "unlock-recipe",
@@ -623,7 +752,9 @@ data:extend({
                 { "utility-science-pack", 1 },
                 { "space-science-pack", 1 },
                 { "electromagnetic-science-pack", 1 },
+                { "metallurgic-science-pack", 1},
                 { "cryogenic-science-pack", 1 },
+                { "agricultural-science-pack", 1},
                 { "fullerene-science-pack", 1 },
             },
             time = 120

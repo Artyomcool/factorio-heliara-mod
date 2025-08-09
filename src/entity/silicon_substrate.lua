@@ -1,3 +1,5 @@
+require("common")
+
 local _name = "silicon_substrate"
 
 return {
@@ -9,7 +11,7 @@ return {
         },
         recipe = {
             ingredients = {
-                fullerene = 10,
+                fullerene = 4,
                 stone = 5,
                 ["iron-plate"] = 2
             },
@@ -17,11 +19,11 @@ return {
                 water = 200,
             },
             results = {
-                shungite = 10,
+                shungite = 4,
                 stone = 3,
                 silicon_substrate = 1,
             },
-            energy_required = 3,
+            energy_required = 1,
             category = "fullerene-chemistry",
             enabled = false
         },

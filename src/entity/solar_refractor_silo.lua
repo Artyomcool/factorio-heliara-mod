@@ -1,22 +1,35 @@
-require ("util")
-
-local item_tints = require("__base__.prototypes.item-tints")
-
-require("__base__.prototypes.entity.pipecovers")
-require("__base__.prototypes.entity.assemblerpipes")
+require("common")
+req("__heliara__/script/ui")
 
 local _name = "solar_refractor_silo"
 
-data:extend({
-    {
-        type = "recipe-category",
-        name = "steam_rockets"
-    },
-    {
-        type = "recipe-category",
-        name = "space_rockets"
-    }
-})
+local recipe_to_silo = {
+    solar_refractor = 'solar_refractor_silo',
+    steam_cargo = 'steam_cargo_silo',
+}
+
+local function tick(silo)
+    local recipe = silo.get_recipe()
+    if not recipe then
+        return
+    end
+
+    local should_be_silo = recipe_to_silo[recipe.name]
+    if (should_be_silo == silo.name) then
+        return
+    end
+
+    silo.surface.create_entity {
+        name = should_be_silo,
+        position = silo.position,
+        force = silo.force,
+        create_build_effect_smoke = false,
+        auto_connect = true,
+        raise_built = true
+    }.set_recipe(recipe.name)
+
+    silo.destroy()
+end
 
 local retractor_silo = {
     type = "rocket-silo",
@@ -155,7 +168,7 @@ local retractor_silo = {
         }
     },
     launch_to_space_platforms = false,
-    can_launch_without_landing_pads = true
+    can_launch_without_landing_pads = true,
 }
 
 local cargo_silo = table.deepcopy(retractor_silo)
@@ -176,8 +189,19 @@ space_silo.rocket_entity = "dyson_swarm_element"
 space_silo.crafting_categories = { "space_rockets" }
 space_silo.rocket_parts_required = 2 -- 20? 200?
 space_silo.minable = { mining_time = 5, result = space_silo.name }
-space_silo.on_gui_opened_entity = make_dyson_swarm_ui
-space_silo.on_gui_destroy_entity = destroy_dyson_swarm_ui
+space_silo.on_gui_opened = make_dyson_swarm_ui
+space_silo.on_gui_destroy = destroy_dyson_swarm_ui
+
+retractor_silo.on_tick = wrap(function (silo)
+    tick(silo)
+    if silo.launch_rocket() then
+        add_reflectors(silo.surface, 1)
+    end
+end)
+retractor_silo.on_gui_opened = make_reflectors_ui
+retractor_silo.on_gui_destroy = destroy_reflectors_ui
+
+cargo_silo.on_tick = wrap(tick)
 
 return {
     {
@@ -234,5 +258,15 @@ return {
             enabled = false,
         },
         entity = space_silo,
+        raw = {
+            {
+                type = "recipe-category",
+                name = "steam_rockets"
+            },
+            {
+                type = "recipe-category",
+                name = "space_rockets"
+            }
+        }
     }
 }

@@ -1,15 +1,6 @@
-local _name = "fullerene"
+require("common")
 
-data:extend({
-    {
-        type = "fuel-category",
-        name = "solar_fuel"
-    },
-    {
-        type = "recipe-category",
-        name = "fullerene_craft"
-    },
-})
+local _name = "fullerene"
 
 return {
     {
@@ -29,9 +20,9 @@ return {
                 shungite = 20,
                 carbon = 6,
                 fullerene = 7,
-                ["iron-ore"] = 5,
+                ["iron-ore"] = 8,
             },
-            energy_required = 5,
+            energy_required = 3,
             category = "fullerene-chemistry",
             enabled = false,
         },
@@ -39,7 +30,7 @@ return {
             order = "a-b-c",
             --subgroup = "heliara",
             color_hint = { text = "T" },
-            fuel_value = "300kJ",
+            fuel_value = "1MJ",
             fuel_category = "solar_fuel",
             subgroup = "raw-material",
 
@@ -61,7 +52,7 @@ return {
                 fullerene = 20,
                 ["iron-ore"] = 5,
             },
-            energy_required = 10,
+            energy_required = 5,
             category = "fullerene-chemistry",
             enabled = false,
         },
@@ -82,5 +73,15 @@ return {
             category = "chemistry",
             enabled = false,
         },
+        raw = {
+            {
+                type = "fuel-category",
+                name = "solar_fuel"
+            },
+            {
+                type = "recipe-category",
+                name = "fullerene_craft"
+            },
+        }
     },
 }

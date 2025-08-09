@@ -1,7 +1,6 @@
-local _name = "heliara_assembling_machine"
+require("common")
 
-require("__base__.prototypes.entity.pipecovers")
-require("__base__.prototypes.entity.assemblerpipes")
+local _name = "heliara_assembling_machine"
 
 return {
     {
@@ -55,7 +54,7 @@ return {
             --circuit_connector = circuit_connector_definitions["assembling-machine"],
             alert_icon_shift = util.by_pixel(0, -12),
             ingredient_count = 20,
-            crafting_categories = { "crafting", "basic-crafting", "advanced-crafting", "crafting-with-fluid", "fullerene_craft" },
+            crafting_categories = { "crafting", "basic-crafting", "advanced-crafting", "crafting-with-fluid", "pressing", "fullerene_craft" },
             crafting_speed = 0.7,
             module_slots = 1,
             allowed_effects = { "consumption", "speed", "productivity", "pollution" }, --, "quality"},
@@ -127,11 +126,31 @@ return {
     },
     {
         recipe = {
+            name = "fullerene_solid_fuel",
+            ingredients = {
+                carbon = 10,
+                graphite = 8,
+                fullerene = 2,
+            },
+            fluid_ingredients = {
+                water = 50,
+            },
+            results = {
+                ["solid-fuel"] = 1,
+            },
+            energy_required = 5,
+            enabled = false,
+            main_product = "solid-fuel",
+            category = "fullerene-chemistry",
+        },
+    },
+    {
+        recipe = {
             name = "fullerene_rocket_fuel",
             ingredients = {
-                carbon = 50,
-                fullerene = 10,
-                graphite = 8,
+                carbon = 20,
+                fullerene = 2,
+                ["solid-fuel"] = 14,
                 ["iron-plate"] = 1,
             },
             fluid_ingredients = {
@@ -141,7 +160,7 @@ return {
                 ["rocket-fuel"] = 1,
                 ["iron-ore"] = 1,
             },
-            energy_required = 20,
+            energy_required = 15,
             enabled = false,
             main_product = "rocket-fuel",
             category = "fullerene_craft",

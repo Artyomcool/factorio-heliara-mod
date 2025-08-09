@@ -1,6 +1,6 @@
-local _name = "dyson_swarm_element"
+require("common")
 
-require("util")
+local _name = "dyson_swarm_element"
 
 return {
     {

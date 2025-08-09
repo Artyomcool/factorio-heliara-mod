@@ -1,8 +1,6 @@
+require("common")
+
 local _name = "solar_refractor"
-
-require("util")
-
-local rocket_shift = 48
 
 return {
     {

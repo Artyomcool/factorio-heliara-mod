@@ -1,4 +1,4 @@
-local item_tints = require("__base__.prototypes.item-tints")
+require("common")
 
 local _name = "fullerene_lab"
 

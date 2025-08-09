@@ -1,14 +1,6 @@
-local hit_effects = require("__base__.prototypes.entity.hit-effects")
-local item_tints = require("__base__.prototypes.item-tints")
+require("common")
 
 local _name = "fullerene_extraction_bath"
-
-data:extend({
-    {
-        type = "recipe-category",
-        name = "fullerene-chemistry"
-    }
-})
 
 return {
     {
@@ -79,5 +71,11 @@ return {
                 },
             },
         },
-    }
+        raw = {
+            {
+                type = "recipe-category",
+                name = "fullerene-chemistry"
+            }
+        }
+    },
 }

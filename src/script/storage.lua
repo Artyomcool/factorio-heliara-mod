@@ -41,9 +41,15 @@ function entity_storage(entity)
     return substorage(substorage(storage, 'entities'), entity.unit_number)
 end
 
+function ticking()
+    return substorage(storage, 'ticking_entity')
+end
+
 ---@param entity LuaEntity
 function entity_storage_destroy(entity)
-    storage.entities[entity.unit_number] = nil
+    if storage.entities then
+        storage.entities[entity.unit_number] = nil
+    end
 end
 
 ---@param fun fun(e: EntityStorage): nil

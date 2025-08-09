@@ -3,8 +3,9 @@ require("script.reflectors")
 require("script.dyson_swarm")
 
 ---@param player LuaPlayer
----@param surface LuaSurface
-function make_reflectors_ui(player, surface)
+---@param entity LuaEntity
+function make_reflectors_ui(player, entity)
+    local surface = entity.surface
     local existed = player.gui.relative['relfectors_info']
     if existed then
         existed.destroy();
@@ -12,7 +13,11 @@ function make_reflectors_ui(player, surface)
 
     local reflectors = reflectors_state(surface)
 
-    local anchor = {gui=defines.relative_gui_type.entity_with_energy_source_gui, position=defines.relative_gui_position.right}
+    local type = defines.relative_gui_type.entity_with_energy_source_gui
+    if entity.type == "rocket-silo" then
+        type = defines.relative_gui_type.rocket_silo_gui
+    end
+    local anchor = {gui=type, position=defines.relative_gui_position.right}
     local frame = player.gui.relative.add{type="frame", anchor=anchor, name='relfectors_info', caption='[item=solar_refractor] Reflectors Info'}
     local table = frame.add{type="table", column_count=2}
     table.style.column_alignments[2] = "right"
