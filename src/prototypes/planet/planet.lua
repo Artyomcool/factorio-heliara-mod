@@ -22,7 +22,6 @@ end
 
 data:extend(
         {
-            -------------------------------------------------------------------------- LOCATIONS
             {
                 type = "planet",
                 name = "heliara",
@@ -31,15 +30,15 @@ data:extend(
                 starmap_icon = "__heliara__/graphics/icons/heliara.png",
                 starmap_icon_size = 512,
                 gravity_pull = 10,
-                distance = 15,
-                orientation = 0.1,
-                magnitude = 1.2,
-                label_orientation = 0.15,
+                distance = 9,
+                orientation = 0.85,
+                magnitude = 0.9,
+                label_orientation = 0.2,
                 order = "heliara",
                 subgroup = "planets",
                 map_gen_settings = planet_map_gen.heliara(),
                 pollutant_type = nil,
-                solar_power_in_space = 200,
+                solar_power_in_space = 500,
                 platform_procession_set = {
                     arrival = { "planet-to-platform-b" },
                     departure = { "platform-to-planet-a" }
@@ -52,10 +51,10 @@ data:extend(
 
                 surface_properties = {
                     ["day-night-cycle"] = 1 * minute,
-                    ["magnetic-field"] = 40,
+                    ["magnetic-field"] = 15,
                     ["solar-power"] = 25,
-                    pressure = 3500,
-                    gravity = 6,
+                    pressure = 900,
+                    gravity = 4,
                 },
                 asteroid_spawn_influence = 1,
                 asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.nauvis_vulcanus, 0.9),
@@ -117,17 +116,15 @@ data:extend(
                 },
                 auto_save_on_first_trip = true,
             },
-            -------------------------------------------------------------------------- PLANET CONNECTIONS
             {
                 type = "space-connection",
-                name = "nauvis-heliara",
+                name = "vulcanus-heliara",
                 subgroup = "planet-connections",
-                from = "nauvis",
+                from = "vulcanus",
                 to = "heliara",
                 order = "h9",
-                length = 1000,
-                asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.vulcanus_gleba)
-            }
-
+                length = 8000,
+                asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.nauvis_vulcanus)
+            },
         }
 )

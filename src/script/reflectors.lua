@@ -39,9 +39,10 @@ function daytime_parameters(day_duration, night_duration)
     }
 end
 
+---@param player LuaPlayer
 ---@param surface LuaSurface
 ---@param delta int32
-function add_reflectors(surface, delta)
+function add_reflectors(player, surface, delta)
 
     local surface_storage = surface_storage(surface)
     local prev_count = surface_storage.reflectors_count or 0
@@ -54,8 +55,20 @@ function add_reflectors(surface, delta)
     surface_storage.reflectors_count = now_count
     surface.solar_power_multiplier = 1 + math.pow(now_count, 0.5) * 0.10
 
+    local dd = day_duration(now_count)
+    local dn = night_duration(now_count)
 
-    surface.daytime_parameters = daytime_parameters(day_duration(now_count), night_duration(now_count))
+    if now_count >= 1 then
+        player.unlock_achievement("heliara-sun-control-1")
+        if dn == 0 then
+            player.unlock_achievement("heliara-sun-control-2")
+        end
+        if dd == 1 then
+            player.unlock_achievement("heliara-sun-control-3")
+        end
+    end
+
+    surface.daytime_parameters = daytime_parameters(dd, dn)
 end
 
 ---@param surface LuaSurface

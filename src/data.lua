@@ -348,3 +348,27 @@ local collapsing_container = util.table.deepcopy(data.raw["temporary-container"]
 collapsing_container.name = "collapsing-cargo-pod-container"
 collapsing_container.time_to_leave = 1
 data:extend({collapsing_container})
+
+data:extend({
+    {
+        type = "achievement",
+        name = "heliara-sun-control-1",
+        order = "a[progress]-r[heliara]-c[1]",
+        icon = "__base__/graphics/achievement/you-are-doing-it-right.png",
+        icon_size = 128,
+    },
+    {
+        type = "achievement",
+        name = "heliara-sun-control-2",
+        order = "a[progress]-r[heliara]-c[2]",
+        icon = "__base__/graphics/achievement/you-are-doing-it-right.png",
+        icon_size = 128,
+    },
+    {
+        type = "achievement",
+        name = "heliara-sun-control-3",
+        order = "a[progress]-r[heliara]-c[3]",
+        icon = "__base__/graphics/achievement/you-are-doing-it-right.png",
+        icon_size = 128,
+    },
+})

@@ -1,6 +1,5 @@
 require("script.ui")
 require("script.reflectors")
-require("script.pod_crash")
 require("script.storage")
 require("script.dyson_launcher")
 
@@ -85,16 +84,6 @@ for _, to_declares in ipairs(require("entities")) do
     end
 end
 
-
-
-script.on_event(defines.events.on_cargo_pod_finished_descending, function(event)
-    local surface = event.cargo_pod.surface
-    if not surface or not surface.planet or surface.planet.name ~= 'heliara' then
-        return
-    end
-
-    pod_crash(event.cargo_pod)
-end)
 
 script.on_event(defines.events.on_surface_deleted, function(event)
     surface_storage_destroy(event.surface_index)

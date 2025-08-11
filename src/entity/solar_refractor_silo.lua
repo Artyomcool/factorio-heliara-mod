@@ -194,8 +194,8 @@ space_silo.on_gui_destroy = destroy_dyson_swarm_ui
 
 retractor_silo.on_tick = wrap(function (silo)
     tick(silo)
-    if silo.launch_rocket() then
-        add_reflectors(silo.surface, 1)
+    if silo.valid and silo.launch_rocket() then
+        add_reflectors(silo.last_user, silo.surface, 1)
     end
 end)
 retractor_silo.on_gui_opened = make_reflectors_ui

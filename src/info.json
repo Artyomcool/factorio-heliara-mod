@@ -6,7 +6,8 @@
   "description": "Planet without access to copper, but with access to advanced solar technologies, up to Dyson Swarm.",
   "factorio_version": "2.0",
   "dependencies": [
-    "space-age >= 2.0.40"
+    "space-age >= 2.0.40",
+    "PlanetsLib >= 1.4.1"
   ],
   "space_travel_required": true
 }
