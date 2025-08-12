@@ -26,8 +26,6 @@ local function productivity(change, ...)
     return map({...}, function (v) return { type = "change-recipe-productivity", recipe = v, change = change} end )
 end
 
-
-
 local planet = {
     type = "technology",
     name = "planet-discovery-heliara",

@@ -10,18 +10,31 @@ local function stub()
     return t
 end
 
+local function req_for_data(name, default)
+    if data then return require(name) else return default end
+end
+
 require("util")
 require("__base__.prototypes.entity.pipecovers")
 require("__base__.prototypes.entity.assemblerpipes")
-if data then
-    hit_effects = require("__base__.prototypes.entity.hit-effects")
-    item_tints = require("__base__.prototypes.item-tints")
-    decorative_trigger_effects = require("__base__.prototypes.decorative.decorative-trigger-effects")
-else
-    hit_effects = stub()
-    item_tints = {}
-    decorative_trigger_effects = stub()
+require ("sound-util")
+require ("circuit-connector-sprites")
+require ("__space-age__.prototypes.entity.circuit-network")
+require ("__space-age__.prototypes.entity.space-platform-hub-cockpit")
+
+hit_effects = req_for_data("__base__.prototypes.entity.hit-effects", stub())
+item_tints = req_for_data("__base__.prototypes.item-tints", {})
+item_sounds = req_for_data("__base__.prototypes.item_sounds", {})
+decorative_trigger_effects = req_for_data("__base__.prototypes.decorative.decorative-trigger-effects", stub())
+sounds = req_for_data("__base__.prototypes.entity.sounds", {})
+procession_graphic_catalogue_types = req_for_data("__base__/prototypes/planet/procession-graphic-catalogue-types", {})
+
+if not data then
     volume_multiplier = nil_fn
+    platform_upper_hatch = nil_fn
+    platform_lower_hatch = nil_fn
+    platform_upper_giga_hatch = nil_fn
+    platform_lower_giga_hatch = nil_fn
 end
 
 function wrap(func)

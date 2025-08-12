@@ -24,7 +24,7 @@ return {
             subgroup = "intermediate-product",
 
             stack_size = 200,
-            ingredient_to_weight_coefficient = 0.28,
+            ingredient_to_weight_coefficient = 0.2,
         }
     }
 }
