@@ -41,6 +41,20 @@ function wrap(func)
     if data then return nil else return func end
 end
 
+function wrap_for_data(for_data, for_no_data)
+    if data then return for_data() else return for_no_data() end
+end
+
 function req(module)
     if not data then require(module) end
+end
+
+function values(table)
+    local key
+    function nxt()
+        local k, v = next(table, key)
+        key = k
+        return v
+    end
+    return nxt
 end
