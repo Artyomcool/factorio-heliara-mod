@@ -1,5 +1,5 @@
-require("prototypes.planet.planet")
-require("prototypes.noise")
+require("planet")
+require("noise")
 require("util")
 require("technology")
 

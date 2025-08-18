@@ -37,6 +37,11 @@ local planet = {
             space_location = "heliara",
             use_icon_overlay_constant = true
         },
+        {
+            type = "unlock-space-location",
+            space_location = "heliashade",
+            use_icon_overlay_constant = true
+        },
     },
     prerequisites = { "planet-discovery-vulcanus", "planet-discovery-fulgora" },
     unit = unit(2000, 60,
