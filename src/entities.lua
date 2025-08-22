@@ -25,4 +25,5 @@ return {
     require("entity.stone_crashing"),
     require("entity.brick_dust"),
     require("entity.big_space_platform_hub"),
+    require("entity.dyson_reflector"),
 }
