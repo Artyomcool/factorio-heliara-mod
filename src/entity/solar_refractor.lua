@@ -17,7 +17,10 @@ return {
             },
             energy_required = 3,
             category = "steam_rockets",
-            enabled = false
+            enabled = false,
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         },
         item = {
             order = "a-b-c",

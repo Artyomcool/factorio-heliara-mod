@@ -336,6 +336,9 @@ return {
             enabled = true,
             main_product = "water",
             category = "dry",
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false
         },
         raw = {
             {

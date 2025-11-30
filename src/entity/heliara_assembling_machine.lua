@@ -142,6 +142,9 @@ return {
             enabled = false,
             main_product = "solid-fuel",
             category = "fullerene-chemistry",
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         },
     },
     {
@@ -164,6 +167,9 @@ return {
             enabled = false,
             main_product = "rocket-fuel",
             category = "fullerene_craft",
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         },
     },
 }

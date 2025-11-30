@@ -163,7 +163,6 @@ local function show_gui()
     local queue = { platforms_tree }
     while queue[1] do
         local now = table.remove(queue, 1)
-        game.print(now.short_name)
         if now.short_name then
             local e = ''
             for _ = 2, now.level, 1 do
@@ -225,6 +224,10 @@ local function show_drag_gui()
 end
 
 local function after_reload()
+    if create_heliara_for_player then
+        create_heliara_for_player.force.research_all_technologies()
+    end
+
     game.print("Reloaded!")
 end
 
@@ -249,6 +252,20 @@ script.on_load(function()
             after_reload()
         end);
     end
+end)
+
+script.on_event(defines.events.on_cargo_pod_finished_descending, function(event)
+    local cargo_pod = event.cargo_pod
+    if cargo_pod.name == "cargo-pod-no-payload" then
+        cargo_pod.destroy()
+        return
+    end
+
+    local container = event.spawned_container
+    if not container then
+        return
+    end
+
 end)
 
 script.on_event(defines.events.on_surface_deleted, function(event)

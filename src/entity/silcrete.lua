@@ -48,8 +48,10 @@ return {
             results = {
                 concrete = 10
             },
+            main_product = "concrete",
+            auto_recycle = false,
             allow_productivity = true,
-            main_product = "concrete"
+            allow_decomposition = false,
         }
     },
 }

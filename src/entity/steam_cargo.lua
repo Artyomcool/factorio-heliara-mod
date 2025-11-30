@@ -20,7 +20,8 @@ return {
             },
             energy_required = 3,
             category = "steam_rockets",
-            enabled = false
+            enabled = false,
+            allow_productivity = true,
         },
         item = {
             order = "a-b-c",

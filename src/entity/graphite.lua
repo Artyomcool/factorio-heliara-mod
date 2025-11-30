@@ -23,6 +23,9 @@ return {
             energy_required = 1,
             category = "fullerene-chemistry",
             enabled = false,
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         },
         item = {
             order = "a-b-c",
@@ -50,6 +53,9 @@ return {
             energy_required = 5,
             category = "fullerene-chemistry",
             enabled = false,
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         },
     },
     {
@@ -67,6 +73,9 @@ return {
             energy_required = 10,
             category = "chemistry",
             enabled = false,
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         },
     },
 }

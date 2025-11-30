@@ -71,6 +71,21 @@ planet_navigation.unit = unit(4000, 120,
     "fullerene"
 )
 
+table.insert(data.raw["technology"]["asteroid-productivity"]["effects"],
+        {
+            type = "change-recipe-productivity",
+            recipe = "stone-asteroid-crushing",
+            change = 0.1
+        }
+)
+table.insert(data.raw["technology"]["asteroid-productivity"]["effects"],
+        {
+            type = "change-recipe-productivity",
+            recipe = "advanced-promethium-asteroid-crushing",
+            change = 0.1
+        }
+)
+
 data:extend({
     planet,
     {
@@ -152,7 +167,7 @@ data:extend({
         type = "technology",
         name = "silcrete",
         icon = "__heliara__/graphics/icons/silcrete.png",
-        icon_size = 128,
+        icon_size = 64,
         essential = false,
         effects = recipes("silcrete"),
         prerequisites = { "fullerene_lab", "dryer" },
@@ -327,7 +342,7 @@ data:extend({
         icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = false,
-        effects = recipes("fullerene-from-graphite", "graphite-from-carbon"),
+        effects = recipes("fullerene-from-graphite", "graphite-from-carbon", "advanced_silicon_substrate"),
         prerequisites = { planet_navigation.name, "advanced-shungite" },
         unit = unit(8000, 120,
             "automation",
@@ -349,20 +364,43 @@ data:extend({
         icon = "__heliara__/graphics/icons/default.png",
         icon_size = 128,
         essential = false,
-        effects = recipes("stone-asteroid-crushing"),
+        effects = recipes("stone-asteroid-crushing", "fluoroketone_from_fluorite"),
         prerequisites = { "advanced-fullerene" },
-        unit = unit(8000, 120,
-            "automation",
-            "logistic",
-            "production",
-            "chemical",
-            "utility",
-            "space",
-            "metallurgic",
-            "electromagnetic",
-            "agricultural",
-            "cryogenic",
-            "fullerene"
+        unit = unit(16000, 120,
+                "automation",
+                "logistic",
+                "production",
+                "chemical",
+                "utility",
+                "space",
+                "metallurgic",
+                "electromagnetic",
+                "agricultural",
+                "cryogenic",
+                "fullerene"
+        ),
+    },
+    {
+        type = "technology",
+        name = "advanced-promethium-asteroid-crushing",
+        icon = "__heliara__/graphics/icons/default.png",
+        icon_size = 128,
+        essential = false,
+        effects = recipes("advanced-promethium-asteroid-crushing"),
+        prerequisites = { "stone-asteroid-crushing", "promethium-science-pack" },
+        unit = unit(32000, 120,
+                "automation",
+                "logistic",
+                "production",
+                "chemical",
+                "utility",
+                "space",
+                "metallurgic",
+                "electromagnetic",
+                "agricultural",
+                "cryogenic",
+                "fullerene",
+                "promethium"
         ),
     },
     {
@@ -407,8 +445,8 @@ data:extend({
         icon_size = 1024,
         essential = false,
         effects = recipes("dyson_swarm_element", "dyson_swarm_launcher"),
-        prerequisites = { planet_navigation.name },
-        unit = unit(24000, 120,
+        prerequisites = { planet_navigation.name, "promethium-science-pack" },
+        unit = unit(64000, 120,
             "automation",
             "logistic",
             "production",
@@ -419,7 +457,8 @@ data:extend({
             "electromagnetic",
             "agricultural",
             "cryogenic",
-            "fullerene"
+            "fullerene",
+            "promethium"
         ),
     },
 })

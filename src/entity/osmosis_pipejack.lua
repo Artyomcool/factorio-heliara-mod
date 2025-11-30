@@ -23,7 +23,7 @@ return {
                 ["steel-plate"] = 5,
                 ["iron-gear-wheel"] = 10,
                 ["graphite_circuit"] = 10,
-                ["pipe"] = 10,
+                ["pipe"] = 10
             },
             energy_required = 1,
             enabled = false,
@@ -286,6 +286,7 @@ return {
             energy_required = 1,
             enabled = false,
             category = "crafting-with-fluid",
+            allow_productivity = true,
         },
     },
     {

@@ -26,4 +26,5 @@ return {
     require("entity.brick_dust"),
     require("entity.big_space_platform_hub"),
     require("entity.dyson_reflector"),
+    require("entity.packed_roboport"),
 }

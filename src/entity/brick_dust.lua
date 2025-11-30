@@ -20,6 +20,9 @@ return {
             energy_required = 0.5,
             category = "fullerene_craft",
             enabled = false,
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false
         },
         item = {
             order = "a-b-c",
@@ -52,6 +55,9 @@ return {
             category = "fullerene_craft",
             energy_required = 2,
             enabled = false,
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false
         },
     },
 }

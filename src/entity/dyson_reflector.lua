@@ -98,7 +98,10 @@ return {
             },
             main_product = "photosoma",
             subgroup = "intermediate-product",
-            order = "z[photosoma]-a[synt]"
+            order = "z[photosoma]-a[synt]",
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         },
         item = {
             subgroup = "intermediate-product",
@@ -129,7 +132,10 @@ return {
             },
             main_product = "photosoma",
             subgroup = "intermediate-product",
-            order = "z[photosoma]-a[synt]"
+            order = "z[photosoma]-a[synt]",
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         },
     }
 }

@@ -17,6 +17,7 @@ return {
             energy_required = 5,
             category = "crafting",
             enabled = false,
+            allow_productivity = true,
         },
         item = {
             order = "b[circuits]-d[graphite-circuit]",

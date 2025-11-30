@@ -59,6 +59,9 @@ return {
             category = "fullerene-chemistry",
             enabled = false,
             main_product = "carbon",
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         },
     },
 }

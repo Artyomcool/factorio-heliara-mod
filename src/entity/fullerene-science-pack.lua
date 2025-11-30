@@ -18,7 +18,10 @@ return {
             },
             energy_required = 15,
             category = "crafting",
-            enabled = false
+            enabled = false,
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         },
         raw = {
             {

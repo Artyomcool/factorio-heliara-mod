@@ -20,7 +20,10 @@ return {
                 { property = "magnetic-field", min = 30, max = 60, },
                 { property = "pressure", min = 3000, max = 4000, },
                 { property = "gravity", min = 5, max = 7, },
-            }
+            },
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         }
     },
     {
@@ -42,7 +45,10 @@ return {
                 { property = "magnetic-field", min = 30, max = 60, },
                 { property = "pressure", min = 3000, max = 4000, },
                 { property = "gravity", min = 5, max = 7, },
-            }
+            },
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         }
     },
     {
@@ -69,7 +75,10 @@ return {
                 { property = "magnetic-field", min = 30, max = 60, },
                 { property = "pressure", min = 3000, max = 4000, },
                 { property = "gravity", min = 5, max = 7, },
-            }
+            },
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         }
     },
     {
@@ -94,7 +103,10 @@ return {
                 { property = "magnetic-field", min = 30, max = 60, },
                 { property = "pressure", min = 3000, max = 4000, },
                 { property = "gravity", min = 5, max = 7, },
-            }
+            },
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
         }
     },
 }
