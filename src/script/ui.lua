@@ -24,7 +24,7 @@ function make_reflectors_ui(player, entity)
 
     table.add{type="label", caption='Count in atmosphere'}
     table.add{type="label", caption=reflectors.reflectors_count}
-    table.add{type="label", caption='Electicity bonus'}
+    table.add{type="label", caption='Electricity bonus'}
     table.add{type="label", caption=string.format("%.1f", (surface.solar_power_multiplier - 1) * 100) .. '%'}
     table.add{type="label", caption='Day duration'}
     table.add{type="label", caption=string.format("%.1f", reflectors.day_duration * 100) .. '%'}
@@ -60,7 +60,7 @@ function make_dyson_swarm_ui(player)
 
     table.add{type="label", caption='Swarm size'}
     table.add{type="label", caption=swarm.swarm_size}
-    table.add{type="label", caption='Electicity bonus'}
+    table.add{type="label", caption='Electricity bonus'}
     table.add{type="label", caption=string.format("%.1f", swarm.electricity_bonus * 100) .. '%'}
 
     return frame
