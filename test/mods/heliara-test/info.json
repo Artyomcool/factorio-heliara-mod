@@ -1,0 +1,12 @@
+{
+  "name": "heliara-test",
+  "version": "0.0.1",
+  "title": "Heliara Test Suite",
+  "author": "heliara",
+  "description": "Automated tests. Not for gameplay.",
+  "factorio_version": "2.0",
+  "dependencies": [
+    "heliara >= 0.0.1",
+    "space-age >= 2.0.40"
+  ]
+}
