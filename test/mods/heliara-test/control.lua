@@ -72,7 +72,7 @@ local function run_prototype_tests()
         "fullerene_solar_panel", "fullerene_extraction_bath",
         "heliara_assembling_machine", "dryer", "osmosis_pipejack",
         "wireless_pole", "shungite", "brackish_vent", "huge_fullerene_rock",
-        "solar_refractor_silo", "fullerene_lab",
+        "solar_refractor_silo", "fullerene_lab", "platform_replicator",
     }) do
         local n = name
         t("entity/" .. n, function() truthy(prototypes.entity[n]) end)
@@ -195,6 +195,78 @@ local function run_runtime_tests(surface, force)
     end
 end
 
+-- ─── Platform replicator setup (runs during --create) ────────────────────
+
+local function setup_platform_replicator_test(force)
+    local test_platform
+    t("create space platform for replicator test", function()
+        test_platform = force.create_space_platform{
+            name = "heliara-test-platform",
+            planet = "nauvis",
+            starter_pack = "space-platform-starter-pack"
+        }
+        truthy(test_platform and test_platform.valid, "create_space_platform failed")
+    end)
+    if not test_platform or not test_platform.valid then return end
+
+    local sp_surface
+    t("get space platform surface and set tiles", function()
+        storage._test_initial_platform_count = #game.space_platforms
+        sp_surface = test_platform.surface
+        truthy(sp_surface and sp_surface.valid, "platform has no valid surface")
+        local tiles = {}
+        for x = -15, 15 do
+            for y = -15, 15 do
+                tiles[#tiles + 1] = {name = "space-platform-foundation", position = {x, y}}
+            end
+        end
+        sp_surface.set_tiles(tiles)
+    end)
+    if not sp_surface or not sp_surface.valid then return end
+
+    local replicator
+    t("place platform_replicator on space platform", function()
+        local pos = sp_surface.find_non_colliding_position("platform_replicator", {10, 10}, 20, 0.5)
+        truthy(pos, "no free position for platform_replicator")
+        replicator = sp_surface.create_entity{
+            name = "platform_replicator",
+            position = pos,
+            force = force,
+            raise_built = true
+        }
+        truthy(replicator and replicator.valid, "failed to create platform_replicator")
+        storage._test_replicator_unit = replicator.unit_number
+    end)
+    if not replicator or not replicator.valid then return end
+
+    local container
+    t("platform_replicator spawns bound container on build", function()
+        local found = sp_surface.find_entities_filtered{
+            name = "platform_replicator_container",
+            position = {replicator.position.x - 2, replicator.position.y + 2},
+            radius = 1
+        }
+        truthy(#found > 0, "no container found near replicator")
+        container = found[1]
+    end)
+    if not container or not container.valid then return end
+
+    t("setup blueprint and materials in replicator container", function()
+        local inv = container.get_inventory(defines.inventory.chest)
+        truthy(inv, "container has no chest inventory")
+
+        inv[1].set_stack{name = "blueprint", count = 1}
+        inv[1].set_blueprint_entities{{entity_number = 1, name = "iron-chest", position = {0, 0}}}
+
+        -- iron-chest needs: 1×iron-chest item + 1×fullerene + 1×tungsten-plate + 1×lithium + 10×space-platform-foundation
+        inv.insert{name = "iron-chest",              count = 1}
+        inv.insert{name = "fullerene",               count = 1}
+        inv.insert{name = "tungsten-plate",          count = 1}
+        inv.insert{name = "lithium",                 count = 1}
+        inv.insert{name = "space-platform-foundation", count = 10}
+    end)
+end
+
 -- ─── on_init (runs during --create) ──────────────────────────────────────
 
 script.on_init(function()
@@ -211,6 +283,7 @@ script.on_init(function()
     local force   = game.forces["player"]
 
     run_runtime_tests(surface, force)
+    setup_platform_replicator_test(force)
     finish("on_init")
 
     -- Reset for tick phase
@@ -276,6 +349,16 @@ script.on_event(defines.events.on_tick, function(event)
                 break
             end
         end
+    end)
+
+    -- Platform replicator created a new platform
+    t("platform_replicator creates new space platform", function()
+        truthy(storage._test_initial_platform_count ~= nil, "replicator test setup did not run")
+        local count = #game.space_platforms
+        truthy(
+            count > storage._test_initial_platform_count,
+            "no new platform (count=" .. count .. " expected>" .. storage._test_initial_platform_count .. ")"
+        )
     end)
 
     -- Swarm state should be zero on a fresh game

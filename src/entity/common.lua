@@ -41,8 +41,8 @@ function wrap(func)
     if data then return nil else return func end
 end
 
-function wrap_for_data(for_data, for_no_data)
-    if data then return for_data() else return for_no_data() end
+function wrap_for_data(for_data)
+    if data then return for_data() else return {} end
 end
 
 function req(module)

@@ -84,9 +84,6 @@ local entity = wrap_for_data(
         }
 
         return entity
-    end,
-    function ()
-        return {}
     end
 )
 
@@ -110,7 +107,6 @@ return {
                 pick_sound = item_sounds.mechanical_large_inventory_pickup,
                 drop_sound = item_sounds.mechanical_large_inventory_move,
                 stack_size = 1,
-                weight = 1*tons,
                 surface = "space-platform",
                 trigger = {
                     {
@@ -126,14 +122,14 @@ return {
                         }
                     }
                 },
-                tiles = make_tile_area({{-15, -15}, {14, 14}}, "space-platform-foundation"),
-                initial_items = {{type = "item", name = "space-platform-foundation", amount = 100}},
+                tiles = make_tile_area({{-8, -8}, {7, 7}}, "space-platform-foundation"),
+                -- initial_items = {{type = "item", name = "space-platform-foundation", amount = 0}},
                 create_electric_network = true,
             }
         },
         recipe = {
             ingredients = {
-                ["space-platform-foundation"] = 1000,
+                ["space-platform-foundation"] = 256,
                 ["tungsten-plate"] = 10,
                 ["low-density-structure"] = 40,
                 ["processing-unit"] = 20,

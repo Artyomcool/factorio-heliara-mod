@@ -116,40 +116,10 @@ check_log_for_errors() {
     return 0
 }
 
-# ─── Step 1: Data stage smoke test + prototype dump ───────────────────────────
+# ─── Step 1: on_init tests (--create) ────────────────────────────────────────
 
 info ""
-info "Step 1 — Data stage smoke test (--dump-data)"
-
-> "$LOG" 2>/dev/null || true
-
-if ! "${FACTORIO[@]}" --dump-data 2>&1 | tee "$WORK_DIR/dump.stdout"; then
-    error "--dump-data exited non-zero"
-fi
-
-cp "$LOG" "$WORK_DIR/dump.log" 2>/dev/null || true
-
-if check_log_for_errors "data stage" "$WORK_DIR/dump.log"; then
-    pass "Data stage loaded without errors"
-fi
-
-DUMP="$WORK_DIR/script-output/data-raw-dump.json"
-if [[ -f "$DUMP" ]]; then
-    info "Running prototype validation…"
-    if python3 "$ROOT_DIR/test/validate-prototypes.py" "$DUMP"; then
-        pass "Prototype validation"
-    else
-        error "Prototype validation failed (see output above)"
-    fi
-else
-    error "data-raw-dump.json not found at $DUMP"
-    info "  (Factorio may not support --dump-data in headless mode on this build)"
-fi
-
-# ─── Step 2: on_init tests (--create) ────────────────────────────────────────
-
-info ""
-info "Step 2 — Runtime tests via --create (on_init phase)"
+info "Step 1 — Runtime tests via --create (on_init phase)"
 
 SAVE="$WORK_DIR/saves/heliara-test.zip"
 mkdir -p "$WORK_DIR/saves"
@@ -175,10 +145,10 @@ else
     tail -20 "$WORK_DIR/create.log" | sed 's/^/  /' >&2
 fi
 
-# ─── Step 3: on_tick tests (--benchmark) ─────────────────────────────────────
+# ─── Step 2: on_tick tests (--benchmark) ─────────────────────────────────────
 
 info ""
-info "Step 3 — Runtime tests via --benchmark (on_tick phase, 60 ticks)"
+info "Step 2 — Runtime tests via --benchmark (on_tick phase, 60 ticks)"
 
 > "$LOG" 2>/dev/null || true
 

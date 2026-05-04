@@ -40,7 +40,7 @@ Factorio mods run Lua in two separate phases with different global state:
 - **Control phase** (`control.lua`): runtime scripting; `script`, `game`, `storage` globals exist
 
 `src/entity/common.lua` bridges both phases. It provides:
-- `wrap_for_data(for_data_fn, for_control_fn)` — returns `for_data_fn()` during data phase, `for_control_fn()` during control
+- `wrap_for_data(for_data_fn)` — returns `for_data_fn()` during data phase, nil during control
 - `wrap(func)` — returns `func` only during control phase, nil during data phase
 - `req(module)` — requires a module only during control phase
 - Stubs for data-phase globals (`hit_effects`, `item_sounds`, `sounds`, etc.) that return no-ops in control phase
