@@ -327,7 +327,11 @@ local function declare_entity(common, entity)
     add(result)
 
     for _, child in ipairs(entity.bound_entities or {}) do
-        add(child)
+        local proto = {}
+        for k, v in pairs(child) do
+            if k ~= "offset" then proto[k] = v end
+        end
+        add(proto)
     end
 end
 

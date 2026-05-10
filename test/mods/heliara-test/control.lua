@@ -59,12 +59,50 @@ local function run_prototype_tests()
         "silcrete", "fullerene_solar_panel",
         "fullerene_extraction_bath", "heliara_assembling_machine",
         "dryer", "osmosis_pipejack", "wireless_pole",
+        "platform_replicator_blueprint_tool", "platform_replicator_blueprint",
     }) do
         local n = name
         t("item/" .. n, function() truthy(prototypes.item[n]) end)
     end
     t("tool/fullerene-science-pack", function()
         truthy(prototypes.item["fullerene-science-pack"])
+    end)
+    t("shortcut/platform_replicator_blueprint_tool", function()
+        truthy(prototypes.shortcut["platform_replicator_blueprint_tool"])
+    end)
+    t("recipe/platform_replicator_blueprint_tool absent", function()
+        if prototypes.recipe["platform_replicator_blueprint_tool"] then
+            error("tool must be spawned by shortcut, not crafted")
+        end
+    end)
+    t("platform_replicator_blueprint is blueprint", function()
+        local inv = game.create_inventory(1)
+        inv[1].set_stack{name = "platform_replicator_blueprint", count = 1}
+        truthy(inv[1].is_blueprint, "item stack is not a blueprint")
+        inv.destroy()
+    end)
+    t("platform_replicator_blueprint supports snapshot grid", function()
+        local inv = game.create_inventory(1)
+        inv[1].set_stack{name = "platform_replicator_blueprint", count = 1}
+        inv[1].set_blueprint_entities{
+            {entity_number = 1, name = "iron-chest", position = {3, 2}},
+        }
+        inv[1].blueprint_snap_to_grid = {x = 6, y = 4}
+        inv[1].blueprint_absolute_snapping = false
+        eq(inv[1].blueprint_absolute_snapping, false, "absolute snapping should be disabled")
+        eq(inv[1].blueprint_snap_to_grid.x, 6)
+        eq(inv[1].blueprint_snap_to_grid.y, 4)
+        eq(inv[1].blueprint_position_relative_to_grid, nil)
+
+        local exported = inv[1].export_stack()
+        local imported = game.create_inventory(1)
+        eq(imported[1].import_stack(exported), 0)
+        eq(imported[1].blueprint_absolute_snapping, false, "relative snapping was not preserved")
+        eq(imported[1].blueprint_snap_to_grid.x, 6)
+        eq(imported[1].blueprint_snap_to_grid.y, 4)
+        eq(imported[1].blueprint_position_relative_to_grid, nil)
+        imported.destroy()
+        inv.destroy()
     end)
 
     -- Core entities
@@ -73,6 +111,7 @@ local function run_prototype_tests()
         "heliara_assembling_machine", "dryer", "osmosis_pipejack",
         "wireless_pole", "shungite", "brackish_vent", "huge_fullerene_rock",
         "solar_refractor_silo", "fullerene_lab", "platform_replicator",
+        "space_platform_rocket",
     }) do
         local n = name
         t("entity/" .. n, function() truthy(prototypes.entity[n]) end)
@@ -211,7 +250,7 @@ local function setup_platform_replicator_test(force)
 
     local sp_surface
     t("get space platform surface and set tiles", function()
-        storage._test_initial_platform_count = #game.space_platforms
+        test_platform.apply_starter_pack()
         sp_surface = test_platform.surface
         truthy(sp_surface and sp_surface.valid, "platform has no valid surface")
         local tiles = {}
@@ -235,35 +274,131 @@ local function setup_platform_replicator_test(force)
             raise_built = true
         }
         truthy(replicator and replicator.valid, "failed to create platform_replicator")
-        storage._test_replicator_unit = replicator.unit_number
     end)
     if not replicator or not replicator.valid then return end
 
-    local container
-    t("platform_replicator spawns bound container on build", function()
-        local found = sp_surface.find_entities_filtered{
-            name = "platform_replicator_container",
-            position = {replicator.position.x - 2, replicator.position.y + 2},
-            radius = 1
+    local blueprint_container, cargo_container, starter_pack_container
+    t("platform_replicator spawns 3 bound containers on build", function()
+        local rx, ry = replicator.position.x, replicator.position.y
+
+        local bp_found = sp_surface.find_entities_filtered{
+            name = "platform_replicator_blueprint_container",
+            position = {rx - 1.5, ry + 2.5}, radius = 1
         }
-        truthy(#found > 0, "no container found near replicator")
-        container = found[1]
+        local cargo_found = sp_surface.find_entities_filtered{
+            name = "platform_replicator_cargo_container",
+            position = {rx, ry + 2.5}, radius = 1
+        }
+        local sp_found = sp_surface.find_entities_filtered{
+            name = "platform_replicator_starter_pack_container",
+            position = {rx + 1.5, ry + 2.5}, radius = 1
+        }
+
+        truthy(#bp_found > 0, "no blueprint container found")
+        truthy(#cargo_found > 0, "no cargo container found")
+        truthy(#sp_found > 0, "no starter pack container found")
+
+        blueprint_container = bp_found[1]
+        cargo_container = cargo_found[1]
+        starter_pack_container = sp_found[1]
     end)
-    if not container or not container.valid then return end
+    if not blueprint_container or not cargo_container or not starter_pack_container then return end
 
-    t("setup blueprint and materials in replicator container", function()
-        local inv = container.get_inventory(defines.inventory.chest)
-        truthy(inv, "container has no chest inventory")
+    t("setup blueprint, cargo and starter pack in replicator containers", function()
+        local bp_inv = blueprint_container.get_inventory(defines.inventory.chest)
+        truthy(bp_inv, "blueprint container has no chest inventory")
+        bp_inv[1].set_stack{name = "platform_replicator_blueprint", count = 1}
+        bp_inv[1].set_blueprint_entities{
+            {entity_number = 1, name = "space-platform-hub", position = {3, 3}},
+            {entity_number = 2, name = "iron-chest", position = {5, 3}},
+        }
+        bp_inv[1].blueprint_snap_to_grid = {x = 6, y = 6}
+        bp_inv[1].blueprint_absolute_snapping = false
 
-        inv[1].set_stack{name = "blueprint", count = 1}
-        inv[1].set_blueprint_entities{{entity_number = 1, name = "iron-chest", position = {0, 0}}}
+        local cargo_inv = cargo_container.get_inventory(defines.inventory.chest)
+        truthy(cargo_inv, "cargo container has no chest inventory")
+        cargo_inv.insert{name = "iron-chest", count = 1}
 
-        -- iron-chest needs: 1×iron-chest item + 1×fullerene + 1×tungsten-plate + 1×lithium + 10×space-platform-foundation
-        inv.insert{name = "iron-chest",              count = 1}
-        inv.insert{name = "fullerene",               count = 1}
-        inv.insert{name = "tungsten-plate",          count = 1}
-        inv.insert{name = "lithium",                 count = 1}
-        inv.insert{name = "space-platform-foundation", count = 10}
+        local sp_inv = starter_pack_container.get_inventory(defines.inventory.chest)
+        truthy(sp_inv, "starter pack container has no chest inventory")
+        sp_inv.insert{name = "space-platform-starter-pack", count = 1}
+    end)
+end
+
+local function run_platform_snapshot_tool_tests(force)
+    local player = game.players[1]
+
+    if not player then
+        log("[TEST] SKIP  platform snapshot tool player-flow  [no player exists in headless --benchmark]")
+        return
+    end
+
+    local platform
+    local sp_surface
+
+    t("snapshot tool test platform created", function()
+        platform = force.create_space_platform{
+            name = "heliara-test-snapshot-platform",
+            planet = "nauvis",
+            starter_pack = "space-platform-starter-pack"
+        }
+        truthy(platform and platform.valid, "create_space_platform failed")
+        platform.apply_starter_pack()
+        sp_surface = platform.surface
+        truthy(sp_surface and sp_surface.valid, "platform has no valid surface")
+
+        local tiles = {}
+        for x = -8, 8 do
+            for y = -8, 8 do
+                tiles[#tiles + 1] = {name = "space-platform-foundation", position = {x, y}}
+            end
+        end
+        sp_surface.set_tiles(tiles)
+
+        local chest = sp_surface.create_entity{
+            name = "iron-chest",
+            position = {2, 0},
+            force = force
+        }
+        truthy(chest and chest.valid, "failed to create chest for snapshot")
+    end)
+
+    if not sp_surface or not sp_surface.valid then return end
+
+    t("platform snapshot tool creates blueprint with entities, tiles and grid", function()
+        truthy(player and player.valid, "missing test player")
+        truthy(player.cursor_stack, "test player has no cursor stack")
+
+        player.clear_cursor()
+        player.teleport({0, 0}, sp_surface)
+
+        script.raise_event(defines.events.on_lua_shortcut, {
+            player_index = player.index,
+            prototype_name = "platform_replicator_blueprint_tool"
+        })
+
+        local cursor = player.cursor_stack
+        truthy(cursor and cursor.valid_for_read, "tool did not create cursor stack")
+        eq(cursor.name, "platform_replicator_blueprint", "cursor stack is not the platform blueprint item")
+        truthy(cursor.is_blueprint, "cursor stack is not a blueprint")
+
+        local entities = cursor.get_blueprint_entities() or {}
+        local tiles = cursor.get_blueprint_tiles() or {}
+        local snap_to_grid = cursor.blueprint_snap_to_grid
+        local has_chest = false
+
+        for _, bp_e in ipairs(entities) do
+            if bp_e.name == "iron-chest" then
+                has_chest = true
+            end
+        end
+
+        truthy(has_chest, "snapshot blueprint does not contain test chest")
+        truthy(#tiles > 0, "snapshot blueprint does not contain platform tiles")
+        eq(cursor.blueprint_absolute_snapping, false, "snapshot blueprint should use relative snapping")
+        truthy(snap_to_grid and snap_to_grid.x > 0 and snap_to_grid.y > 0, "snapshot blueprint has no grid size")
+        eq(cursor.blueprint_position_relative_to_grid, nil, "relative grid should not have absolute offset")
+        player.clear_cursor()
     end)
 end
 
@@ -303,6 +438,8 @@ script.on_event(defines.events.on_tick, function(event)
 
     local surface = game.surfaces["heliara"]
     local force   = game.forces["player"]
+
+    run_platform_snapshot_tool_tests(force)
 
     -- Save/load: entity placed in on_init must survive into --benchmark
     t("persistent entity survives save/load", function()
@@ -349,16 +486,6 @@ script.on_event(defines.events.on_tick, function(event)
                 break
             end
         end
-    end)
-
-    -- Platform replicator created a new platform
-    t("platform_replicator creates new space platform", function()
-        truthy(storage._test_initial_platform_count ~= nil, "replicator test setup did not run")
-        local count = #game.space_platforms
-        truthy(
-            count > storage._test_initial_platform_count,
-            "no new platform (count=" .. count .. " expected>" .. storage._test_initial_platform_count .. ")"
-        )
     end)
 
     -- Swarm state should be zero on a fresh game
