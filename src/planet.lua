@@ -51,10 +51,10 @@ data:extend({
 
         surface_properties = {
             ["day-night-cycle"] = 1 * minute,
-            ["magnetic-field"] = 15,
+            ["magnetic-field"] = 65,
             ["solar-power"] = 25,
-            pressure = 900,
-            gravity = 4,
+            pressure = 2500,
+            gravity = 2,
         },
         asteroid_spawn_influence = 1,
         asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.nauvis_vulcanus, 0.9),

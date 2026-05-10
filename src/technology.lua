@@ -254,7 +254,7 @@ data:extend({
     {
         type = "technology",
         name = "effective_wireless_pole",
-        icon = "__heliara__/graphics/icons/default.png",
+        icon = "__heliara__/graphics/icons/effective_wireless_pole.png",
         icon_size = 64,
         essential = true,
         effects = recipes("effective_wireless_pole"),

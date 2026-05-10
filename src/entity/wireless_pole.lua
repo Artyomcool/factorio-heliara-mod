@@ -1,14 +1,21 @@
 require("common")
 
 local _name = "wireless_pole"
+local surface_conditions = {
+    { property = "magnetic-field", min = 40, max = 70 },
+    { property = "gravity", min = 1, max = 9 },
+}
 
 return {
     {
         common = {
             name = _name,
-            icon = "__heliara__/graphics/icons/default.png",    -- todo
+            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
+            order = "a[energy]-e[a-wireless-pole]",
+            icon_size = 64,
         },
         item = {
+            subgroup = "energy-pipe-distribution",
             stack_size = 50,
             random_tint_color = item_tints.iron_rust,
             place_result = _name,
@@ -90,12 +97,12 @@ return {
                     wire = { copper = { 0, 0 } }
                 }
             },
+            surface_conditions = surface_conditions,
             bound_entities = {
                 {
                     type = "electric-energy-interface",
                     name = "wireless_pole_hidden_drain",
                     flags = { "not-on-map", "placeable-off-grid" },
-                    icon = "__heliara__/graphics/icons/default.png",    -- todo
                     selectable_in_game = false,
                     hidden = true,
                     energy_source = {
@@ -121,9 +128,12 @@ return {
     {
         common = {
             name = "effective_wireless_pole",
-            icon = "__heliara__/graphics/icons/default.png",    -- todo
+            icon = "__heliara__/graphics/icons/effective_wireless_pole.png",
+            icon_size = 64,
+            order = "a[energy]-e[b-wireless-pole]",
         },
         item = {
+            subgroup = "energy-pipe-distribution",
             stack_size = 50,
             random_tint_color = item_tints.iron_rust,
             place_result = "effective_wireless_pole",
@@ -205,12 +215,12 @@ return {
                     wire = { copper = { 0, 0 } }
                 }
             },
+            surface_conditions = surface_conditions,
             bound_entities = {
                 {
                     type = "electric-energy-interface",
                     name = "wireless_pole_hidden_drain",
                     flags = { "not-on-map", "placeable-off-grid" },
-                    icon = "__heliara__/graphics/icons/default.png",    -- todo
                     selectable_in_game = false,
                     hidden = true,
                     energy_source = {

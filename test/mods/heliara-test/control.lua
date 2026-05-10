@@ -31,6 +31,15 @@ local function truthy(v, msg)
     if not v then error(msg or ("expected non-nil, got " .. tostring(v)), 2) end
 end
 
+local function has_surface_condition(conditions, property, min, max)
+    for _, condition in pairs(conditions or {}) do
+        if condition.property == property and condition.min == min and condition.max == max then
+            return true
+        end
+    end
+    return false
+end
+
 local function no_copper(ingredients)
     local copper = { ["copper-ore"]=true, ["copper-plate"]=true, ["copper-cable"]=true }
     for _, ing in pairs(ingredients) do
@@ -115,6 +124,20 @@ local function run_prototype_tests()
     }) do
         local n = name
         t("entity/" .. n, function() truthy(prototypes.entity[n]) end)
+    end
+
+    for _, name in ipairs({"wireless_pole", "effective_wireless_pole"}) do
+        local n = name
+        t("entity/" .. n .. " surface conditions", function()
+            local entity = prototypes.entity[n]
+            truthy(entity, "entity not found")
+            truthy(
+                    has_surface_condition(entity.surface_conditions, "magnetic-field", 40, 70),
+                    "missing magnetic-field 40..70")
+            truthy(
+                    has_surface_condition(entity.surface_conditions, "gravity", 1, 9),
+                    "missing gravity 1..9")
+        end)
     end
 
     -- Core technologies
