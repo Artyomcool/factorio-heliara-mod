@@ -26,6 +26,21 @@ local function productivity(change, ...)
     return map({...}, function (v) return { type = "change-recipe-productivity", recipe = v, change = change} end )
 end
 
+local function graphite_science_pack_icon(icon)
+    return {
+        {
+            icon = icon,
+            icon_size = 256,
+        },
+        {
+            icon = "__heliara__/graphics/icons/graphite_circuit.png",
+            icon_size = 64,
+            scale = 0.5,
+            shift = { -32, 48 },
+        },
+    }
+end
+
 local planet = {
     type = "technology",
     name = "planet-discovery-heliara",
@@ -157,7 +172,7 @@ data:extend({
         type = "technology",
         name = "silicon_substrate",
         icon = "__heliara__/graphics/icons/silicon_substrate.png",
-        icon_size = 128,
+        icon_size = 64,
         essential = true,
         effects = recipes("silicon_substrate"),
         prerequisites = { "fullerene_lab" },
@@ -204,7 +219,7 @@ data:extend({
     {
         type = "technology",
         name = "graphite-automation-science-pack",
-        icon = "__base__/graphics/icons/automation-science-pack.png",
+        icons = graphite_science_pack_icon("__base__/graphics/technology/automation-science-pack.png"),
         icon_size = 64,
         essential = true,
         effects = recipes("graphite-automation-science-pack"),
@@ -214,7 +229,7 @@ data:extend({
     {
         type = "technology",
         name = "graphite-logistic-science-pack",
-        icon = "__base__/graphics/icons/logistic-science-pack.png",
+        icons = graphite_science_pack_icon("__base__/graphics/technology/logistic-science-pack.png"),
         icon_size = 64,
         essential = true,
         effects = recipes("graphite-logistic-science-pack"),
@@ -224,7 +239,7 @@ data:extend({
     {
         type = "technology",
         name = "graphite-chemical-science-pack",
-        icon = "__base__/graphics/icons/chemical-science-pack.png",
+        icons = graphite_science_pack_icon("__base__/graphics/technology/chemical-science-pack.png"),
         icon_size = 64,
         essential = true,
         effects = recipes("graphite-chemical-science-pack"),
@@ -244,7 +259,7 @@ data:extend({
     {
         type = "technology",
         name = "graphite-production-science-pack",
-        icon = "__base__/graphics/icons/production-science-pack.png",
+        icons = graphite_science_pack_icon("__base__/graphics/technology/production-science-pack.png"),
         icon_size = 64,
         essential = true,
         effects = recipes("graphite-production-science-pack"),
@@ -284,8 +299,8 @@ data:extend({
     {
         type = "technology",
         name = "advanced-shungite",
-        icon = "__heliara__/graphics/icons/fullerene_from_shungite.png",
-        icon_size = 64,
+        icon = "__heliara__/graphics/icons/advanced_shungite_technology.png",
+        icon_size = 256,
         essential = false,
         effects = recipes(
             "fullerene-from-shungite",
@@ -312,8 +327,19 @@ data:extend({
     {
         type = "technology",
         name = "fullerene_rocket_fuel",
-        icon = "__heliara__/graphics/icons/default.png",
-        icon_size = 128,
+        icons = {
+            {
+                icon = "__base__/graphics/technology/rocket-fuel.png",
+                icon_size = 256,
+            },
+            {
+                icon = "__heliara__/graphics/icons/fullerene.png",
+                icon_size = 128,
+                scale = 1.1,
+                shift = { -56, -56 },
+            },
+        },
+        icon_size = 256,
         essential = true,
         effects = recipes("fullerene_rocket_fuel", "fullerene_solid_fuel"),
         prerequisites = { "advanced-shungite" },
@@ -339,8 +365,8 @@ data:extend({
     {
         type = "technology",
         name = "advanced-fullerene",
-        icon = "__heliara__/graphics/icons/default.png",
-        icon_size = 128,
+        icon = "__heliara__/graphics/icons/advanced_fullerene_technology.png",
+        icon_size = 256,
         essential = false,
         effects = recipes("fullerene-from-graphite", "graphite-from-carbon", "advanced_silicon_substrate"),
         prerequisites = { planet_navigation.name, "advanced-shungite" },

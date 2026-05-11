@@ -12,6 +12,7 @@ return {
     require("entity.dyson_swarm_element"),
     require("entity.solar_refractor_silo"),
     require("entity.heliara_assembling_machine"),
+    require("entity.fullerene_fuel"),
     require("entity.fullerene-science-pack"),
     require("entity.graphite-science-packs"),
     require("entity.fullerene_lab"),

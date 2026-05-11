@@ -8,8 +8,10 @@ return {
             name = _name,
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
             icon_size = 128,
+            order = "h[heliara]-e[graphite]-a[base]",
         },
         recipe = {
+            subgroup = "heliara-materials",
             ingredients = {
                 fullerene = 6,
                 carbon = 6
@@ -30,7 +32,7 @@ return {
         item = {
             order = "a-b-c",
             color_hint = { text = "T" },
-            subgroup = "raw-material",
+            subgroup = "heliara-materials",
 
             stack_size = 400,
             weight = 0.25 * kg,
@@ -40,6 +42,9 @@ return {
         recipe = {
             name = _name .. "-from-shungite",
             icon = "__heliara__/graphics/icons/" .. _name .. "_from_shungite.png",
+            icon_size = 64,
+            subgroup = "heliara-materials",
+            order = "h[heliara]-e[graphite]-b[from-shungite]",
             ingredients = {
                 shungite = 100,
             },
@@ -61,8 +66,10 @@ return {
     {
         recipe = {
             name = _name .. "-from-carbon",
-            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
-            icon_size = 128,
+            icon = "__heliara__/graphics/icons/" .. _name .. "_from_carbon.png",
+            icon_size = 64,
+            subgroup = "heliara-materials",
+            order = "h[heliara]-e[graphite]-c[from-carbon]",
             ingredients = {
                 carbon = 100,
             },

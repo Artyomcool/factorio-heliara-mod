@@ -10,6 +10,8 @@ return {
             icon_size = 64,
         },
         recipe = {
+            subgroup = "heliara-science-pack",
+            order = "a[fullerene-science-pack]",
             ingredients = {
                 carbon = 4,
                 shungite = 4,
@@ -30,9 +32,9 @@ return {
                 localised_description = {"item-description.science-pack"},
                 icon = "__heliara__/graphics/icons/" .. _name .. ".png",
                 icon_size = 64,
-                subgroup = "science-pack",
+                subgroup = "heliara-science-pack",
                 color_hint = { text = "F" },
-                order = "fullerene",
+                order = "a[fullerene-science-pack]",
                 stack_size = 200,
                 default_import_location = "heliara",
                 weight = 1*kg,

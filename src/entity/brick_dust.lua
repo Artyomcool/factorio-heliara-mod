@@ -7,9 +7,11 @@ return {
         common = {
             name = _name,
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
-            icon_size = 128,
+            icon_size = 64,
+            order = "h[heliara]-a[brick-dust]-a[base]",
         },
         recipe = {
+            subgroup = "heliara-materials",
             ingredients = {
                 ["stone-brick"] = 2,
                 ["stone"] = 1
@@ -30,7 +32,7 @@ return {
             color_hint = { text = "T" },
             fuel_value = "300kJ",
             fuel_category = "solar_fuel",
-            subgroup = "raw-material",
+            subgroup = "heliara-materials",
 
             stack_size = 400,
             weight = 0.25 * kg
@@ -39,7 +41,10 @@ return {
     {
         recipe = {
             name = "shungite_from_brick_dust",
-            icon = "__heliara__/graphics/icons/default.png",
+            icon = "__heliara__/graphics/icons/shungite_from_brick_dust.png",
+            icon_size = 64,
+            subgroup = "heliara-materials",
+            order = "h[heliara]-b[shungite]-a[from-brick-dust]",
             ingredients = {
                 [_name] = 400,
                 coal = 2,

@@ -686,12 +686,12 @@ return {
         common = {
             name = _name,
             icon = "__base__/graphics/icons/rocket-silo.png",
+            order = "h[heliara]-a[platform-replicator]-a[replicator]",
         },
         item = {
             stack_size = 1,
             place_result = _name,
             subgroup = "space-platform",
-            order = "z[heliara]-a[platform-replicator]-a[replicator]",
         },
         recipe = {
             ingredients = {

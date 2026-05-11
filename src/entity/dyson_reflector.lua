@@ -88,13 +88,16 @@ return {
             {
                 ["copper-bacteria"] = 40,
                 ["iron-bacteria"] = 40,
-                ["uranium-238"] = 1,
+                ["uranium-235"] = 1,
             },
             results =
             {
                 ["photosoma"] = {1, 1, 0.005},
                 ["spoilage"] = 1,
-                ["uranium-238"] = {1, 1, 0.75},
+                ["iron-ore"] = {1, 1, 0.9},
+                ["copper-ore"] = {1, 1, 0.9},
+                ["uranium-235"] = {1, 1, 0.5},
+                ["uranium-238"] = {1, 1, 0.25},
             },
             main_product = "photosoma",
             subgroup = "intermediate-product",

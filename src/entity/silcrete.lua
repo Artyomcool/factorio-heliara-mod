@@ -34,7 +34,7 @@ return {
             order = "a-b-c",
             --subgroup = "heliara",
             color_hint = { text = "T" },
-            subgroup = "raw-material",
+            subgroup = "heliara-materials",
 
             stack_size = 50
         },

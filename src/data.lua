@@ -5,6 +5,21 @@ require("technology")
 
 local declare = require("entities")
 
+data:extend({
+    {
+        type = "item-subgroup",
+        name = "heliara-materials",
+        group = "intermediate-products",
+        order = "h[heliara-materials]"
+    },
+    {
+        type = "item-subgroup",
+        name = "heliara-science-pack",
+        group = "intermediate-products",
+        order = "y[science-pack]-a[heliara]"
+    },
+})
+
 local function declare_recipe(common, recipe)
     if recipe == nil then
         return
@@ -46,7 +61,7 @@ local function declare_recipe(common, recipe)
     end
 
     local icon_size = common.icon_size
-    if recipe.icon then
+    if recipe.icon or recipe.icons then
         icon_size = recipe.icon_size
     end
 

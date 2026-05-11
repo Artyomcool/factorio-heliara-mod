@@ -8,6 +8,7 @@ return {
             name = _name,
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
             icon_size = 500,
+            order = "h[shungite]",
         },
         resource = {
             flags = { "placeable-neutral" },
@@ -32,10 +33,9 @@ return {
             mining_visualisation_tint = { r = 0.77, g = 0.77, b = 0.9, a = 1.000 }
         },
         item = {
-            order = "a-b-c",
             --subgroup = "heliara",
             color_hint = { text = "T" },
-            subgroup = "raw-material",
+            subgroup = "heliara-materials",
 
             stack_size = 100,
             weight = 1 * kg
@@ -44,7 +44,10 @@ return {
     {
         recipe = {
             icon = "__heliara__/graphics/icons/carbon_from_shungite.png",
+            icon_size = 64,
             name = "carbon-from-shungite",
+            subgroup = "heliara-materials",
+            order = "h[heliara]-c[carbon]-a[from-shungite]",
             ingredients = {
                 shungite = 100,
             },

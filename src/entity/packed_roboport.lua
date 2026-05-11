@@ -8,10 +8,9 @@ return {
             name = _name,
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
             icon_size = 128,
+            order = "z[packed-roboport]-a[pack]",
         },
         item = {
-            order = "a-b-c",
-            --subgroup = "heliara",
             color_hint = { text = "T" },
             stack_size = 5,
             place_as_equipment_result = _name,
@@ -48,7 +47,7 @@ return {
             {
                 width = 3,
                 height = 3,
-                type = "full"
+                type = "full",
             },
             energy_source =
             {
@@ -63,8 +62,10 @@ return {
     {
         recipe = {
             name = "packed_roboport_unpack",
-            icon = "__heliara__/graphics/icons/default.png",
-            icon_size = 128,
+            icon = "__heliara__/graphics/icons/packed_roboport_unpack.png",
+            icon_size = 64,
+            subgroup = "utility-equipment",
+            order = "z[packed-roboport]-b[unpack]",
             category = "crafting",
             energy_required = 1,
             enabled = true,

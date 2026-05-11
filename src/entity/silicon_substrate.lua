@@ -7,9 +7,11 @@ return {
         common = {
             name = _name,
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
-            icon_size = 128,
+            icon_size = 64,
+            order = "h[heliara]-f[silicon-substrate]-a[base]",
         },
         recipe = {
+            subgroup = "heliara-materials",
             ingredients = {
                 fullerene = 4,
                 stone = 5,
@@ -31,7 +33,7 @@ return {
         item = {
             order = "a-b-c",
             color_hint = { text = "T" },
-            subgroup = "raw-material",
+            subgroup = "heliara-materials",
 
             stack_size = 200,
             weight = 0.5 * kg
@@ -40,8 +42,10 @@ return {
     {
         recipe = {
             name = "advanced_silicon_substrate",
-            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
-            icon_size = 128,
+            icon = "__heliara__/graphics/icons/advanced_silicon_substrate.png",
+            icon_size = 64,
+            subgroup = "heliara-materials",
+            order = "h[heliara]-f[silicon-substrate]-b[advanced]",
             ingredients = {
                 fullerene = 16,
                 brick_dust = 40,

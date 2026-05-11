@@ -17,10 +17,28 @@ local function recipe(recipe)
     return { recipe = recipe }
 end
 
+local function graphite_circuit_science_pack_icon(icon)
+    return {
+        {
+            icon = icon,
+            icon_size = 64,
+        },
+        {
+            icon = "__heliara__/graphics/icons/graphite_circuit.png",
+            icon_size = 64,
+            scale = 0.30,
+            shift = { -10, 10 },
+        },
+    }
+end
+
 return {
     recipe({
         name = "graphite-automation-science-pack",
-        icon = "__base__/graphics/icons/automation-science-pack.png",
+        icons = graphite_circuit_science_pack_icon("__base__/graphics/icons/automation-science-pack.png"),
+        icon_size = 64,
+        subgroup = "heliara-science-pack",
+        order = "b[graphite-automation-science-pack]",
         ingredients = {
             ["iron-plate"] = 1,
             ["iron-gear-wheel"] = 2,
@@ -33,7 +51,10 @@ return {
     }),
     recipe({
         name = "graphite-logistic-science-pack",
-        icon = "__base__/graphics/icons/logistic-science-pack.png",
+        icons = graphite_circuit_science_pack_icon("__base__/graphics/icons/logistic-science-pack.png"),
+        icon_size = 64,
+        subgroup = "heliara-science-pack",
+        order = "c[graphite-logistic-science-pack]",
         ingredients = {
             ["burner-inserter"] = 1,
             ["transport-belt"] = 1,
@@ -46,7 +67,10 @@ return {
     }),
     recipe({
         name = "graphite-chemical-science-pack",
-        icon = "__base__/graphics/icons/chemical-science-pack.png",
+        icons = graphite_circuit_science_pack_icon("__base__/graphics/icons/chemical-science-pack.png"),
+        icon_size = 64,
+        subgroup = "heliara-science-pack",
+        order = "d[graphite-chemical-science-pack]",
         ingredients = {
             ["fullerene"] = 4,
             ["calcite"] = 2,
@@ -64,7 +88,10 @@ return {
     }),
     recipe({
         name = "graphite-production-science-pack",
-        icon = "__base__/graphics/icons/production-science-pack.png",
+        icons = graphite_circuit_science_pack_icon("__base__/graphics/icons/production-science-pack.png"),
+        icon_size = 64,
+        subgroup = "heliara-science-pack",
+        order = "e[graphite-production-science-pack]",
         ingredients = {
             ["rail"] = 35,
             ["steel-plate"] = 15,

@@ -7,16 +7,28 @@ return {
           name = "fluorite",
           order = "a-b-c",
           color_hint = { text = "T" },
-          subgroup = "raw-material",
+          subgroup = "heliara-materials",
           stack_size = 50,
           weight = 0.1 * kg
       },
       recipe = {
-          icon = "__heliara__/graphics/icons/fluorite.png",
+          icons = {
+              {
+                  icon = "__space-age__/graphics/icons/fluid/fluoroketone-hot.png",
+                  icon_size = 64,
+              },
+              {
+                  icon = "__heliara__/graphics/icons/fluorite.png",
+                  icon_size = 64,
+                  scale = 0.38,
+                  shift = { -10, 10 },
+              },
+          },
+          icon_size = 64,
           name = "fluoroketone_from_fluorite",
           category = "cryogenics",
-          subgroup = "raw-material",
-          order = "f[fluorite]",
+          subgroup = "aquilo-processes",
+          order = "b[fluoroketone]-b[fluoroketone]",
           enabled = false,
           ingredients =
           {
@@ -101,7 +113,5 @@ return {
         },
     }
 }
-
-
 
 
