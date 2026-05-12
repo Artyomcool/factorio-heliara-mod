@@ -8,8 +8,8 @@ return {
     {
         common = {
             name = _name,
-            icon = "__heliara__/graphics/icons/default.png", --fixme
-            icon_size = 128,
+            icon = "__heliara__/graphics/icons/steam_cargo.png",
+            icon_size = 64,
         },
         recipe = {
             ingredients = {
@@ -24,6 +24,7 @@ return {
             allow_productivity = true,
         },
         item = {
+            hidden = true,
             order = "a-b-c",
             color_hint = { text = "T" },
             subgroup = "raw-material",

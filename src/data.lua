@@ -373,7 +373,7 @@ data:extend({
         type = "achievement",
         name = "heliara-sun-control-1",
         order = "a[progress]-r[heliara]-c[1]",
-        icon = "__heliara__/graphics/icons/solar_refractor.png",
+        icon = "__heliara__/graphics/icons/solar_reflector.png",
         icon_size = 1024,
     },
     {

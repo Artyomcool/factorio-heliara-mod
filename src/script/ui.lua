@@ -18,7 +18,7 @@ function make_reflectors_ui(player, entity)
         type = defines.relative_gui_type.rocket_silo_gui
     end
     local anchor = {gui=type, position=defines.relative_gui_position.right}
-    local frame = player.gui.relative.add{type="frame", anchor=anchor, name='relfectors_info', caption='[item=solar_refractor] Reflectors Info'}
+    local frame = player.gui.relative.add{type="frame", anchor=anchor, name='relfectors_info', caption='[item=solar_reflector] Reflectors Info'}
     local table = frame.add{type="table", column_count=2}
     table.style.column_alignments[2] = "right"
 
@@ -54,7 +54,7 @@ function make_dyson_swarm_ui(player)
 
     local anchor = {gui=defines.relative_gui_type.rocket_silo_gui, position=defines.relative_gui_position.right}
     --todo swarm icon
-    local frame = player.gui.relative.add{type="frame", anchor=anchor, name='dyson_swarm_info', caption='[item=solar_refractor] Reflectors Info'}
+    local frame = player.gui.relative.add{type="frame", anchor=anchor, name='dyson_swarm_info', caption='[item=solar_reflector] Reflectors Info'}
     local table = frame.add{type="table", column_count=2}
     table.style.column_alignments[2] = "right"
 

@@ -1,6 +1,6 @@
 require("common")
 
-local _name = "solar_refractor"
+local _name = "solar_reflector"
 
 return {
     {
@@ -23,6 +23,7 @@ return {
             allow_decomposition = false,
         },
         item = {
+            hidden = true,
             order = "a-b-c",
             color_hint = { text = "T" },
             subgroup = "raw-material",

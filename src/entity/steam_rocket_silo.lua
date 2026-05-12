@@ -1,10 +1,10 @@
 require("common")
 req("__heliara__/script/ui")
 
-local _name = "solar_refractor_silo"
+local _name = "steam_rocket_silo"
 
 local recipe_to_silo = {
-    solar_refractor = 'solar_refractor_silo',
+    solar_reflector = 'steam_rocket_silo',
     steam_cargo = 'steam_cargo_silo',
 }
 
@@ -31,7 +31,7 @@ local function tick(silo)
     silo.destroy()
 end
 
-local retractor_silo = {
+local steam_rocket_silo_proto = {
     type = "rocket-silo",
     name = _name,
     flags = { "placeable-neutral", "placeable-player", "player-creation" },
@@ -97,7 +97,7 @@ local retractor_silo = {
     energy_usage = "250kW", --energy usage used when crafting the rocket
     lamp_energy_usage = "0kW",
     active_energy_usage = "0.5MW", -- 3990kW
-    rocket_entity = "solar_refractor",
+    rocket_entity = "solar_reflector",
     times_to_blink = 0,
     light_blinking_speed = 10000, -- 1 / (3 * 60),
     door_opening_speed = 10000, -- (4.25 * 60),
@@ -171,7 +171,7 @@ local retractor_silo = {
     can_launch_without_landing_pads = true,
 }
 
-local cargo_silo = table.deepcopy(retractor_silo)
+local cargo_silo = table.deepcopy(steam_rocket_silo_proto)
 cargo_silo.name = 'steam_cargo_silo'
 cargo_silo.icon = "__heliara__/graphics/icons/" .. _name .. ".png"
 cargo_silo.launch_to_space_platforms = true
@@ -180,7 +180,7 @@ cargo_silo.rocket_entity = "steam_cargo"
 cargo_silo.crafting_categories = { "steam_rockets" }
 cargo_silo.to_be_inserted_to_rocket_inventory_size = 1
 
-local space_silo = table.deepcopy(retractor_silo)
+local space_silo = table.deepcopy(steam_rocket_silo_proto)
 space_silo.name = 'dyson_swarm_launcher'
 space_silo.energy_source = { type = "electric", usage_priority = "primary-input", }
 space_silo.energy_usage = "250kW"
@@ -192,14 +192,14 @@ space_silo.minable = { mining_time = 5, result = space_silo.name }
 space_silo.on_gui_opened = make_dyson_swarm_ui
 space_silo.on_gui_destroy = destroy_dyson_swarm_ui
 
-retractor_silo.on_tick = wrap(function (silo)
+steam_rocket_silo_proto.on_tick = wrap(function (silo)
     tick(silo)
     if silo.valid and silo.launch_rocket() then
         add_reflectors(silo.last_user, silo.surface, 1)
     end
 end)
-retractor_silo.on_gui_opened = make_reflectors_ui
-retractor_silo.on_gui_destroy = destroy_reflectors_ui
+steam_rocket_silo_proto.on_gui_opened = make_reflectors_ui
+steam_rocket_silo_proto.on_gui_destroy = destroy_reflectors_ui
 
 cargo_silo.on_tick = wrap(tick)
 
@@ -208,11 +208,13 @@ return {
         common = {
             name = _name,
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
+            order = "a[a-rocket-silo]",
         },
         item = {
             stack_size = 1,
             random_tint_color = item_tints.iron_rust,
             place_result = _name,
+            subgroup = "space-interactors",
         },
         recipe = {
             ingredients = {
@@ -228,7 +230,7 @@ return {
             energy_required = 10,
             enabled = false,
         },
-        entity = retractor_silo
+        entity = steam_rocket_silo_proto
     },
     {
         entity = cargo_silo

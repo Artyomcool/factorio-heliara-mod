@@ -97,31 +97,50 @@ def write_png(path, width, height, rows):
     )
 
 
-def remove_green_hsv(r, g, b, alpha):
+def remove_chroma_hsv(r, g, b, alpha, key):
     hue, saturation, value = rgb_to_hsv(r / 255, g / 255, b / 255)
-    is_green_hue = 0.20 <= hue <= 0.46
-    is_green_dominant = g > r * 1.18 and g > b * 1.18
 
-    if not (is_green_hue and is_green_dominant and saturation > 0.20 and value > 0.20):
+    if key == "green":
+        is_key_hue = 0.20 <= hue <= 0.46
+        is_key_dominant = g > r * 1.18 and g > b * 1.18
+        strong_key = g > r * 1.75 and g > b * 1.75
+    elif key == "magenta":
+        is_key_hue = 0.60 <= hue <= 0.98
+        is_key_dominant = r > g * 1.01 and b > g * 1.01
+        strong_key = r > g * 1.20 and b > g * 1.20
+    else:
+        raise ValueError(f"Unsupported chroma key {key}")
+
+    min_saturation = 0.05 if key == "magenta" else 0.20
+    min_value = 0.12 if key == "magenta" else 0.20
+    if not (is_key_hue and is_key_dominant and saturation > min_saturation and value > min_value):
         return r, g, b, alpha
 
     strength = min(
         1.0,
-        max(0.0, (saturation - 0.20) / 0.38)
-        * max(0.0, (value - 0.20) / 0.35),
+        max(0.0, (saturation - min_saturation) / 0.24)
+        * max(0.0, (value - min_value) / 0.22),
     )
-    if g > r * 1.75 and g > b * 1.75:
+    if strong_key:
         strength = 1.0
+
+    if key == "magenta" and strength > 0.08:
+        return 0, 0, 0, 0
 
     alpha = int(round(alpha * (1.0 - strength)))
     if alpha < 32:
         return 0, 0, 0, 0
 
-    g = min(g, int((r + b) * 0.55))
+    if key == "green":
+        g = min(g, int((r + b) * 0.55))
+    elif key == "magenta":
+        spill_limit = max(g, int(g * 1.25))
+        r = min(r, spill_limit)
+        b = min(b, spill_limit)
     return r, g, b, alpha
 
 
-def key_image(input_path, alpha_path):
+def key_image(input_path, alpha_path, key):
     width, height, channels, rows = read_png(input_path)
     output_rows = []
     for row in rows:
@@ -129,7 +148,7 @@ def key_image(input_path, alpha_path):
         for offset in range(0, len(row), channels):
             r, g, b = row[offset], row[offset + 1], row[offset + 2]
             alpha = row[offset + 3] if channels == 4 else 255
-            output.extend(remove_green_hsv(r, g, b, alpha))
+            output.extend(remove_chroma_hsv(r, g, b, alpha, key))
         output_rows.append(output)
     write_png(alpha_path, width, height, output_rows)
 
@@ -179,6 +198,7 @@ def main():
     parser.add_argument("input", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--size", type=int, default=64)
+    parser.add_argument("--key", choices=("green", "magenta"), default="green")
     parser.add_argument(
         "--keep-intermediate",
         action="store_true",
@@ -188,7 +208,7 @@ def main():
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     alpha_path = args.output.with_name(args.output.stem + "_alpha_hsv.png")
-    key_image(args.input, alpha_path)
+    key_image(args.input, alpha_path, args.key)
     trimmed_path = trim_and_resize(alpha_path, args.output, args.size)
 
     if not args.keep_intermediate:

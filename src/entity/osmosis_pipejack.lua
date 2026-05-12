@@ -292,7 +292,8 @@ return {
     {
         common = {
             name = "brackish_vent",
-            icon = "__heliara__/graphics/icons/default.png",    --fixme
+            icon = "__heliara__/graphics/icons/brackish_vent.png",
+            icon_size = 64,
         },
         resource = {
             flags = { "placeable-neutral" },

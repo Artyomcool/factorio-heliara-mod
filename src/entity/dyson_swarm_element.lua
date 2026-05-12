@@ -54,7 +54,7 @@ return {
             },
             cargo_pod_entity = "cargo-dyson_swarm_element",
             rocket_sprite = {
-                filename = "__heliara__/graphics/entity/" .. 'solar_refractor' .. "/rocket-static-pod.png",
+                filename = "__heliara__/graphics/entity/" .. 'solar_reflector' .. "/rocket-static-pod.png",
                 width = 308,
                 height = 752,
                 scale = 0.125

@@ -8,6 +8,9 @@ return {
         common = {
             name = _name,
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
+            icon_size = 64,
+            subgroup = "energy",
+            order = "d[solar-panel]-b[fullerene-solar-panel]",
         },
         item = {
             stack_size = 20,
@@ -45,9 +48,9 @@ return {
                     {
                         filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
                         priority = "high",
-                        width = 230,
-                        height = 224,
-                        shift = util.by_pixel(-3, 3.5),
+                        width = 192,
+                        height = 200,
+                        shift = util.by_pixel(0, -4),
                         scale = 0.5
                     },
                     {
@@ -55,7 +58,7 @@ return {
                         priority = "high",
                         width = 220,
                         height = 180,
-                        shift = util.by_pixel(9.5, 6),
+                        shift = util.by_pixel(6, 3),
                         draw_as_shadow = true,
                         scale = 0.5
                     }
@@ -68,13 +71,12 @@ return {
                         priority = "high",
                         width = 214,
                         height = 180,
-                        shift = util.by_pixel(10.5, 6),
+                        shift = util.by_pixel(7, 3),
                         scale = 0.5
                     }
                 }
             },
             impact_category = "glass",
-            perceived_performance = {minimum = 0.1, maximum = 0.1},
 
             bound_entities = {
                 {
@@ -85,7 +87,7 @@ return {
                     --selectable_in_game = false,
                     hidden = true,
                     collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
-                    selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+                    selection_box = {{0.5, 0.5}, {1.5, 1.5}},
                     energy_source = {
                         type = "electric",
                         buffer_capacity = "2kJ",

@@ -276,7 +276,7 @@ local function show_gui()
     local player = game.get_player(1)
     local root = player.gui.screen
     root.clear()
-    local frame = root.add { type = "frame", name = 'relfectors_info', caption = '[item=solar_refractor] Reflectors Info' }
+    local frame = root.add { type = "frame", name = 'relfectors_info', caption = '[item=solar_reflector] Reflectors Info' }
     frame.style.natural_width = 400
     --frame.style.maximal_height = player.display_resolution.height
     local parent = frame.add { type = "scroll-pane", name = "pparent" }
