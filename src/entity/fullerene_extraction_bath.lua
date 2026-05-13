@@ -40,12 +40,13 @@ return {
             graphics_set = {
                 animation = {
                     filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
-                    width = 1024,
-                    height = 1024,
-                    frame_count = 1,
-                    line_length = 1,
-                    shift = { 0.0, 0.0 },
-                    scale = 0.125
+                    width = 194,
+                    height = 202,
+                    frame_count = 16,
+                    line_length = 4,
+                    shift = { 1.0/64, 0.0 },
+                    scale = 0.52,
+                    animation_speed = 2,
                 }
             },
             impact_category = "metal-large",

@@ -116,7 +116,7 @@ data:extend({
         },
         auto_save_on_first_trip = true,
     },
-    {
+    --[[ {
         type = "planet",
         name = "heliashade",
         icon = "__heliara__/graphics/icons/heliara.png",
@@ -171,7 +171,7 @@ data:extend({
             }
         },
         auto_save_on_first_trip = false,
-    },
+    }, ]]
     {
         type = "space-connection",
         name = "vulcanus-heliara",

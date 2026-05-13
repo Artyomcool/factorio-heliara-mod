@@ -52,11 +52,11 @@ local planet = {
             space_location = "heliara",
             use_icon_overlay_constant = true
         },
-        {
+        --[[ {
             type = "unlock-space-location",
             space_location = "heliashade",
             use_icon_overlay_constant = true
-        },
+        }, ]]
     },
     prerequisites = { "planet-discovery-vulcanus", "planet-discovery-fulgora" },
     unit = unit(2000, 60,
@@ -86,7 +86,7 @@ planet_navigation.unit = unit(4000, 120,
     "fullerene"
 )
 
-table.insert(data.raw["technology"]["asteroid-productivity"]["effects"],
+--[[ table.insert(data.raw["technology"]["asteroid-productivity"]["effects"],
         {
             type = "change-recipe-productivity",
             recipe = "stone-asteroid-crushing",
@@ -99,7 +99,7 @@ table.insert(data.raw["technology"]["asteroid-productivity"]["effects"],
             recipe = "advanced-promethium-asteroid-crushing",
             change = 0.1
         }
-)
+) ]]
 
 data:extend({
     planet,
@@ -384,7 +384,7 @@ data:extend({
             "fullerene"
         ),
     },
-    {
+    --[[ {
         type = "technology",
         name = "stone-asteroid-crushing",
         icon = "__heliara__/graphics/icons/default.png",
@@ -428,7 +428,7 @@ data:extend({
                 "fullerene",
                 "promethium"
         ),
-    },
+    }, ]]
     {
         type = "technology",
         name = "coal-productivity",
@@ -464,7 +464,7 @@ data:extend({
         max_level = "infinite",
         upgrade = true
     },
-    {
+    --[[ {
         type = "technology",
         name = "dyson_swarm",
         icon = "__heliara__/graphics/icons/default.png",
@@ -486,5 +486,5 @@ data:extend({
             "fullerene",
             "promethium"
         ),
-    },
+    }, ]]
 })

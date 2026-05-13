@@ -41,8 +41,8 @@ function entity_storage(entity)
     return substorage(substorage(storage, 'entities'), entity.unit_number)
 end
 
-function ticking()
-    return substorage(storage, 'ticking_entity')
+function ticking_nth(n)
+    return substorage(substorage(storage, 'ticking_nth'), n)
 end
 
 ---@param entity LuaEntity

@@ -180,28 +180,28 @@ cargo_silo.rocket_entity = "steam_cargo"
 cargo_silo.crafting_categories = { "steam_rockets" }
 cargo_silo.to_be_inserted_to_rocket_inventory_size = 1
 
-local space_silo = table.deepcopy(steam_rocket_silo_proto)
+--[[ local space_silo = table.deepcopy(steam_rocket_silo_proto)
 space_silo.name = 'dyson_swarm_launcher'
 space_silo.energy_source = { type = "electric", usage_priority = "primary-input", }
 space_silo.energy_usage = "250kW"
 space_silo.fixed_recipe = "dyson_swarm_element"
 space_silo.rocket_entity = "dyson_swarm_element"
 space_silo.crafting_categories = { "space_rockets" }
-space_silo.rocket_parts_required = 2 -- 20? 200?
+space_silo.rocket_parts_required = 2
 space_silo.minable = { mining_time = 5, result = space_silo.name }
 space_silo.on_gui_opened = make_dyson_swarm_ui
-space_silo.on_gui_destroy = destroy_dyson_swarm_ui
+space_silo.on_gui_destroy = destroy_dyson_swarm_ui ]]
 
-steam_rocket_silo_proto.on_tick = wrap(function (silo)
+steam_rocket_silo_proto.on_nth_tick = { [1] = wrap(function (silo)
     tick(silo)
     if silo.valid and silo.launch_rocket() then
         add_reflectors(silo.last_user, silo.surface, 1)
     end
-end)
+end)}
 steam_rocket_silo_proto.on_gui_opened = make_reflectors_ui
 steam_rocket_silo_proto.on_gui_destroy = destroy_reflectors_ui
 
-cargo_silo.on_tick = wrap(tick)
+cargo_silo.on_nth_tick = { [1] = wrap(tick) }
 
 return {
     {
@@ -236,6 +236,12 @@ return {
         entity = cargo_silo
     },
     {
+        raw = {
+            { type = "recipe-category", name = "steam_rockets" },
+            { type = "recipe-category", name = "space_rockets" },
+        }
+    },
+    --[[ {
         common = {
             name = 'dyson_swarm_launcher',
             icon = "__heliara__/graphics/icons/" .. "default" .. ".png",
@@ -270,5 +276,5 @@ return {
                 name = "space_rockets"
             }
         }
-    }
+    }, ]]
 }

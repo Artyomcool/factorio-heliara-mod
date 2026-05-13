@@ -624,7 +624,7 @@ entity.on_build = wrap(function(e)
     end
 end)
 
-entity.on_tick = wrap(on_tick)
+entity.on_nth_tick = { [37] = wrap(on_tick) }
 
 local blueprint_tool_proto = wrap_for_data(
     function()

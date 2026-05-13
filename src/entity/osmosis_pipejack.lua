@@ -11,9 +11,9 @@ return {
             icon_draw_specification = { shift = { 0, -0.3 } },
         },
         item = {
-            subgroup = "production-machine",
-            color_hint = { text = "2" }, -- ??
-            order = "d[assembling-machine-heliara]",
+            subgroup = "energy-pipe-distribution",
+            color_hint = { text = "2" },
+            order = "a[pipe]-c[osmosis-pipejack]",
             stack_size = 20,
             random_tint_color = item_tints.iron_rust,
             place_result = _name,
@@ -263,9 +263,9 @@ return {
             icon_draw_specification = { shift = { 0, -0.3 } },
         },
         item = {
-            order = "b[circuits]-d[graphite-circuit]",
+            order = "h[heliara]-z[osmosis-filter]",
             color_hint = { text = "T" },
-            subgroup = "intermediate-product",
+            subgroup = "heliara-materials",
 
             stack_size = 40,
             ingredient_to_weight_coefficient = 0.28,

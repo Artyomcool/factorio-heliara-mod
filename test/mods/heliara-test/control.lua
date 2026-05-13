@@ -119,7 +119,7 @@ local function run_prototype_tests()
         "fullerene_solar_panel", "fullerene_extraction_bath",
         "heliara_assembling_machine", "dryer", "osmosis_pipejack",
         "wireless_pole", "shungite", "brackish_vent", "huge_fullerene_rock",
-        "solar_refractor_silo", "fullerene_lab", "platform_replicator",
+        "steam_rocket_silo", "fullerene_lab", "platform_replicator",
         "space_platform_rocket",
     }) do
         local n = name
@@ -145,7 +145,7 @@ local function run_prototype_tests()
         "planet-discovery-heliara", "fullerene_extraction_bath",
         "carbon-electrolitic-processing", "silicon_substrate",
         "graphite_circuit", "heliara_assembling_machine", "steam_cargo",
-        "osmosis_pipejack", "solar_refractor",
+        "osmosis_pipejack", "solar_reflector",
     }) do
         local n = name
         t("tech/" .. n, function() truthy(prototypes.technology[n]) end)

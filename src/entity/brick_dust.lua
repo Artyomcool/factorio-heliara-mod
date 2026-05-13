@@ -30,12 +30,9 @@ return {
             order = "a-b-c",
             --subgroup = "heliara",
             color_hint = { text = "T" },
-            fuel_value = "300kJ",
-            fuel_category = "solar_fuel",
             subgroup = "heliara-materials",
 
             stack_size = 400,
-            weight = 0.25 * kg
         }
     },
     {

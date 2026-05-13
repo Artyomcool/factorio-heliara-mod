@@ -161,8 +161,9 @@ local entity_events = {
     on_destroy = {},
     on_gui_opened = {},
     on_gui_destroy = {},
-    on_tick = {},
 }
+
+local on_nth_tick = {}
 
 for _, to_declares in ipairs(require("entities")) do
     for _, to_declare in ipairs(to_declares) do
@@ -177,6 +178,15 @@ for _, to_declares in ipairs(require("entities")) do
                     table[name] = h
                 end
             end
+
+            for n, fn in pairs(e.on_nth_tick or {}) do
+                local subn = on_nth_tick[n]
+                if not subn then
+                    subn = {}
+                    on_nth_tick[n] = subn
+                end
+                subn[name] = fn
+            end
         end
 
         add(entity, name)
@@ -185,12 +195,12 @@ for _, to_declares in ipairs(require("entities")) do
             add(child, child.name)
         end
 
-        local tick = entity.on_tick
-        if entity.bound_entities or tick then
+        local nth_tick = entity.on_nth_tick
+        if entity.bound_entities or nth_tick then
             local f1 = entity_events.on_build[name] or stub
             entity_events.on_build[name] = function(e)
-                if tick then
-                    ticking()[e.unit_number] = e
+                for n, fn in pairs(nth_tick or {}) do
+                    ticking_nth(n)[e.unit_number] = e
                 end
                 local s = entity_storage(e)
                 s.entity = e
@@ -208,8 +218,8 @@ for _, to_declares in ipairs(require("entities")) do
 
             local f2 = entity_events.on_destroy[name] or stub
             entity_events.on_destroy[name] = function(e)
-                if tick then
-                    ticking()[e.unit_number] = nil
+                for n, fn in pairs(nth_tick or {}) do
+                    ticking_nth(n)[e.unit_number] = e
                 end
                 local s = entity_storage(e)
                 for _, child in ipairs(entity.bound_entities or {}) do
@@ -247,7 +257,7 @@ script.on_event(defines.events.on_surface_created, function(event)
         -- we want a precise control here
         surface.daytime_parameters = daytime_parameters(0.2, 0.2)
         surface.solar_power_multiplier = 1
-    elseif surface.name == "heliashade" then
+    --[[ elseif surface.name == "heliashade" then
         surface.daytime = (surface.evening + surface.morning) / 2
         surface.freeze_daytime = true
         surface.show_clouds = false
@@ -255,153 +265,7 @@ script.on_event(defines.events.on_surface_created, function(event)
         local s = table.deepcopy(surface.map_gen_settings)
         s.width = 256 + 128
         s.height = 128 + 128
-        surface.map_gen_settings = s
-    end
-end)
-
-create_heliara_for_player = nil
-next_tick = {}
-
-folders_open = {}
-
-local function split_by_slash(input)
-    local result = {}
-    for part in string.gmatch(input, "[^/]+") do
-        table.insert(result, part)
-    end
-    return result
-end
-
-local function show_gui()
-    local player = game.get_player(1)
-    local root = player.gui.screen
-    root.clear()
-    local frame = root.add { type = "frame", name = 'relfectors_info', caption = '[item=solar_reflector] Reflectors Info' }
-    frame.style.natural_width = 400
-    --frame.style.maximal_height = player.display_resolution.height
-    local parent = frame.add { type = "scroll-pane", name = "pparent" }
-    local planets = parent.add { type = "list-box", name = "planets" }
-    local platforms = parent.add { type = "list-box", name = "platforms" }
-    platforms.style.font = "mono"
-    local platforms_tree = { children = {} }
-    for _, value in pairs(game.surfaces) do
-        if value.planet then
-            planets.add_item({ "", "[planet=" .. value.planet.prototype.name .. "] ", value.planet.prototype.localised_name })
-        elseif value.platform then
-            local name = value.platform.name
-            local name_splited = split_by_slash(name)
-            local current_name = ''
-            local node = platforms_tree.children
-            for i, p in ipairs(name_splited) do
-                if i == table_size(name_splited) then
-                    node[p] = { level = i, full_name = name, short_name = p, platform = value.platform }
-                else
-                    local pp = p .. '/'
-                    current_name = current_name .. pp
-                    local children = nil
-                    if not node[pp] then
-                        children = {}
-                        node[pp] = { level = i, full_name = current_name, short_name = p, children = children }
-                    else
-                        children = node[pp].children
-                    end
-                    node = children
-                end
-            end
-        end
-    end
-
-    local queue = { platforms_tree }
-    while queue[1] do
-        local now = table.remove(queue, 1)
-        if now.short_name then
-            local e = ''
-            for _ = 2, now.level, 1 do
-                e = e .. '[virtual-signal=shape-vertical]'
-            end
-            e = e .. '[virtual-signal=shape-t-4]'
-            if now.children then
-                e = e .. '[virtual-signal=shape-t]'
-            else
-                e = e .. '[virtual-signal=shape-horizontal]'
-            end
-            platforms.add_item(e .. now.short_name)
-        end
-
-        if now.children then
-            local lst = {}
-            for _, value in pairs(now.children) do
-                table.insert(lst, value)
-            end
-
-            table.sort(lst, function(a, b)
-                return a.short_name > b.short_name
-            end)
-
-            for _, value in ipairs(lst) do
-                table.insert(queue, 1, value)
-            end
-        end
-    end
-end
-
-local function show_drag_gui()
-    local player = game.get_player(1)
-    local root = player.gui.screen
-    root.clear()
-    local frame = root.add {
-        type = "frame",
-        name = "source_frame",
-        direction = "vertical",
-        caption = "Source"
-    }
-    frame.location = { 200, 200 }
-
-    frame.add {
-        type = "sprite-button",
-        name = "item_iron_plate",
-        sprite = "item/iron-plate",
-        style = "slot_button"
-    }
-
-    local drop = root.add {
-        type = "frame",
-        name = "target_frame",
-        direction = "vertical",
-        caption = "Target"
-    }
-    drop.location = { 600, 200 }
-
-end
-
-local function after_reload()
-    if create_heliara_for_player then
-        create_heliara_for_player.force.research_all_technologies()
-    end
-
-    game.print("Reloaded!")
-end
-
--- remove on release
-commands.add_command("re", nil, function(command)
-    storage["reload"] = command.player_index
-    game.reload_mods()
-end)
-
-script.on_load(function()
-    if storage["reload"] then
-        table.insert(next_tick, function()
-            local pi = storage["reload"]
-            storage["reload"] = nil
-            if game.surfaces["heliara"] then
-                create_heliara_for_player = game.get_player(pi)
-                game.delete_surface("heliara")
-            else
-                game.planets["heliara"].create_surface()
-                game.players[pi].teleport({ 0, 0 }, "heliara")
-            end
-            after_reload()
-        end);
+        surface.map_gen_settings = s ]]
     end
 end)
 
@@ -417,28 +281,6 @@ script.on_event(defines.events.on_cargo_pod_finished_descending, function(event)
         return
     end
 
-end)
-
-script.on_event(defines.events.on_surface_deleted, function(event)
-    if create_heliara_for_player ~= nil then
-        game.planets["heliara"].create_surface()
-        create_heliara_for_player.teleport({ 0, 0 }, "heliara")
-        create_heliara_for_player = nil
-    end
-end)
-
-script.on_event(defines.events.on_tick, function(event)
-    for _, entity in pairs(ticking()) do
-        if entity.valid then
-            -- fixme cleanup?
-            (entity_events.on_tick[entity.name] or stub)(entity)
-        end
-    end
-    local t = next_tick
-    next_tick = {}
-    for _, value in ipairs(t) do
-        value()
-    end
 end)
 
 local function on_platform_blueprint_tool_selected(event)
@@ -528,15 +370,6 @@ script.on_event(
             end
         end)
 
-next_player = nil
-
-script.on_event(defines.events.on_player_controller_changed, function(event)
-    next_player = game.get_player(event.player_index)
-    if next_player.controller_type == defines.controllers.remote then
-        --show_gui()
-    end
-end)
-
 script.on_event(defines.events.on_gui_opened, function(event)
     if event.entity then
         local f = entity_events.on_gui_opened[event.entity.name]
@@ -558,3 +391,14 @@ end)
 script.on_event(defines.events.on_forces_merging, function(event)
     force_storage_destroy(event.source)
 end)
+
+for n, subn in pairs(on_nth_tick) do
+    script.on_nth_tick(n, function(event)
+        for _, entity in pairs(ticking_nth(n)) do
+            if entity.valid then
+                -- fixme cleanup?
+                (subn[entity.name] or stub)(entity)
+            end
+        end
+    end)
+end

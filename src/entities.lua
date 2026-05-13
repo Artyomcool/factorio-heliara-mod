@@ -9,7 +9,7 @@ return {
     require("entity.graphite"),
     require("entity.graphite_circuit"),
     require("entity.solar_reflector"),
-    require("entity.dyson_swarm_element"),
+    --require("entity.dyson_swarm_element"),
     require("entity.steam_rocket_silo"),
     require("entity.heliara_assembling_machine"),
     require("entity.fullerene_fuel"),
@@ -26,7 +26,7 @@ return {
     require("entity.stone_crashing"),
     require("entity.brick_dust"),
     require("entity.big_space_platform_hub"),
-    require("entity.dyson_reflector"),
+    --require("entity.dyson_reflector"),
     require("entity.packed_roboport"),
     require("entity.platform_replicator"),
 }

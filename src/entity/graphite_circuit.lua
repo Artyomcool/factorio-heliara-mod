@@ -20,7 +20,7 @@ return {
             allow_productivity = true,
         },
         item = {
-            order = "b[circuits]-d[graphite-circuit]",
+            order = "b[circuits]-a[electronic-circuit]-z[graphite-circuit]",
             color_hint = { text = "T" },
             subgroup = "intermediate-product",
 
