@@ -13,7 +13,7 @@ return {
         item = {
             subgroup = "production-machine",
             color_hint = { text = "2" }, -- ??
-            order = "a[assembling-machine-1]-b[heliara-assembling-machine]",
+            order = "a[assembling-machine-0]",
             --inventory_move_sound = item_sounds.mechanical_inventory_move,
             --pick_sound = item_sounds.mechanical_inventory_pickup,
             --drop_sound = item_sounds.mechanical_inventory_move,

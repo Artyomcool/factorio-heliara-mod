@@ -9,6 +9,8 @@ return {
             icon = "__heliara__/graphics/icons/fullerene_extraction_bath.png",
         },
         item = {
+            subgroup = "production-machine",
+            order = "a[assembling-machine-0]-b[fullerene-extraction-bath]",
             stack_size = 10,
             random_tint_color = item_tints.bluish_concrete,
             place_result = _name,

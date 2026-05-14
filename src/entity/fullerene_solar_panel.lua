@@ -77,6 +77,8 @@ return {
                 }
             },
             impact_category = "glass",
+            corpse = "fullerene-solar-panel-remnants",
+            dying_explosion = "solar-panel-explosion",
 
             bound_entities = {
                 {
@@ -87,7 +89,7 @@ return {
                     --selectable_in_game = false,
                     hidden = true,
                     collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
-                    selection_box = {{0.5, 0.5}, {1.5, 1.5}},
+                    selection_box = {{0.5, -1.5}, {1.5, 1.5}},
                     energy_source = {
                         type = "electric",
                         buffer_capacity = "2kJ",
@@ -102,7 +104,9 @@ return {
                         type = "burner",
                         fuel_inventory_size = 1,
                         fuel_categories = {"solar_fuel"},
-                        burner_usage = "fullerene"
+                        burner_usage = "fullerene",
+                        initial_fuel = "fullerene",
+                        initial_fuel_percent = 0.25,
                     },
                     max_power_output = "2kW",
 
@@ -115,9 +119,30 @@ return {
                     on_gui_opened = make_reflectors_ui,
                     on_gui_destroy = destroy_reflectors_ui,
                 }
-            }
+            },
+
+            on_nth_tick = {
+                [61] = wrap(function(entity)
+                    local b = entity_storage(entity)["hidden-burner-generator"].burner
+                    if b.currently_burning == nil and not b.inventory[1].valid_for_read then
+                        entity.die()
+                    end
+                end)
+            },
         },
         raw = {
+            wrap_for_data(function()
+                local tint = {r = 0.2, g = 0.1, b = 0.1, a = 1}
+                local r = table.deepcopy(data.raw["corpse"]["solar-panel-remnants"])
+                r.name = "fullerene-solar-panel-remnants"
+                local function apply_tint(t)
+                    if type(t) ~= "table" then return end
+                    if t.filename then t.tint = tint
+                    else for _, v in pairs(t) do apply_tint(v) end end
+                end
+                apply_tint(r.animation)
+                return r
+            end),
             {
                 type = "burner-usage",
                 name = "fullerene",
