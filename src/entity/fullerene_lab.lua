@@ -9,6 +9,8 @@ return {
             icon = "__heliara__/graphics/icons/" .. _name .. ".png",
         },
         item = {
+            subgroup = "production-machine",
+            order = "z[lab]-a[fullerene-lab]",
             stack_size = 10,
             random_tint_color = item_tints.iron_rust,
             place_result = _name,
@@ -48,22 +50,24 @@ return {
 
             off_animation = {
                 filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
-                width = 256,
-                height = 256,
+                width = 258,
+                height = 258,
                 frame_count = 1,
-                line_length = 1,
-                shift = { 0.0, 0.0 },
-                scale = 0.5
+                line_length = 4,
+                shift = { -1.0/32, 7.0/32 },
+                scale = 0.4
             },
 
             on_animation = {
                 filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
-                width = 256,
-                height = 256,
-                frame_count = 1,
-                line_length = 1,
-                shift = { 0.0, 0.0 },
-                scale = 0.5
+                width = 258,
+                height = 258,
+                frame_count = 16,
+                line_length = 4,
+                frame_sequence = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 8, 7, 6, 5, 4, 3, 2 },
+                animation_speed = 1.0/8,
+                shift = { -1.0/32, 7.0/32 },
+                scale = 0.4
             },
             impact_category = "metal-large",
             crafting_speed = 1,

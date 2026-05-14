@@ -18,6 +18,7 @@ return {
             energy_required = 3,
             category = "steam_rockets",
             enabled = false,
+            hide_from_player_crafting = true,
             auto_recycle = false,
             allow_productivity = true,
             allow_decomposition = false,
