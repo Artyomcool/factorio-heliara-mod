@@ -5,6 +5,7 @@
   "author": "Artyomcool & praetorian droid",
   "description": "A cold, distant world shrouded in perpetual twilight. The far side of Heliara's orbital path.",
   "homepage": "https://github.com/Artyomcool/factorio-heliara-mod",
+  "license": "MIT",
   "source_url": "https://github.com/Artyomcool/factorio-heliara-mod",
   "factorio_version": "2.0",
   "dependencies": [
