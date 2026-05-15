@@ -1,0 +1,84 @@
+require("common.common")
+
+local _name = "fullerene_extraction_bath"
+
+return {
+    {
+        common = {
+            name = _name,
+            icon = "__heliara__/graphics/icons/fullerene_extraction_bath.png",
+        },
+        item = {
+            subgroup = "production-machine",
+            order = "a[assembling-machine-0]-b[fullerene-extraction-bath]",
+            stack_size = 10,
+            random_tint_color = item_tints.bluish_concrete,
+            place_result = _name,
+        },
+        recipe = {
+            ingredients = {
+                ["stone-brick"] = 10,
+                ["steel-plate"] = 10,
+                ["iron-plate"] = 20
+            },
+            energy_required = 10,
+            enabled = false
+        },
+        entity = {
+            type = "assembling-machine",
+            flags = { "placeable-neutral", "placeable-player", "player-creation" },
+            minable = { mining_time = 2, result = _name },    -- fixme automate
+            fast_replaceable_group = "chemical-plant",
+            max_health = 300,
+            icon_draw_specification = { shift = { 0, -0.3 } },
+            collision_box = { { -1.2, -1.2 }, { 1.2, 1.2 } },
+            selection_box = { { -1.5, -1.5 }, { 1.5, 1.5 } },
+            damaged_trigger_effect = hit_effects.entity(),
+            drawing_box_vertical_extension = 0.4,
+            module_slots = 1,
+            allowed_effects = { "consumption", "speed", "productivity", "pollution", "quality" },
+            heating_energy = "100kW",
+
+            graphics_set = {
+                animation = {
+                    filename = "__heliara__/graphics/entity/" .. _name .. "/" .. _name .. ".png",
+                    width = 194,
+                    height = 202,
+                    frame_count = 16,
+                    line_length = 4,
+                    shift = { 1.0/64, 0.0 },
+                    scale = 0.52,
+                    animation_speed = 2,
+                }
+            },
+            impact_category = "metal-large",
+            crafting_speed = 0.2,
+            energy_source = {
+                type = "electric",
+                usage_priority = "secondary-input",
+                emissions_per_minute = { pollution = 4 }
+            },
+            energy_usage = "0.2MW",
+            crafting_categories = { "fullerene-chemistry" },
+            fluid_boxes = {
+                {
+                    production_type = "input",
+                    filter = "water",
+                    volume = 200,
+                    pipe_covers = pipecoverspictures(),
+                    pipe_connections =
+                    {
+                        {flow_direction = "input-output", direction = defines.direction.west, position = {-1, 0}},
+                        {flow_direction = "input-output", direction = defines.direction.east, position = {1, 0}}
+                    }
+                },
+            },
+        },
+        raw = {
+            {
+                type = "recipe-category",
+                name = "fullerene-chemistry"
+            }
+        }
+    },
+}

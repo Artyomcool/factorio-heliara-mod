@@ -1,0 +1,104 @@
+require("common.common")
+
+local _name = "fullerene"
+
+return {
+    {
+        common = {
+            name = _name,
+            icon = "__heliara__/graphics/icons/" .. _name .. ".png",
+            icon_size = 128,
+            order = "h[heliara]-d[fullerene]-a[base]",
+        },
+        recipe = {
+            subgroup = "heliara-materials",
+            ingredients = {
+                shungite = 100,
+            },
+            fluid_ingredients = {
+                water = 200,
+            },
+            results = {
+                shungite = 20,
+                carbon = 6,
+                fullerene = 7,
+                ["iron-ore"] = 8,
+            },
+            energy_required = 3,
+            category = "fullerene-chemistry",
+            enabled = false,
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
+        },
+        item = {
+            order = "a-b-c",
+            --subgroup = "heliara",
+            color_hint = { text = "T" },
+            fuel_value = "1MJ",
+            fuel_category = "solar_fuel",
+            subgroup = "heliara-materials",
+
+            stack_size = 400,
+            weight = 0.25 * kg
+        }
+    },
+    {
+        recipe = {
+            name = _name .. "-from-shungite",
+            icon = "__heliara__/graphics/icons/" .. _name .. "_from_shungite.png",
+            icon_size = 64,
+            subgroup = "heliara-materials",
+            order = "h[heliara]-d[fullerene]-b[from-shungite]",
+            ingredients = {
+                shungite = 100,
+            },
+            fluid_ingredients = {
+                water = 200,
+            },
+            results = {
+                fullerene = 20,
+                ["iron-ore"] = 5,
+            },
+            energy_required = 5,
+            category = "fullerene-chemistry",
+            enabled = false,
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
+        },
+    },
+    {
+        recipe = {
+            name = _name .. "-from-graphite",
+            icon = "__heliara__/graphics/icons/" .. _name .. "_from_graphite.png",
+            icon_size = 64,
+            subgroup = "heliara-materials",
+            order = "h[heliara]-d[fullerene]-c[from-graphite]",
+            ingredients = {
+                graphite = 100,
+            },
+            results = {
+                fullerene = 10,
+                graphite = 20,
+                carbon = 20,
+            },
+            energy_required = 10,
+            category = "chemistry",
+            enabled = false,
+            auto_recycle = false,
+            allow_productivity = true,
+            allow_decomposition = false,
+        },
+        raw = {
+            {
+                type = "fuel-category",
+                name = "solar_fuel"
+            },
+            {
+                type = "recipe-category",
+                name = "fullerene_craft"
+            },
+        }
+    },
+}

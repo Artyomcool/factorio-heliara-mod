@@ -1,0 +1,14 @@
+{
+  "name": "heliashade",
+  "version": "0.0.1",
+  "title": "Heliashade",
+  "author": "Artyomcool & praetorian droid",
+  "description": "A cold, distant world shrouded in perpetual twilight. The far side of Heliara's orbital path.",
+  "factorio_version": "2.0",
+  "dependencies": [
+    "space-age >= 2.0.40",
+    "PlanetsLib >= 1.4.1",
+    "? heliara"
+  ],
+  "space_travel_required": true
+}

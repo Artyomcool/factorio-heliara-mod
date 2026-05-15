@@ -1,0 +1,11 @@
+{
+  "name": "packed-roboport",
+  "version": "0.1.0",
+  "title": "Packed Roboport",
+  "author": "Artyomcool",
+  "description": "A personal roboport bundled with construction robots for compact transport in armor.",
+  "factorio_version": "2.0",
+  "dependencies": [
+    "space-age >= 2.0.40"
+  ]
+}
