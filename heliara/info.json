@@ -4,6 +4,8 @@
   "title": "Heliara",
   "author": "Artyomcool & praetorian droid",
   "description": "Planet without access to copper, but with access to advanced solar technologies, up to Dyson Swarm.",
+  "homepage": "https://github.com/Artyomcool/factorio-heliara-mod",
+  "source_url": "https://github.com/Artyomcool/factorio-heliara-mod",
   "factorio_version": "2.0",
   "dependencies": [
     "space-age >= 2.0.40",
