@@ -66,7 +66,7 @@ return {
             },
             icon_size = 64,
             name = "carbon-fiber-from-fullerene",
-            category = "advanced-crafting",
+            category = "electromagnetics",
             subgroup = "agriculture-products",
             order = "a[organic-products]-h[carbon-fiber]-b[fullerene]",
             enabled = false,
