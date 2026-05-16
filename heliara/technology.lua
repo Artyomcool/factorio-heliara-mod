@@ -368,7 +368,7 @@ data:extend({
         icon = "__heliara__/graphics/icons/advanced_fullerene_technology.png",
         icon_size = 256,
         essential = false,
-        effects = recipes("fullerene-from-graphite", "graphite-from-carbon", "advanced_silicon_substrate"),
+        effects = recipes("fullerene-from-graphite", "graphite-from-carbon", "advanced_silicon_substrate", "carbon-fiber-from-fullerene"),
         prerequisites = { planet_navigation.name, "advanced-shungite" },
         unit = unit(8000, 120,
             "automation",

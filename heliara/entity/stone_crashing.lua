@@ -55,6 +55,37 @@ return {
     },
     {
         recipe = {
+            icons = {
+                { icon = "__space-age__/graphics/icons/carbon-fiber.png", icon_size = 64 },
+                {
+                    icon = "__heliara__/graphics/icons/fullerene.png",
+                    icon_size = 128,
+                    scale = 0.18,
+                    shift = { -8, 8 },
+                },
+            },
+            icon_size = 64,
+            name = "carbon-fiber-from-fullerene",
+            category = "advanced-crafting",
+            subgroup = "agriculture-products",
+            order = "a[organic-products]-h[carbon-fiber]-b[fullerene]",
+            enabled = false,
+            ingredients = {
+                fullerene = 2,
+                graphite = 3,
+                carbon = 4,
+            },
+            results = {
+                ["carbon-fiber"] = 2,
+                ["carbon"] = 1,
+            },
+            energy_required = 10,
+            allow_productivity = true,
+            allow_decomposition = false,
+        },
+    },
+    {
+        recipe = {
             icon = "__heliara__/graphics/icons/default.png",
             name = "stone-asteroid-crushing",
             category = "crushing",
