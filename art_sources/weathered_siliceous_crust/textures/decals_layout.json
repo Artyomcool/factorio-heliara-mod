@@ -1,0 +1,211 @@
+{
+  "sheet": "/home/artyomcool/git/factorio-heliara-mod/heliara/graphics/terrain/heliara_weathered_siliceous_crust_decals.png",
+  "sizes": {
+    "4x4": {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "min_sep": 7.0,
+      "probability": 0.003
+    },
+    "8x8": {
+      "w_tiles": 8,
+      "h_tiles": 8,
+      "min_sep": 14.0,
+      "probability": 0.001
+    }
+  },
+  "decals": [
+    {
+      "w_tiles": 8,
+      "h_tiles": 8,
+      "x": 0,
+      "y": 0,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "w_tiles": 8,
+      "h_tiles": 8,
+      "x": 512,
+      "y": 0,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "w_tiles": 8,
+      "h_tiles": 8,
+      "x": 1024,
+      "y": 0,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "w_tiles": 8,
+      "h_tiles": 8,
+      "x": 1536,
+      "y": 0,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "w_tiles": 8,
+      "h_tiles": 8,
+      "x": 0,
+      "y": 512,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "w_tiles": 8,
+      "h_tiles": 8,
+      "x": 512,
+      "y": 512,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "w_tiles": 8,
+      "h_tiles": 8,
+      "x": 1024,
+      "y": 512,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "w_tiles": 8,
+      "h_tiles": 8,
+      "x": 1536,
+      "y": 512,
+      "width": 512,
+      "height": 512
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 0,
+      "y": 1024,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 256,
+      "y": 1024,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 512,
+      "y": 1024,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 768,
+      "y": 1024,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 1024,
+      "y": 1024,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 1280,
+      "y": 1024,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 1536,
+      "y": 1024,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 1792,
+      "y": 1024,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 0,
+      "y": 1280,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 256,
+      "y": 1280,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 512,
+      "y": 1280,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 768,
+      "y": 1280,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 1024,
+      "y": 1280,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 1280,
+      "y": 1280,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 1536,
+      "y": 1280,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "w_tiles": 4,
+      "h_tiles": 4,
+      "x": 1792,
+      "y": 1280,
+      "width": 256,
+      "height": 256
+    }
+  ]
+}

@@ -74,101 +74,116 @@ local function tile(name, layer, map_color, allow_build)
   }
 end
 
-data:extend({
-  tile('heliara_dust', 5, { r = 6, g = 5, b = 8 }, false),
-  tile('heliara_rusty_sand', 6, {  r = 40, g = 20, b = 4 }, false),
-  tile('heliara_iron_carbon_slag', 7, {  r = 30, g = 24, b = 24 }, false),
-  tile('heliara_clay_shale', 8, {  r = 65, g = 67, b = 27 }, false),
-  tile('heliara_weathered_siliceous_crust', 9, {  r = 80, g = 90, b = 100 }, true),
-  tile('heliara_ferocalcite_crust', 10, {  r = 125, g = 120, b = 40 }, false),
-  tile('heliara_silcrete_crust', 11, {  r = 15, g = 15, b = 10 }, true),
-})
-
-local t = {}
-
-for i = 1, 255, 1 do
-  t["c-" .. i] = {}
-  data:extend({{
+local function tile_hd(name, layer, map_color, allow_build)
+  return {
     type = "tile",
-    name = "c-" .. i,
+    name = name,
     needs_correction = false,
     walking_speed_modifier = 1.0,
     collision_mask = {
-        layers={
-            ground_tile=true
-        }
+        layers = allow_build and { ground_tile = true } or { fragile=true, is_lower_object = true }
     },
-    layer = 4,
+    layer = layer,
     variants = {
       transition = transition_masks(),
       main = {
         {
-          picture = "__core__/graphics/white-square.png",
-          count = 1,
-          size = 1,
-          scale = 32,
+          picture     = "__heliara__/graphics/terrain/" .. name .. ".png",
+          count       = 11,
+          size        = 4,
+          line_length = 4,
+          scale       = 0.5,
+          x           = 0,
+          y           = 0,
+        },
+        {
+          picture     = "__heliara__/graphics/terrain/" .. name .. ".png",
+          count       = 16,
+          size        = 1,
+          line_length = 4,
+          scale       = 0.5,
+          x           = 768,
+          y           = 512,
+        },
+        {
+          picture     = "__heliara__/graphics/terrain/" .. name .. ".png",
+          count       = 16,
+          size        = 2,
+          line_length = 8,
+          scale       = 0.5,
+          x           = 0,
+          y           = 768,
         },
       },
     },
-    map_color = {i/255, i/255, i/255},
-    tint = {i/255, i/255, i/255},
-    autoplace = {probability_expression = "between(elevation," .. (i-1)/255 .. "," .. i/255 .. ")"},
-  }});
+    map_color = map_color,
+    autoplace = {probability_expression = name},
+    default_cover_tile = not allow_build and "concrete" or nil
+  }
 end
-  t["c-" .. 256] = {}
-  data:extend({{
+
+local function tile_with_material(name, layer, map_color, allow_build)
+  return {
     type = "tile",
-    name = "c-" .. 256,
+    name = name,
     needs_correction = false,
     walking_speed_modifier = 1.0,
     collision_mask = {
-        layers={
-            ground_tile=true
-        }
+        layers = allow_build and { ground_tile = true } or { fragile=true, is_lower_object = true }
     },
-    layer = 4,
+    layer = layer,
     variants = {
       transition = transition_masks(),
-      main = {
-        {
-          picture = "__core__/graphics/white-square.png",
-          count = 1,
-          size = 1,
-          scale = 32,
-        },
+      material_background = {
+        picture = "__heliara__/graphics/terrain/" .. name .. "_material.png",
+        count   = 1,
+        scale   = 0.5,
       },
+      material_texture_width_in_tiles  = 1024 / 64,  -- 16 tiles
+      material_texture_height_in_tiles = 1024 / 64,  -- 16 tiles
     },
-    map_color = {255,0,0},
-    tint = {255,0,0},
-    autoplace = {probability_expression = "if (elevation < 0, 1, 0)"},
-  }});
-  t["c-" .. 257] = {}
-  data:extend({{
+    map_color = map_color,
+    autoplace = {probability_expression = name},
+    default_cover_tile = not allow_build and "concrete" or nil
+  }
+end
+
+local function tile_with_material_hd(name, layer, map_color, allow_build)
+  return {
     type = "tile",
-    name = "c-" .. 257,
+    name = name,
     needs_correction = false,
     walking_speed_modifier = 1.0,
     collision_mask = {
-        layers={
-            ground_tile=true
-        }
+        layers = allow_build and { ground_tile = true } or { fragile=true, is_lower_object = true }
     },
-    layer = 4,
+    layer = layer,
     variants = {
       transition = transition_masks(),
-      main = {
-        {
-          picture = "__core__/graphics/white-square.png",
-          count = 1,
-          size = 1,
-          scale = 32,
-        },
+      material_background = {
+        picture = "__heliara__/graphics/terrain/" .. name .. "_material.png",
+        count   = 16,
+        scale   = 0.5,
+        line_length = 4,
       },
+      material_texture_width_in_tiles  = 8,
+      material_texture_height_in_tiles = 8,
     },
-    map_color = {255,255,0},
-    tint = {255,255,0},
-    autoplace = {probability_expression = "if (elevation > 1, 1, 0)"},
-  }});
+    map_color = map_color,
+    autoplace = {probability_expression = name},
+    default_cover_tile = not allow_build and "concrete" or nil
+  }
+end
+
+data:extend({
+  tile(                  'heliara_dust',                      5,  { r = 21,  g = 22,  b = 28  }, false),
+  tile_with_material(    'heliara_rusty_sand',                6,  { r = 168, g = 75,  b = 22  }, false),
+  tile(                  'heliara_iron_carbon_slag',          7,  { r = 47,  g = 45,  b = 42  }, false),
+  tile_with_material(    'heliara_clay_shale',                8,  { r = 91,  g = 75,  b = 46  }, false),
+  tile_hd( 'heliara_weathered_siliceous_crust', 9,  { r = 66,  g = 63,  b = 59  }, true),
+  tile_with_material(    'heliara_ferocalcite_crust',         10, { r = 135, g = 82,  b = 37  }, false),
+  tile_with_material(    'heliara_silcrete_crust',            11, { r = 42,  g = 37,  b = 30  }, true),
+})
 
 local function decal(x, y, w, h)
     return {
@@ -267,25 +282,8 @@ planet_map_gen.heliara = function()
             {
                 settings =
                 {
-
-                  ["heliara_sand_dune_blue"] = {},
-                  ["heliara_sand_dune_red"] = {},
-                  ["heliara_sand_blue"] = {},
-                  ["heliara_sand_gray"] = {},
-                  ["heliara_sand_red"] = {},
-                  ["heliara_sand_yellow"] = {},
-                  ["heliara_red_desert_decal_blue"] = {},
-                  ["heliara_red_desert_decal_gray"] = {},
-                  ["heliara_red_desert_decal_yellow"] = {},
-                  ["heliara_light_mud_decal"] = {},
-                  ["heliara_mud_decal"] = {},
-                  ["heliara_huge_cracks"] = {},
-                  ["heliara_cracks"] = {},
-                  ["heliara_tiny_rock_1"] = {},
-                  ["heliara_tiny_rock_2"] = {},
-                  ["heliara_tiny_rock_3"] = {},
-                  ["heliara_waves_decal"] = {},
-                  ["heliara_calcite_small"] = {},
+                  ["heliara_carbon_slag_scab"] = {},
+                  ["heliara_carbon_slag_small_scab"] = {},
                 }
             },
             ["entity"] =

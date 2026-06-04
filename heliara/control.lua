@@ -3,6 +3,7 @@ require("script.ui")
 require("script.reflectors")
 
 require("common.events")(require("entities"))
+require("common.tutorial").events(require("tips-and-tricks"))
 
 script.on_event(defines.events.on_surface_deleted, function(event)
     surface_storage_destroy(event.surface_index)

@@ -412,37 +412,42 @@ data:extend({
   {
     type = "noise-expression",
     name = "heliara_tiny_rock_1",
-    expression = "cut(heliara_rusty_sand - heliara_clay_shale, 0.4) * 0.02"
+    expression = "cut(heliara_rusty_sand - heliara_clay_shale, 0.35) * 0.015"
   },
   {
     type = "noise-expression",
     name = "heliara_tiny_rock_2",
-    expression = "cut(heliara_dust - heliara_weathered_siliceous_crust, 0.4) * 0.02"
+    expression = "cut(heliara_dust - heliara_weathered_siliceous_crust, 0.35) * 0.012"
   },
   {
     type = "noise-expression",
     name = "heliara_tiny_rock_3",
-    expression = "(heliara_iron_carbon_slag - heliara_dust - heliara_rusty_sand - heliara_silcrete_crust - heliara_ferocalcite_crust - heliara_weathered_siliceous_crust) * 0.1"
+    expression = "max(0, heliara_iron_carbon_slag - heliara_dust - heliara_rusty_sand - heliara_silcrete_crust - heliara_ferocalcite_crust - heliara_weathered_siliceous_crust) * 0.04"
   },
   {
     type = "noise-expression",
     name = "heliara_waves_decal",
-    expression = "cut(heliara_rusty_sand + heliara_dust - heliara_weathered_siliceous_crust - heliara_silcrete_crust - heliara_ferocalcite_crust - heliara_clay_shale, 0.65) * 0.0005"
+    expression = "cut(heliara_rusty_sand + heliara_dust - heliara_weathered_siliceous_crust - heliara_silcrete_crust - heliara_ferocalcite_crust - heliara_clay_shale, 0.55) * (0.0015 + max(0, noise_layer_noise(30)) * 0.001)"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_calcite_stain",
+    expression = "cut(heliara_ferocalcite_crust - heliara_dust / 2, 0.2) * 0.01"
   },
   {
     type = "noise-expression",
     name = "heliara_calcite_small",
-    expression = "cut(heliara_ferocalcite_crust, 0.2) * 0.002"
+    expression = "cut(heliara_ferocalcite_crust - heliara_dust / 2, 0.2) * 0.03"
   },
   {
     type = "noise-expression",
     name = "heliara_huge_cracks",
-    expression = "max(0, 0.05 - heliara_ferocalcite_crust - heliara_clay_shale) * 0.05"
+    expression = "max(0, heliara_silcrete_crust + heliara_weathered_siliceous_crust - heliara_clay_shale - 0.85) * 0.0015"
   },
   {
     type = "noise-expression",
     name = "heliara_cracks",
-    expression = "max(0, 0.05 - heliara_ferocalcite_crust - heliara_clay_shale) * 0.05"
+    expression = "max(0, heliara_silcrete_crust + heliara_weathered_siliceous_crust - heliara_clay_shale - 0.6) * 0.003"
   },
   {
     type = "noise-expression",
@@ -499,4 +504,72 @@ data:extend({
     name = "heliara_sand_dune_red",
     expression = "clamp(-heliara_clay_shale - heliara_ferocalcite_crust + heliara_rusty_sand - heliara_silcrete_crust - heliara_weathered_siliceous_crust - heliara_dust - 0.2 + noise_layer_noise(27) / 5, 0, 0.2) * 0.004"
   },
+  {
+    type = "noise-expression",
+    name = "heliara_black_dust_stain",
+    expression = "clamp(heliara_dust + heliara_iron_carbon_slag - heliara_rusty_sand - heliara_clay_shale - 1.0 + noise_layer_noise(31) / 5, 0, 0.25) * 0.0012"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_orange_oxidation_patch",
+    expression = "clamp(heliara_rusty_sand + heliara_ferocalcite_crust - heliara_dust - heliara_silcrete_crust - 0.85 + noise_layer_noise(32) / 6, 0, 0.25) * 0.002"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_silcrete_fractures",
+    expression = "clamp(heliara_silcrete_crust + heliara_weathered_siliceous_crust - heliara_rusty_sand - heliara_clay_shale - 0.95 + noise_layer_noise(33) / 8, 0, 0.25) * 0.001"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_carbon_slag_speckles",
+    expression = "clamp(heliara_iron_carbon_slag - heliara_dust - heliara_rusty_sand - 0.45 + noise_layer_noise(34) / 5, 0, 0.25) * 0.006"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_carbon_slag_rust",
+    expression = "clamp(heliara_iron_carbon_slag + heliara_ferocalcite_crust - heliara_clay_shale - 0.75 + noise_layer_noise(38) / 6, 0, 0.25) * 0.0025"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_carbon_slag_gloss",
+    expression = "clamp(heliara_iron_carbon_slag - heliara_silcrete_crust - heliara_rusty_sand - 0.55 + noise_layer_noise(39) / 7, 0, 0.25) * 0.002"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_carbon_slag_scab",
+    expression = "max(0, heliara_iron_carbon_slag - max(heliara_dust, heliara_rusty_sand, heliara_clay_shale, heliara_weathered_siliceous_crust, heliara_ferocalcite_crust, heliara_silcrete_crust) - 0.16) * clamp(0.7 + noise_layer_noise(40), 0, 1) * 0.05"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_carbon_slag_small_scab",
+    expression = "max(0, heliara_iron_carbon_slag - max(heliara_dust, heliara_rusty_sand, heliara_clay_shale, heliara_weathered_siliceous_crust, heliara_ferocalcite_crust, heliara_silcrete_crust)) * clamp(1.05 - 3.2 * max(0, heliara_iron_carbon_slag - max(heliara_dust, heliara_rusty_sand, heliara_clay_shale, heliara_weathered_siliceous_crust, heliara_ferocalcite_crust, heliara_silcrete_crust)), 0.12, 1) * clamp(0.65 + noise_layer_noise(41), 0, 1) * 0.8"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_calcite_veins",
+    expression = "clamp(heliara_ferocalcite_crust + heliara_clay_shale - heliara_dust - 0.65 + noise_layer_noise(35) / 7, 0, 0.25) * 0.002"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_dune_ridges",
+    expression = "clamp(heliara_dust + heliara_rusty_sand - heliara_silcrete_crust - heliara_weathered_siliceous_crust - 0.8 + noise_layer_noise(36) / 7, 0, 0.25) * 0.0025"
+  },
+  {
+    type = "noise-expression",
+    name = "heliara_brackish_salt_ring",
+    expression = "clamp(heliara_clay_shale + heliara_ferocalcite_crust - heliara_rusty_sand - 0.7 + noise_layer_noise(37) / 7, 0, 0.25) * 0.0015"
+  },
+
+  -- weathered siliceous crust decals — separate expressions per size for density tuning
+  -- base: positive only where WSC dominates; multiplier controls density like other decals
+  {
+    type = "noise-expression",
+    name = "heliara_wsc_decal_base",
+    expression = "max(0, heliara_weathered_siliceous_crust - max(heliara_dust, heliara_rusty_sand, heliara_clay_shale, heliara_ferocalcite_crust, heliara_silcrete_crust, heliara_iron_carbon_slag)) * clamp(0.7 + noise_layer_noise(42), 0, 1)"
+  },
+  { type = "noise-expression", name = "heliara_wsc_decal_8x8", expression = "heliara_wsc_decal_base * 0.001" },
+  { type = "noise-expression", name = "heliara_wsc_decal_4x4", expression = "heliara_wsc_decal_base * 0.003" },
+  { type = "noise-expression", name = "heliara_wsc_decal_2x2", expression = "heliara_wsc_decal_base * 0.030" },
+  { type = "noise-expression", name = "heliara_wsc_decal_2x1", expression = "heliara_wsc_decal_base * 0.012" },
+  { type = "noise-expression", name = "heliara_wsc_decal_1x1", expression = "heliara_wsc_decal_base * 0.060" },
 })

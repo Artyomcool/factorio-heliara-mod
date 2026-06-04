@@ -1,0 +1,22 @@
+{
+  "night": {
+    "saturation": 0.17,
+    "brightness": 0.57,
+    "tint": [
+      0.45,
+      0.35,
+      0.65
+    ],
+    "tint_strength": 0.39
+  },
+  "dawn": {
+    "saturation": 0.66,
+    "brightness": 0.95,
+    "tint": [
+      0.33725490196078434,
+      0.5803921568627451,
+      0.615686274509804
+    ],
+    "tint_strength": 0.05
+  }
+}

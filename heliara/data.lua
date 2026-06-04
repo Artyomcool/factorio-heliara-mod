@@ -4,6 +4,8 @@ require("noise")
 require("util")
 require("technology")
 
+require("common.tutorial").data(require("tips-and-tricks"))
+
 local decl = require("common.declarations")
 
 data:extend({

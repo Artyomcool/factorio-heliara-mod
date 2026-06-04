@@ -1,0 +1,228 @@
+{
+  "heliara_weathered_siliceous_crust": {
+    "0": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 184,
+        "cy": 435,
+        "scale": 1.0,
+        "ov_alpha": 22,
+        "ov_blend": 30,
+        "canvas_w": 256,
+        "canvas_h": 256,
+        "mask_idx": 0
+      }
+    ],
+    "1": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 936,
+        "cy": 961,
+        "scale": 1.0,
+        "ov_alpha": 62,
+        "ov_blend": 67,
+        "canvas_w": 256,
+        "canvas_h": 256,
+        "mask_idx": 31
+      }
+    ],
+    "2": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 535,
+        "cy": 560,
+        "scale": 1.13,
+        "ov_alpha": 67,
+        "ov_blend": 8,
+        "canvas_w": 256,
+        "canvas_h": 256,
+        "mask_idx": 27
+      }
+    ],
+    "5": [],
+    "10": [],
+    "9": [],
+    "3": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 794,
+        "cy": 803,
+        "scale": 1.0,
+        "ov_alpha": 57,
+        "ov_blend": 0,
+        "canvas_w": 256,
+        "canvas_h": 256,
+        "mask_idx": 25
+      }
+    ],
+    "4": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 167,
+        "cy": 8,
+        "scale": 0.8,
+        "ov_alpha": 54,
+        "ov_blend": 27,
+        "canvas_w": 256,
+        "canvas_h": 256,
+        "mx": 23,
+        "my": -4,
+        "mask_idx": 36
+      }
+    ],
+    "11": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 309,
+        "cy": 485,
+        "scale": 1.0,
+        "ov_alpha": 92,
+        "ov_blend": 35,
+        "canvas_w": 64,
+        "canvas_h": 64,
+        "mask_idx": 30
+      }
+    ],
+    "12": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 752,
+        "cy": 176,
+        "scale": 1.0,
+        "ov_alpha": 73,
+        "ov_blend": 31,
+        "canvas_w": 64,
+        "canvas_h": 64,
+        "mask_idx": 25
+      }
+    ],
+    "13": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 418,
+        "cy": 920,
+        "scale": 1.0,
+        "ov_alpha": 67,
+        "ov_blend": 54,
+        "canvas_w": 64,
+        "canvas_h": 64,
+        "mask_idx": 23
+      }
+    ],
+    "14": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 293,
+        "cy": 535,
+        "scale": 1.0,
+        "ov_alpha": 55,
+        "ov_blend": 53,
+        "canvas_w": 64,
+        "canvas_h": 64,
+        "mask_idx": 89
+      }
+    ],
+    "19": [],
+    "27": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 769,
+        "cy": 401,
+        "scale": 0.72,
+        "ov_alpha": 61,
+        "ov_blend": 56,
+        "canvas_w": 128,
+        "canvas_h": 128,
+        "mx": 13,
+        "my": -2,
+        "mask_idx": 32
+      }
+    ],
+    "28": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 577,
+        "cy": 686,
+        "scale": 1.0,
+        "ov_alpha": 42,
+        "ov_blend": 49,
+        "canvas_w": 128,
+        "canvas_h": 128,
+        "mask_idx": 17
+      }
+    ],
+    "29": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 276,
+        "cy": 518,
+        "scale": 0.77,
+        "ov_alpha": 57,
+        "ov_blend": 49,
+        "canvas_w": 128,
+        "canvas_h": 128,
+        "mx": 12,
+        "my": 20,
+        "mask_idx": 44
+      }
+    ],
+    "30": [
+      {
+        "angle": 0,
+        "flip_h": false,
+        "flip_v": false,
+        "cx": 744,
+        "cy": 42,
+        "scale": 1.0,
+        "ov_alpha": 126,
+        "ov_blend": 51,
+        "canvas_w": 128,
+        "canvas_h": 128,
+        "mask_idx": 37
+      }
+    ]
+  },
+  "heliara_clay_shale": {},
+  "_weights_": {
+    "heliara_weathered_siliceous_crust": {
+      "0": 10,
+      "1": 10,
+      "2": 20,
+      "3": 15,
+      "4": 20,
+      "11": 33,
+      "12": 33,
+      "13": 33,
+      "14": 33,
+      "19": 100,
+      "27": 33,
+      "28": 33,
+      "29": 33,
+      "30": 33
+    }
+  }
+}

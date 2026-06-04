@@ -89,11 +89,14 @@ data:extend({
             -- sun starts to rise at 0.55
             -- sun fully risen at 0.75
             day_night_cycle_color_lookup = {
-                { 0.0, "__space-age__/graphics/lut/vulcanus-1-day.png" },
-                { 0.20, "__space-age__/graphics/lut/vulcanus-1-day.png" },
-                { 0.45, "__space-age__/graphics/lut/vulcanus-2-night.png" },
-                { 0.55, "__space-age__/graphics/lut/vulcanus-2-night.png" },
-                { 0.80, "__space-age__/graphics/lut/vulcanus-1-day.png" },
+                { 0.00, "__heliara__/graphics/lut/identity.png" },
+                { 0.25, "__heliara__/graphics/lut/identity.png" },
+                { 0.35, "__heliara__/graphics/lut/dawn_dusk.png" },
+                { 0.45, "__heliara__/graphics/lut/night.png" },
+                { 0.55, "__heliara__/graphics/lut/night.png" },
+                { 0.65, "__heliara__/graphics/lut/dawn_dusk.png" },
+                { 0.75, "__heliara__/graphics/lut/identity.png" },
+                { 1.00, "__heliara__/graphics/lut/identity.png" },
             },
 
             terrain_tint_effect = {
