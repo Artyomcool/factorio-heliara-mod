@@ -21,6 +21,13 @@ copy_decal("calcite-stain-small", "heliara_calcite_small", {1, 0.85, 0.7})
 require("decal.iron_carbon_slag")
 require("decal.weathered_siliceous_crust")
 
+for name, decorative in pairs(data.raw["optimized-decorative"]) do
+    if name:find("^heliara_") then
+        decorative.render_layer = "decals"
+        decorative.tile_layer = 255
+    end
+end
+
 local wsc_decals = {}
 local wsc_autoplace = data.raw["planet"]["heliara"].map_gen_settings.autoplace_settings["decorative"].settings
 for name in pairs(data.raw["optimized-decorative"]) do
@@ -30,6 +37,8 @@ for name in pairs(data.raw["optimized-decorative"]) do
     end
 end
 data.raw["tile"]["heliara_weathered_siliceous_crust"].bound_decoratives = wsc_decals
+
+data.raw["resource"]["shungite"].autoplace.tile_restriction = { "heliara_weathered_siliceous_crust" }
 
 table.insert(data.raw["item"]["foundation"].place_as_tile.tile_condition, "heliara_dust")
 table.insert(data.raw["item"]["foundation"].place_as_tile.tile_condition, "heliara_rusty_sand")

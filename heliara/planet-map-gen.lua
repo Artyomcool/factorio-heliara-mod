@@ -1,6 +1,8 @@
 require("common.common")
 
 local planet_map_gen = require("__space-age__/prototypes/planet/planet-map-gen")
+local tile_graphics = require("__base__/prototypes/tile/tile-graphics")
+local tile_spritesheet_layout = tile_graphics.tile_spritesheet_layout
 
 local function transition_masks()
   return {
@@ -31,6 +33,33 @@ local function transition_masks()
       {
         count = 1,
         x = 64*9*4
+      }
+    }
+  }
+end
+
+local function weathered_cliff_transitions()
+  return {
+    {
+      to_tiles = {
+        "heliara_dust",
+        "heliara_rusty_sand",
+        "heliara_iron_carbon_slag",
+        "heliara_clay_shale",
+        "heliara_ferocalcite_crust",
+        "heliara_silcrete_crust",
+      },
+      transition_group = default_transition_group_id,
+      spritesheet = "__space-age__/graphics/terrain/water-transitions/lava-stone-cold.png",
+      layout = tile_spritesheet_layout.transition_16_16_16_4_4,
+      effect_map_layout =
+      {
+        spritesheet = "__base__/graphics/terrain/effect-maps/water-dirt-mask.png",
+        inner_corner_count = 8,
+        outer_corner_count = 8,
+        side_count = 8,
+        u_transition_count = 2,
+        o_transition_count = 1
       }
     }
   }
@@ -118,6 +147,7 @@ local function tile_hd(name, layer, map_color, allow_build)
     },
     map_color = map_color,
     autoplace = {probability_expression = name},
+    transitions = name == "heliara_weathered_siliceous_crust" and weathered_cliff_transitions() or nil,
     default_cover_tile = not allow_build and "concrete" or nil
   }
 end
@@ -224,11 +254,6 @@ data:extend({
         name = "heliara_silcrete_richness",
         expression = "random_penalty(x, y, 3000, 2, 2950)",
     },
-    {
-        type = "noise-expression",
-        name = "heliara_huge_fullerene_rock_probability",
-        expression = 0.001,
-    },
 })
 
 local debug = false
@@ -250,7 +275,6 @@ planet_map_gen.heliara = function()
             ["entity:carbon_coal:richness"] = "heliara_carbon_coal_richness",
             ["entity:silcrete:probability"] = "heliara_silcrete_probability",
             ["entity:silcrete:richness"] = "heliara_silcrete_richness",
-            ["entity:huge_fullerene_rock:probability"] = "heliara_huge_fullerene_rock_probability",
             ["entity:brackish_vent:richness"] = "1000000",
             ["entity:brackish_vent:probability"] = "heliara_brackish_vent_probability",
         },
